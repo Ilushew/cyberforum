@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Контакты</h1>
+<div class="row">
+    {% for contact in contacts %}
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">{{ contact.name }}</h5>
+                    <p><strong>Адрес:</strong> {{ contact.address }}</p>
+                    <p><strong>Телефон:</strong> {{ contact.phone }}</p>
+                    {% if contact.email %}
+                        <p><strong>Email:</strong> {{ contact.email }}</p>
+                    {% endif %}
+                    <p class="text-muted">Аудитория: {{ contact.audience }}</p>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

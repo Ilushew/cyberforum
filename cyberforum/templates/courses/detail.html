@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ course.title }}</h1>
+<p>{{ course.description }}</p>
+
+<h3>Уроки</h3>
+<div class="list-group">
+    {% for lesson in course.lessons.all %}
+        <a href="{% url 'courses:lesson' lesson.id %}" class="list-group-item list-group-item-action">
+            {{ lesson.title }}
+        </a>
+    {% empty %}
+        <p>Уроки пока не добавлены.</p>
+    {% endfor %}
+</div>
+{% endblock %}

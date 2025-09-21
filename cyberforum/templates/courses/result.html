@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="text-center">
+    <h1>Результаты теста</h1>
+    <div class="display-1 text-success">{{ score }} / {{ total }}</div>
+    <p class="lead">Процент правильных ответов: <strong>{{ percent }}%</strong></p>
+    <a href="{% url 'courses:lesson' lesson.id %}" class="btn btn-primary">Повторить урок</a>
+    <a href="{% url 'courses:list' %}" class="btn btn-outline-secondary">К курсам</a>
+</div>
+{% endblock %}

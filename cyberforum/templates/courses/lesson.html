@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ lesson.title }}</h1>
+<div class="mb-4">{{ lesson.content|safe }}</div>
+
+{% if lesson.video_url %}
+<div class="ratio ratio-16x9 mb-4">
+    <iframe src="{{ lesson.video_url }}" title="Видеоурок">
+    </iframe>
+</div>
+{% endif %}
+
+{% if lesson.questions.exists %}
+<h3>Тест</h3>
+<form method="post" action="{% url 'courses:test' lesson.id %}">
+    {% csrf_token %}
+    {% for q in questions %}
+    <div class="card mb-3">
+        <div class="card-body">
+            <p><strong>{{ forloop.counter }}. {{ q.text }}</strong></p>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="q{{ q.id }}" value="A" id="q{{ q.id }}a" required>
+                <label class="form-check-label" for="q{{ q.id }}a">{{ q.option_a }}</label>
+            </div>
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="q{{ q.id }}" value="B" id="q{{ q.id }}b">
+                <label class="form-check-label" for="q{{ q.id }}b">{{ q.option_b }}</label>
+            </div>
+            {% if q.option_c %}
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="q{{ q.id }}" value="C" id="q{{ q.id }}c">
+                <label class="form-check-label" for="q{{ q.id }}c">{{ q.option_c }}</label>
+            </div>
+            {% endif %}
+            {% if q.option_d %}
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="q{{ q.id }}" value="D" id="q{{ q.id }}d">
+                <label class="form-check-label" for="q{{ q.id }}d">{{ q.option_d }}</label>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-success">Проверить результаты</button>
+</form>
+{% endif %}
+{% endblock %}

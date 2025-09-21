@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 class="mb-4">Добро пожаловать на портал финансовой грамотности Удмуртии!</h1>
+
+<div class="row mb-5">
+    <div class="col-md-8">
+        <p>Здесь вы найдете полезные материалы, курсы и контакты для повышения вашей финансовой грамотности.</p>
+        <a href="{% url 'courses:list' %}" class="btn btn-primary">Начать обучение</a>
+    </div>
+    <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Ближайшие события</h5>
+                {% for event in events %}
+                    <p class="card-text"><strong>{{ event.title }}</strong><br>{{ event.date|date:"d.m.Y" }} в {{ event.location }}</p>
+                {% empty %}
+                    <p>События пока не запланированы.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3>Популярные курсы</h3>
+<div class="row">
+    {% for course in courses %}
+        <div class="col-md-4 mb-4">
+            <div class="card h-100">
+                <div class="card-body">
+                    <h5 class="card-title">{{ course.title }}</h5>
+                    <p class="card-text">{{ course.description|truncatewords:15 }}</p>
+                    <a href="{% url 'courses:detail' course.id %}" class="btn btn-outline-primary">Подробнее</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}

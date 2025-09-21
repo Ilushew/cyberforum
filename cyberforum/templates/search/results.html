@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>Результаты поиска для: "{{ query }}"</h1>
+
+<h3>Курсы</h3>
+<div class="row">
+    {% for course in courses %}
+        <div class="col-md-4 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5>{{ course.title }}</h5>
+                    <p class="text-muted">{{ course.audience }} | {{ course.format_type }}</p>
+                    <a href="{% url 'courses:detail' course.id %}" class="btn btn-sm btn-outline-primary">Открыть</a>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p>Курсы не найдены.</p>
+    {% endfor %}
+</div>
+
+<h3>Контакты</h3>
+<div class="row">
+    {% for contact in contacts %}
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5>{{ contact.name }}</h5>
+                    <p>{{ contact.address }}</p>
+                    <p>{{ contact.phone }}</p>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p>Контакты не найдены.</p>
+    {% endfor %}
+</div>
+
+<h3>События</h3>
+<div class="row">
+    {% for event in events %}
+        <div class="col-md-6 mb-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5>{{ event.title }}</h5>
+                    <p>{{ event.date|date:"d.m.Y" }} — {{ event.location }}</p>
+                </div>
+            </div>
+        </div>
+    {% empty %}
+        <p>События не найдены.</p>
+    {% endfor %}
+</div>
+{% endblock %}
