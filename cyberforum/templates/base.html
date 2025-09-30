@@ -29,6 +29,185 @@
         {% block content %}{% endblock %}
     </div>
 
+    <div id="chatbot-widget" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; width: 320px; height: 450px; display: flex; flex-direction: column; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 16px; background-color: white; overflow: hidden;">
+
+    <div style="background-color: #d4c8b7; color: #5a6b4d; padding: 12px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
+        💰💼 Гений финансов
+        <button onclick="toggleChat()" style="background: none; border: none; color: #333; cursor: pointer; font-size: 16px;">×</button>
+    </div>
+
+    <div id="chat-messages" style="flex-grow: 1; padding: 12px; overflow-y: auto; background-color: #f8f6f0; max-height: 320px;"></div>
+
+    <div style="display: flex; padding: 10px; border-top: 1px solid #e0e0e0;">
+        <input type="text" id="chat-input" placeholder="Ваш вопрос"
+               style="flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 20px; outline: none;"
+               onkeydown="if(event.key==='Enter') sendQuestion()">
+        <button onclick="sendQuestion()"
+                style="margin-left: 8px; padding: 8px 16px; background-color: #6a7d5d; color: white; border: none; border-radius: 20px; cursor: pointer; font-size: 14px;">
+            Отправить
+        </button>
+    </div>
+</div>
+
+<div id="chat-open-btn" style="position: fixed; bottom: 20px; right: 20px; z-index: 9998; width: 50px; height: 50px; border-radius: 50%; background-color: #6a7d5d; color: white; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer; display: none;">💬</div>
+
+<script>
+    function toggleChat() {
+    const widget = document.getElementById('chatbot-widget');
+    const openBtn = document.getElementById('chat-open-btn');
+
+    if (widget.style.display === 'none' || !widget.style.display) {
+        widget.style.display = 'flex';
+        openBtn.style.display = 'none';
+        // ✅ Отправляем приветствие при открытии чата
+        sendGreeting();
+    } else {
+        widget.style.display = 'none';
+        openBtn.style.display = 'flex';
+    }
+}
+
+    // ✅ Флаг для проверки, было ли приветствие отправлено
+    let greetingSent = false;
+
+// ✅ Функция отправки приветствия при открытии чата
+    function sendGreeting() {
+        if (greetingSent) return; // Уже отправлено — не повторяем
+
+        const messageArea = document.getElementById('chat-messages');
+
+        const greeting = "Здравствуйте! Я — Финансовый Помощник. Задайте вопрос — помогу!";
+
+        appendMessage(greeting, 'bot');
+
+        greetingSent = true; // Помечаем, что приветствие отправлено
+}
+
+    window.onload = function() {
+        // При загрузке — чат открыт по умолчанию? Нет — скрываем его
+        document.getElementById('chatbot-widget').style.display = 'none';
+        document.getElementById('chat-open-btn').style.display = 'flex';
+    };
+
+    async function sendQuestion() {
+        const input = document.getElementById('chat-input');
+        const messageArea = document.getElementById('chat-messages');
+        const question = input.value.trim();
+
+        if (!question) return;
+
+        appendMessage(question, 'user');
+        input.value = '';
+
+        appendMessage("🔍 Ищу информацию...", 'bot');
+
+        try {
+            const response = await fetch('/chat-ask/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')
+                },
+                body: JSON.stringify({ question: question })
+            });
+
+            const data = await response.json();
+
+            const lastMsg = messageArea.lastElementChild;
+            if (lastMsg && lastMsg.classList.contains('bot')) {
+                messageArea.removeChild(lastMsg);
+            }
+
+            if (data.error) {
+                appendMessage(`❌ ${data.error}`, 'bot');
+            } else {
+                appendMessage(data.answer, 'bot');
+            }
+
+        } catch (error) {
+            const lastMsg = messageArea.lastElementChild;
+            if (lastMsg && lastMsg.classList.contains('bot')) {
+                messageArea.removeChild(lastMsg);
+            }
+            appendMessage("❌ Ошибка соединения с сервером.", 'bot');
+        }
+    }
+
+    function appendMessage(text, sender) {
+        const messageArea = document.getElementById('chat-messages');
+        const msgDiv = document.createElement('div');
+        msgDiv.style.marginBottom = '12px';
+        msgDiv.style.maxWidth = '80%';
+        msgDiv.style.padding = '10px 14px';
+        msgDiv.style.borderRadius = sender === 'user' ? '18px 18px 0 18px' : '18px 18px 18px 0';
+        msgDiv.style.backgroundColor = sender === 'user' ? '#6a7d5d' : '#f0f0f0';
+        msgDiv.style.color = sender === 'user' ? 'white' : '#333';
+        msgDiv.style.wordWrap = 'break-word';
+        msgDiv.style.fontSize = '14px';
+        msgDiv.style.alignSelf = sender === 'user' ? 'flex-end' : 'flex-start';
+        msgDiv.textContent = text;
+        msgDiv.className = sender;
+        messageArea.appendChild(msgDiv);
+        messageArea.scrollTop = messageArea.scrollHeight;
+    }
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+
+    document.getElementById('chat-input').addEventListener('keydown', function(e) {
+        if (e.key === 'Enter') sendQuestion();
+    });
+
+    // Фикс: Показывать кнопку только если чат закрыт
+    function updateChatButtonVisibility() {
+        const widget = document.getElementById('chatbot-widget');
+        const openBtn = document.getElementById('chat-open-btn');
+
+        if (widget.style.display === 'none' || !widget.style.display) {
+            openBtn.style.display = 'flex';
+        } else {
+            openBtn.style.display = 'none';
+        }
+    }
+
+    // Обновляем состояние кнопки при каждом скролле и при открытии/закрытии
+    window.addEventListener('scroll', updateChatButtonVisibility);
+    window.addEventListener('load', updateChatButtonVisibility);
+
+    // Добавляем обработчик на кнопку открытия
+    document.getElementById('chat-open-btn').addEventListener('click', function() {
+        toggleChat();
+        // После открытия — скрываем кнопку
+        updateChatButtonVisibility();
+    });
+
+    // Также обновляем при изменении размера окна (для мобильных)
+    window.addEventListener('resize', updateChatButtonVisibility);
+
+</script>
+<style>
+    #chatbot-widget {
+        animation: slideIn 0.3s ease-out;
+    }
+    @keyframes slideIn {
+        from { transform: translateX(300px); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+</style>
+
+
     <footer class="bg-light text-center py-3 mt-5">
         <p class="mb-0">© 2025 Портал финансовой грамотности Удмуртии</p>
     </footer>

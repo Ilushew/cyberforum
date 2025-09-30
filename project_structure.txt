@@ -1,0 +1,3204 @@
+=== СТРУКТУРА ПРОЕКТА:  ===
+Путь: C:\Users\ilagr\PycharmProjects\hackaton\cyberforum
+============================================================
+
+📁 .git/
+  📄 config (бинарный, пропущен)
+  📄 description (бинарный, пропущен)
+  📄 HEAD (бинарный, пропущен)
+  📁 hooks/
+    📄 applypatch-msg.sample (бинарный, пропущен)
+    📄 commit-msg.sample (бинарный, пропущен)
+    📄 fsmonitor-watchman.sample (бинарный, пропущен)
+    📄 post-update.sample (бинарный, пропущен)
+    📄 pre-applypatch.sample (бинарный, пропущен)
+    📄 pre-commit.sample (бинарный, пропущен)
+    📄 pre-merge-commit.sample (бинарный, пропущен)
+    📄 pre-push.sample (бинарный, пропущен)
+    📄 pre-rebase.sample (бинарный, пропущен)
+    📄 pre-receive.sample (бинарный, пропущен)
+    📄 prepare-commit-msg.sample (бинарный, пропущен)
+    📄 push-to-checkout.sample (бинарный, пропущен)
+    📄 sendemail-validate.sample (бинарный, пропущен)
+    📄 update.sample (бинарный, пропущен)
+  📄 index (бинарный, пропущен)
+  📁 info/
+    📄 exclude (бинарный, пропущен)
+  📁 logs/
+    📄 HEAD (бинарный, пропущен)
+    📁 refs/
+      📁 heads/
+        📄 main (бинарный, пропущен)
+      📁 remotes/
+        📁 origin/
+          📄 HEAD (бинарный, пропущен)
+  📁 objects/
+    📁 info/
+    📁 pack/
+      📄 pack-94a7ee2f43268eff4999f8595bb8161f04755458.idx (бинарный, пропущен)
+      📄 pack-94a7ee2f43268eff4999f8595bb8161f04755458.pack (бинарный, пропущен)
+      📄 pack-94a7ee2f43268eff4999f8595bb8161f04755458.rev (бинарный, пропущен)
+  📄 packed-refs (бинарный, пропущен)
+  📁 refs/
+    📁 heads/
+      📄 main (бинарный, пропущен)
+    📁 remotes/
+      📁 origin/
+        📄 HEAD (бинарный, пропущен)
+    📁 tags/
+📁 .idea/
+  📄 .gitignore
+      --- СОДЕРЖИМОЕ ---
+      # Default ignored files
+      /shelf/
+      /workspace.xml
+      --- КОНЕЦ ---
+
+📁 cyberforum/
+  📁 core/
+    📄 __init__.py
+        --- СОДЕРЖИМОЕ ---
+        --- КОНЕЦ ---
+
+    📁 __pycache__/
+      📄 __init__.cpython-313.pyc (бинарный, пропущен)
+      📄 admin.cpython-313.pyc (бинарный, пропущен)
+      📄 apps.cpython-313.pyc (бинарный, пропущен)
+      📄 models.cpython-313.pyc (бинарный, пропущен)
+      📄 urls.cpython-313.pyc (бинарный, пропущен)
+      📄 views.cpython-313.pyc (бинарный, пропущен)
+    📄 admin.py
+        --- СОДЕРЖИМОЕ ---
+        from django.contrib import admin
+        from .models import Contact, Event
+        
+        @admin.register(Contact)
+        class ContactAdmin(admin.ModelAdmin):
+            list_display = ['name', 'phone', 'email', 'audience']
+            search_fields = ['name', 'address']
+            list_filter = ['audience']
+        
+        @admin.register(Event)
+        class EventAdmin(admin.ModelAdmin):
+            list_display = ['title', 'date', 'location', 'audience']
+            list_filter = ['audience', 'date']
+            date_hierarchy = 'date'
+        --- КОНЕЦ ---
+
+    📄 apps.py
+        --- СОДЕРЖИМОЕ ---
+        from django.apps import AppConfig
+        
+        
+        class CoreConfig(AppConfig):
+            default_auto_field = 'django.db.models.BigAutoField'
+            name = 'core'
+        --- КОНЕЦ ---
+
+    📁 llm_assistant/
+      📄 __init__.py
+          --- СОДЕРЖИМОЕ ---
+          --- КОНЕЦ ---
+
+      📁 __pycache__/
+        📄 __init__.cpython-313.pyc (бинарный, пропущен)
+        📄 indexer.cpython-313.pyc (бинарный, пропущен)
+        📄 loader.cpython-313.pyc (бинарный, пропущен)
+        📄 model.cpython-313.pyc (бинарный, пропущен)
+        📄 rag.cpython-313.pyc (бинарный, пропущен)
+        📄 utils.cpython-313.pyc (бинарный, пропущен)
+      📁 docs/
+        📄 Keys_Web-razrabotka.pdf (бинарный, пропущен)
+      📄 indexer.py
+          --- СОДЕРЖИМОЕ ---
+          import os
+          from pathlib import Path
+          
+          from langchain_community.vectorstores import FAISS
+          from langchain_community.embeddings import HuggingFaceEmbeddings
+          from langchain_text_splitters import RecursiveCharacterTextSplitter
+          from .loader import load_documents_from_folder
+          from .utils import clean_text, count_tokens
+          
+          INDEX_DIR = "faiss_index"
+          
+          CURRENT_DIR = Path(__file__).parent
+          DOCS_DIR = CURRENT_DIR / "docs"
+          
+          def create_or_load_vectorstore():
+              """
+              Создаёт или загружает векторную базу.
+              Вызывается один раз при запуске Django.
+              """
+              embedding_model = HuggingFaceEmbeddings(
+                  model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+              )
+          
+              if os.path.exists(INDEX_DIR):
+                  print("🔄 Загрузка существующего индекса...")
+                  vectorstore = FAISS.load_local(
+                      INDEX_DIR,
+                      embedding_model,
+                      allow_dangerous_deserialization=True
+                  )
+                  print("✅ Индекс загружен.")
+              else:
+                  print("🆕 Создание нового индекса...")
+                  documents = load_documents_from_folder(DOCS_DIR)
+                  if not documents:
+                      raise RuntimeError("Нет документов для индексации!")
+          
+                  splitter = RecursiveCharacterTextSplitter(
+                      chunk_size=500,
+                      chunk_overlap=100,
+                      length_function=count_tokens,
+                      separators=["\n\n", "\n", ". ", "! ", "? ", " ", ""],
+                  )
+          
+                  chunks = splitter.split_documents(documents)
+                  for chunk in chunks:
+                      chunk.page_content = clean_text(chunk.page_content)
+          
+                  vectorstore = FAISS.from_documents(chunks, embedding_model)
+                  vectorstore.save_local(INDEX_DIR)
+                  print(f"✅ Индекс сохранён в {INDEX_DIR}/")
+          
+              return vectorstore
+          --- КОНЕЦ ---
+
+      📄 loader.py
+          --- СОДЕРЖИМОЕ ---
+          from pathlib import Path
+          from typing import List
+          from langchain_community.document_loaders import (
+              TextLoader,
+              PyMuPDFLoader,
+              Docx2txtLoader,
+          )
+          
+          SUPPORTED_EXTENSIONS = {".txt", ".pdf", ".docx"}
+          
+          def load_documents_from_folder(folder_path: str) -> List:
+              documents = []
+              folder = Path(folder_path)
+              if not folder.exists():
+                  raise FileNotFoundError(f"Папка {folder_path} не найдена!")
+          
+              for file_path in folder.iterdir():
+                  if file_path.is_file() and file_path.suffix.lower() in SUPPORTED_EXTENSIONS:
+                      print(f"📄 Загружаю: {file_path.name}")
+                      if file_path.suffix.lower() == ".txt":
+                          loader = TextLoader(file_path, encoding="utf-8")
+                      elif file_path.suffix.lower() == ".pdf":
+                          loader = PyMuPDFLoader(file_path)
+                      elif file_path.suffix.lower() == ".docx":
+                          loader = Docx2txtLoader(file_path)
+                      else:
+                          continue
+          
+                      docs = loader.load()
+                      for doc in docs:
+                          doc.metadata["source"] = file_path.name
+                          doc.metadata["file_type"] = file_path.suffix.lower()[1:]
+                      documents.extend(docs)
+          
+              if not documents:
+                  print("⚠️  В папке docs не найдено ни одного поддерживаемого файла (.txt, .pdf, .docx)")
+              else:
+                  print(f"✅ Успешно загружено {len(documents)} документов.")
+          
+              return documents
+          --- КОНЕЦ ---
+
+      📄 model.py
+          --- СОДЕРЖИМОЕ ---
+          import os
+          from langchain_gigachat.chat_models import GigaChat
+          
+          # Установите ключ в .env или здесь (лучше через .env)
+          os.environ["GIGACHAT_CREDENTIALS"] = "NGRiZjA5MmMtYmJkOS00NzkzLWJlZGQtM2UzYWFlZTNiNWMwOjlmMjQ0MjU5LWUxM2YtNGUyYy1iYTg1LWFlOTlhZDhjMWUzOQ=="
+          
+          llm = GigaChat(
+              model="GigaChat-Pro",
+              verify_ssl_certs=False,
+              timeout=60
+          )
+          --- КОНЕЦ ---
+
+      📄 rag.py
+          --- СОДЕРЖИМОЕ ---
+          from .model import llm
+          from .indexer import create_or_load_vectorstore
+          from langchain_core.prompts import ChatPromptTemplate
+          from langchain_core.output_parsers import StrOutputParser
+          
+          # Промпт — лучше вынести сюда, чтобы легко менять
+          PROMPT_TEMPLATE = """
+          Вы — помощник, который отвечает на вопросы на основе предоставленного контекста.
+          Если в контексте нет информации, скажите: "Информация не найдена".
+          (Учти, что этот текст будет отображаться на html странице, то есть например 
+          использовать ** и html-тэги для выделения текста жирным не получится. Лучше оставить текст 
+          без выделений, чем с непонятными символами)
+          Контекст:
+          {context}
+          
+          Вопрос:
+          {question}
+          
+          Ответ:
+          """
+          
+          prompt = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
+          chain = prompt | llm | StrOutputParser()
+          
+          def generate_answer(question: str, top_k: int = 3) -> str:
+              """
+              Генерирует ответ на вопрос с использованием RAG.
+              Вызывается из Django view.
+              """
+              # Индекс уже должен быть загружен при старте сервера
+              # Мы не пересоздаём его каждый раз!
+              vectorstore = create_or_load_vectorstore()
+          
+              relevant_docs = vectorstore.similarity_search(question, k=top_k)
+          
+              context = "\n\n".join([
+                  f"Источник: {doc.metadata['source']} (тип: {doc.metadata['file_type']})\n{doc.page_content}"
+                  for doc in relevant_docs
+              ])
+          
+              response = chain.invoke({
+                  "context": context,
+                  "question": question
+              })
+          
+              return response
+          --- КОНЕЦ ---
+
+      📄 utils.py
+          --- СОДЕРЖИМОЕ ---
+          import re
+          from bs4 import BeautifulSoup
+          
+          def clean_text(text: str) -> str:
+              soup = BeautifulSoup(text, "html.parser")
+              text = soup.get_text()
+              text = re.sub(r'\s+', ' ', text)
+              text = re.sub(r'[\u200b-\u200d\uFEFF]', '', text)
+              text = re.sub(r'страниц[а-ы]?\s*\d+\s*из\s*\d+', '', text, flags=re.IGNORECASE)
+              text = re.sub(r'http\S+|www\S+|https\S+', '', text, flags=re.MULTILINE)
+              text = re.sub(r'[^\w\s.,!?;:()\-\–—\"\'\n]', ' ', text)
+              return text.strip()
+          
+          # Используем ту же кодировку, что и у GigaChat (GPT-4)
+          try:
+              import tiktoken
+              encoder = tiktoken.encoding_for_model("gpt-4")
+          except ImportError:
+              encoder = None
+          
+          def count_tokens(text: str) -> int:
+              if encoder is None:
+                  return len(text.split()) * 1.3  # Приблизительно
+              return len(encoder.encode(text))
+          --- КОНЕЦ ---
+
+    📁 management/
+      📁 commands/
+        📄 initdata.py
+            --- СОДЕРЖИМОЕ ---
+            from django.core.management.base import BaseCommand
+            from core.models import Contact, Event
+            from courses.models import Course, Lesson, Question
+            
+            class Command(BaseCommand):
+                help = 'Заполняет БД тестовыми данными'
+            
+                def handle(self, *args, **kwargs):
+                    # Очистка
+                    Contact.objects.all().delete()
+                    Event.objects.all().delete()
+                    Course.objects.all().delete()
+            
+                    # Контакты
+                    Contact.objects.create(
+                        name="Центр финансовой грамотности Ижевск",
+                        address="ул. Пушкинская, 100",
+                        phone="+7 (3412) 12-34-56",
+                        audience="все"
+                    )
+            
+                    # События
+                    from datetime import date
+                    Event.objects.create(
+                        title="День финансовой грамотности в школе №1",
+                        description="Открытый урок для школьников 8-11 классов",
+                        date=date(2025, 4, 20),
+                        location="Школа №1, Ижевск",
+                        audience="школьник"
+                    )
+            
+                    # Курсы
+                    course1 = Course.objects.create(
+                        title="Семейный бюджет",
+                        description="Научитесь планировать доходы и расходы семьи.",
+                        audience="все",
+                        format_type="текст"
+                    )
+                    lesson1 = Lesson.objects.create(
+                        course=course1,
+                        title="Как составить бюджет",
+                        content="<p>Шаг 1: Учет всех доходов...</p>",
+                        video_url="https://www.youtube.com/embed/dQw4w9WgXcQ",
+                        order=1
+                    )
+                    Question.objects.create(
+                        lesson=lesson1,
+                        text="Что входит в обязательные расходы?",
+                        option_a="Аренда жилья",
+                        option_b="Покупка нового телефона",
+                        option_c="Отпуск",
+                        correct_answer="A"
+                    )
+            
+                    self.stdout.write(self.style.SUCCESS('Тестовые данные успешно загружены!'))
+            --- КОНЕЦ ---
+
+    📁 migrations/
+      📄 0001_initial.py
+          --- СОДЕРЖИМОЕ ---
+          # Generated by Django 5.2.6 on 2025-09-21 14:04
+          
+          from django.db import migrations, models
+          
+          
+          class Migration(migrations.Migration):
+          
+              initial = True
+          
+              dependencies = [
+              ]
+          
+              operations = [
+                  migrations.CreateModel(
+                      name='Contact',
+                      fields=[
+                          ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                          ('name', models.CharField(max_length=200)),
+                          ('address', models.TextField()),
+                          ('phone', models.CharField(max_length=50)),
+                          ('email', models.EmailField(blank=True, max_length=254)),
+                          ('audience', models.CharField(max_length=50)),
+                      ],
+                  ),
+                  migrations.CreateModel(
+                      name='Event',
+                      fields=[
+                          ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                          ('title', models.CharField(max_length=200)),
+                          ('description', models.TextField()),
+                          ('date', models.DateField()),
+                          ('location', models.CharField(max_length=200)),
+                          ('audience', models.CharField(max_length=50)),
+                      ],
+                  ),
+              ]
+          --- КОНЕЦ ---
+
+      📄 __init__.py
+          --- СОДЕРЖИМОЕ ---
+          --- КОНЕЦ ---
+
+      📁 __pycache__/
+        📄 0001_initial.cpython-313.pyc (бинарный, пропущен)
+        📄 __init__.cpython-313.pyc (бинарный, пропущен)
+    📄 models.py
+        --- СОДЕРЖИМОЕ ---
+        from django.db import models
+        
+        class Contact(models.Model):
+            name = models.CharField(max_length=200)
+            address = models.TextField()
+            phone = models.CharField(max_length=50)
+            email = models.EmailField(blank=True)
+            audience = models.CharField(max_length=50)  # все, школьники, пенсионеры
+        
+            def __str__(self):
+                return self.name
+        
+        class Event(models.Model):
+            title = models.CharField(max_length=200)
+            description = models.TextField()
+            date = models.DateField()
+            location = models.CharField(max_length=200)
+            audience = models.CharField(max_length=50)
+        
+            def __str__(self):
+                return self.title
+        --- КОНЕЦ ---
+
+    📄 tests.py
+        --- СОДЕРЖИМОЕ ---
+        from django.test import TestCase
+        
+        # Create your tests here.
+        --- КОНЕЦ ---
+
+    📄 urls.py
+        --- СОДЕРЖИМОЕ ---
+        from django.urls import path
+        from . import views
+        
+        app_name = 'core'
+        
+        urlpatterns = [
+            path('', views.home_view, name='home'),
+            path('contacts/', views.contacts_view, name='contacts'),
+            path('events/', views.events_view, name='events'),
+            path('chat-ask/', views.chat_ask, name='chat_ask'),
+        ]
+        --- КОНЕЦ ---
+
+    📄 views.py
+        --- СОДЕРЖИМОЕ ---
+        import json
+        
+        from django.http import JsonResponse
+        from django.shortcuts import render
+        from django.views.decorators.csrf import csrf_exempt
+        
+        from .llm_assistant.rag import generate_answer
+        from .models import Contact, Event
+        from courses.models import Course
+        
+        
+        
+        def home_view(request):
+            courses = Course.objects.all()[:6]
+            upcoming_events = Event.objects.order_by('date')[:3]
+            return render(request, 'core/home.html', {
+                'courses': courses,
+                'events': upcoming_events,
+            })
+        
+        
+        def contacts_view(request):
+            contacts = Contact.objects.all()
+            return render(request, 'core/contacts.html', {'contacts': contacts})
+        
+        
+        def events_view(request):
+            events = Event.objects.order_by('date')
+            return render(request, 'core/events.html', {'events': events})
+        
+        
+        @csrf_exempt
+        def chat_ask(request):
+            if request.method != 'POST':
+                return JsonResponse({'error': 'Метод не поддерживается'}, status=405)
+        
+            try:
+                data = json.loads(request.body)
+                question = data.get('question', '').strip()
+        
+                if not question:
+                    return JsonResponse({'error': 'Вопрос не может быть пустым'}, status=400)
+        
+                answer = generate_answer(question)
+        
+                return JsonResponse({'answer': answer})
+        
+            except Exception as e:
+                return JsonResponse({'error': f'Ошибка сервера: {str(e)}'}, status=500)
+        --- КОНЕЦ ---
+
+  📁 courses/
+    📄 __init__.py
+        --- СОДЕРЖИМОЕ ---
+        --- КОНЕЦ ---
+
+    📁 __pycache__/
+      📄 __init__.cpython-313.pyc (бинарный, пропущен)
+      📄 admin.cpython-313.pyc (бинарный, пропущен)
+      📄 apps.cpython-313.pyc (бинарный, пропущен)
+      📄 models.cpython-313.pyc (бинарный, пропущен)
+      📄 urls.cpython-313.pyc (бинарный, пропущен)
+      📄 views.cpython-313.pyc (бинарный, пропущен)
+    📄 admin.py
+        --- СОДЕРЖИМОЕ ---
+        from django.contrib import admin
+        from .models import Course, Lesson, Question
+        
+        class LessonInline(admin.TabularInline):
+            model = Lesson
+            extra = 1
+        
+        class QuestionInline(admin.TabularInline):
+            model = Question
+            extra = 1
+        
+        @admin.register(Course)
+        class CourseAdmin(admin.ModelAdmin):
+            list_display = ['title', 'audience', 'format_type', 'created_at']
+            list_filter = ['audience', 'format_type']
+            search_fields = ['title', 'description']
+            inlines = [LessonInline]  # Показывает уроки прямо внутри курса
+        
+        @admin.register(Lesson)
+        class LessonAdmin(admin.ModelAdmin):
+            list_display = ['title', 'course', 'order']
+            list_filter = ['course']
+            search_fields = ['title', 'content']
+            inlines = [QuestionInline]  # Вопросы внутри урока
+        
+        @admin.register(Question)
+        class QuestionAdmin(admin.ModelAdmin):
+            list_display = ['text', 'lesson', 'correct_answer']
+            list_filter = ['lesson__course']
+            search_fields = ['text']
+        --- КОНЕЦ ---
+
+    📄 apps.py
+        --- СОДЕРЖИМОЕ ---
+        from django.apps import AppConfig
+        
+        
+        class CoursesConfig(AppConfig):
+            default_auto_field = 'django.db.models.BigAutoField'
+            name = 'courses'
+        --- КОНЕЦ ---
+
+    📁 migrations/
+      📄 0001_initial.py
+          --- СОДЕРЖИМОЕ ---
+          # Generated by Django 5.2.6 on 2025-09-21 14:04
+          
+          import django.db.models.deletion
+          from django.db import migrations, models
+          
+          
+          class Migration(migrations.Migration):
+          
+              initial = True
+          
+              dependencies = [
+              ]
+          
+              operations = [
+                  migrations.CreateModel(
+                      name='Course',
+                      fields=[
+                          ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                          ('title', models.CharField(max_length=200)),
+                          ('description', models.TextField()),
+                          ('audience', models.CharField(max_length=50)),
+                          ('format_type', models.CharField(max_length=50)),
+                          ('created_at', models.DateTimeField(auto_now_add=True)),
+                      ],
+                  ),
+                  migrations.CreateModel(
+                      name='Lesson',
+                      fields=[
+                          ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                          ('title', models.CharField(max_length=200)),
+                          ('content', models.TextField()),
+                          ('video_url', models.URLField(blank=True, null=True)),
+                          ('order', models.IntegerField(default=1)),
+                          ('course', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='lessons', to='courses.course')),
+                      ],
+                  ),
+                  migrations.CreateModel(
+                      name='Question',
+                      fields=[
+                          ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                          ('text', models.CharField(max_length=300)),
+                          ('option_a', models.CharField(max_length=200)),
+                          ('option_b', models.CharField(max_length=200)),
+                          ('option_c', models.CharField(blank=True, max_length=200)),
+                          ('option_d', models.CharField(blank=True, max_length=200)),
+                          ('correct_answer', models.CharField(max_length=1)),
+                          ('lesson', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='questions', to='courses.lesson')),
+                      ],
+                  ),
+              ]
+          --- КОНЕЦ ---
+
+      📄 __init__.py
+          --- СОДЕРЖИМОЕ ---
+          --- КОНЕЦ ---
+
+      📁 __pycache__/
+        📄 0001_initial.cpython-313.pyc (бинарный, пропущен)
+        📄 __init__.cpython-313.pyc (бинарный, пропущен)
+    📄 models.py
+        --- СОДЕРЖИМОЕ ---
+        from django.db import models
+        
+        class Course(models.Model):
+            title = models.CharField(max_length=200)
+            description = models.TextField()
+            audience = models.CharField(max_length=50)  # школьник, пенсионер, МСП
+            format_type = models.CharField(max_length=50)  # текст, видео, тест
+            created_at = models.DateTimeField(auto_now_add=True)
+        
+            def __str__(self):
+                return self.title
+        
+        class Lesson(models.Model):
+            course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='lessons')
+            title = models.CharField(max_length=200)
+            content = models.TextField()
+            video_url = models.URLField(blank=True, null=True)  # YouTube
+            order = models.IntegerField(default=1)
+        
+            def __str__(self):
+                return f"{self.course.title} - {self.title}"
+        
+        class Question(models.Model):
+            lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='questions')
+            text = models.CharField(max_length=300)
+            option_a = models.CharField(max_length=200)
+            option_b = models.CharField(max_length=200)
+            option_c = models.CharField(max_length=200, blank=True)
+            option_d = models.CharField(max_length=200, blank=True)
+            correct_answer = models.CharField(max_length=1)  # A, B, C, D
+        
+            def __str__(self):
+                return self.text
+        --- КОНЕЦ ---
+
+    📄 tests.py
+        --- СОДЕРЖИМОЕ ---
+        from django.test import TestCase
+        
+        # Create your tests here.
+        --- КОНЕЦ ---
+
+    📄 urls.py
+        --- СОДЕРЖИМОЕ ---
+        from django.urls import path
+        from . import views
+        
+        app_name = 'courses'
+        
+        urlpatterns = [
+            path('', views.course_list_view, name='list'),
+            path('<int:course_id>/', views.course_detail_view, name='detail'),
+            path('lesson/<int:lesson_id>/', views.lesson_view, name='lesson'),
+            path('lesson/<int:lesson_id>/test/', views.submit_test_view, name='test'),
+        ]
+        --- КОНЕЦ ---
+
+    📄 views.py
+        --- СОДЕРЖИМОЕ ---
+        from django.shortcuts import render, get_object_or_404, redirect
+        from .models import Course, Lesson, Question
+        
+        def course_list_view(request):
+            courses = Course.objects.all()
+            return render(request, 'courses/list.html', {'courses': courses})
+        
+        def course_detail_view(request, course_id):
+            course = get_object_or_404(Course, id=course_id)
+            return render(request, 'courses/detail.html', {'course': course})
+        
+        def lesson_view(request, lesson_id):
+            lesson = get_object_or_404(Lesson, id=lesson_id)
+            questions = lesson.questions.all()
+            return render(request, 'courses/lesson.html', {
+                'lesson': lesson,
+                'questions': questions,
+            })
+        
+        def submit_test_view(request, lesson_id):
+            lesson = get_object_or_404(Lesson, id=lesson_id)
+            questions = lesson.questions.all()
+            total = questions.count()
+            correct = 0
+        
+            if request.method == "POST":
+                for q in questions:
+                    user_answer = request.POST.get(f'q{q.id}')
+                    if user_answer == q.correct_answer:
+                        correct += 1
+        
+                score_percent = int((correct / total) * 100) if total > 0 else 0
+                return render(request, 'courses/result.html', {
+                    'score': correct,
+                    'total': total,
+                    'percent': score_percent,
+                    'lesson': lesson,
+                })
+        
+            return redirect('courses:lesson', lesson_id=lesson_id)
+        --- КОНЕЦ ---
+
+  📁 cyberforum/
+    📄 __init__.py
+        --- СОДЕРЖИМОЕ ---
+        --- КОНЕЦ ---
+
+    📁 __pycache__/
+      📄 __init__.cpython-313.pyc (бинарный, пропущен)
+      📄 settings.cpython-313.pyc (бинарный, пропущен)
+      📄 urls.cpython-313.pyc (бинарный, пропущен)
+      📄 wsgi.cpython-313.pyc (бинарный, пропущен)
+    📄 asgi.py
+        --- СОДЕРЖИМОЕ ---
+        """
+        ASGI config for cyberforum project.
+        
+        It exposes the ASGI callable as a module-level variable named ``application``.
+        
+        For more information on this file, see
+        https://docs.djangoproject.com/en/5.2/howto/deployment/asgi/
+        """
+        
+        import os
+        
+        from django.core.asgi import get_asgi_application
+        
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'cyberforum.settings')
+        
+        application = get_asgi_application()
+        --- КОНЕЦ ---
+
+    📄 settings.py
+        --- СОДЕРЖИМОЕ ---
+        """
+        Django settings for cyberforum project.
+        
+        Generated by 'django-admin startproject' using Django 5.2.6.
+        
+        For more information on this file, see
+        https://docs.djangoproject.com/en/5.2/topics/settings/
+        
+        For the full list of settings and their values, see
+        https://docs.djangoproject.com/en/5.2/ref/settings/
+        """
+        
+        from pathlib import Path
+        
+        # Build paths inside the project like this: BASE_DIR / 'subdir'.
+        BASE_DIR = Path(__file__).resolve().parent.parent
+        
+        
+        # Quick-start development settings - unsuitable for production
+        # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
+        
+        # SECURITY WARNING: keep the secret key used in production secret!
+        SECRET_KEY = 'django-insecure-l#=@!evoxr(qh0c#lbm==+7=1q*^youjnqlb1h@$4)iz3bw@$r'
+        
+        # SECURITY WARNING: don't run with debug turned on in production!
+        DEBUG = True
+        
+        ALLOWED_HOSTS = []
+        
+        
+        # Application definition
+        
+        INSTALLED_APPS = [
+            'django.contrib.admin',
+            'django.contrib.auth',
+            'django.contrib.contenttypes',
+            'django.contrib.sessions',
+            'django.contrib.messages',
+            'django.contrib.staticfiles',
+            'core',
+            'courses',
+            'search',
+            'crispy_forms',
+            'widget_tweaks',
+        ]
+        
+        MIDDLEWARE = [
+            'django.middleware.security.SecurityMiddleware',
+            'django.contrib.sessions.middleware.SessionMiddleware',
+            'django.middleware.common.CommonMiddleware',
+            'django.middleware.csrf.CsrfViewMiddleware',
+            'django.contrib.auth.middleware.AuthenticationMiddleware',
+            'django.contrib.messages.middleware.MessageMiddleware',
+            'django.middleware.clickjacking.XFrameOptionsMiddleware',
+        ]
+        
+        ROOT_URLCONF = 'cyberforum.urls'
+        
+        TEMPLATES = [
+            {
+                'BACKEND': 'django.template.backends.django.DjangoTemplates',
+                'DIRS': ['templates'],
+                'APP_DIRS': True,
+                'OPTIONS': {
+                    'context_processors': [
+                        'django.template.context_processors.request',
+                        'django.contrib.auth.context_processors.auth',
+                        'django.contrib.messages.context_processors.messages',
+                    ],
+                },
+            },
+        ]
+        
+        WSGI_APPLICATION = 'cyberforum.wsgi.application'
+        
+        
+        # Database
+        # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+        
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': BASE_DIR / 'db.sqlite3',
+            }
+        }
+        
+        
+        # Password validation
+        # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
+        
+        AUTH_PASSWORD_VALIDATORS = [
+            {
+                'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+            },
+            {
+                'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+            },
+            {
+                'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+            },
+            {
+                'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+            },
+        ]
+        
+        
+        # Internationalization
+        # https://docs.djangoproject.com/en/5.2/topics/i18n/
+        
+        LANGUAGE_CODE = 'ru-ru'
+        TIME_ZONE = 'Europe/Samara'
+        USE_I18N = True
+        USE_TZ = True
+        
+        
+        STATIC_URL = '/static/'
+        STATICFILES_DIRS = [BASE_DIR / "static"]
+        STATIC_ROOT = BASE_DIR / "staticfiles"
+        
+        MEDIA_URL = '/media/'
+        MEDIA_ROOT = BASE_DIR / 'media'
+        
+        CRISPY_TEMPLATE_PACK = 'bootstrap4'
+        
+        DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+        --- КОНЕЦ ---
+
+    📄 urls.py
+        --- СОДЕРЖИМОЕ ---
+        from django.contrib import admin
+        from django.urls import path, include
+        from django.conf import settings
+        from django.conf.urls.static import static
+        
+        urlpatterns = [
+            path('admin/', admin.site.urls),
+            path('', include('core.urls')),
+            path('courses/', include('courses.urls')),
+            path('search/', include('search.urls')),
+        ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+        --- КОНЕЦ ---
+
+    📄 wsgi.py
+        --- СОДЕРЖИМОЕ ---
+        """
+        WSGI config for cyberforum project.
+        
+        It exposes the WSGI callable as a module-level variable named ``application``.
+        
+        For more information on this file, see
+        https://docs.djangoproject.com/en/5.2/howto/deployment/wsgi/
+        """
+        
+        import os
+        
+        from django.core.wsgi import get_wsgi_application
+        
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'cyberforum.settings')
+        
+        application = get_wsgi_application()
+        --- КОНЕЦ ---
+
+  📄 db.sqlite3 (бинарный, пропущен)
+  📁 faiss_index/
+    📄 index.faiss (бинарный, пропущен)
+    📄 index.pkl (бинарный, пропущен)
+  📄 manage.py
+      --- СОДЕРЖИМОЕ ---
+      #!/usr/bin/env python
+      """Django's command-line utility for administrative tasks."""
+      import os
+      import sys
+      
+      
+      def main():
+          """Run administrative tasks."""
+          os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'cyberforum.settings')
+          try:
+              from django.core.management import execute_from_command_line
+          except ImportError as exc:
+              raise ImportError(
+                  "Couldn't import Django. Are you sure it's installed and "
+                  "available on your PYTHONPATH environment variable? Did you "
+                  "forget to activate a virtual environment?"
+              ) from exc
+          execute_from_command_line(sys.argv)
+      
+      
+      if __name__ == '__main__':
+          main()
+      --- КОНЕЦ ---
+
+  📁 search/
+    📄 __init__.py
+        --- СОДЕРЖИМОЕ ---
+        --- КОНЕЦ ---
+
+    📁 __pycache__/
+      📄 __init__.cpython-313.pyc (бинарный, пропущен)
+      📄 admin.cpython-313.pyc (бинарный, пропущен)
+      📄 apps.cpython-313.pyc (бинарный, пропущен)
+      📄 models.cpython-313.pyc (бинарный, пропущен)
+      📄 urls.cpython-313.pyc (бинарный, пропущен)
+      📄 views.cpython-313.pyc (бинарный, пропущен)
+    📄 admin.py
+        --- СОДЕРЖИМОЕ ---
+        from django.contrib import admin
+        
+        # Register your models here.
+        --- КОНЕЦ ---
+
+    📄 apps.py
+        --- СОДЕРЖИМОЕ ---
+        from django.apps import AppConfig
+        
+        
+        class SearchConfig(AppConfig):
+            default_auto_field = 'django.db.models.BigAutoField'
+            name = 'search'
+        --- КОНЕЦ ---
+
+    📁 migrations/
+      📄 __init__.py
+          --- СОДЕРЖИМОЕ ---
+          --- КОНЕЦ ---
+
+      📁 __pycache__/
+        📄 __init__.cpython-313.pyc (бинарный, пропущен)
+    📄 models.py
+        --- СОДЕРЖИМОЕ ---
+        from django.db import models
+        
+        # Create your models here.
+        --- КОНЕЦ ---
+
+    📄 tests.py
+        --- СОДЕРЖИМОЕ ---
+        from django.test import TestCase
+        
+        # Create your tests here.
+        --- КОНЕЦ ---
+
+    📄 urls.py
+        --- СОДЕРЖИМОЕ ---
+        from django.urls import path
+        from . import views
+        
+        app_name = 'search'
+        
+        urlpatterns = [
+            path('', views.search_view, name='results'),
+        ]
+        --- КОНЕЦ ---
+
+    📄 views.py
+        --- СОДЕРЖИМОЕ ---
+        from django.shortcuts import render
+        from courses.models import Course
+        from core.models import Contact, Event
+        
+        def search_view(request):
+            query = request.GET.get('q', '').strip()
+            audience = request.GET.get('audience', '')
+            format_type = request.GET.get('format', '')
+        
+            courses = Course.objects.all()
+            contacts = Contact.objects.all()
+            events = Event.objects.all()
+        
+            if query:
+                courses = courses.filter(title__icontains=query) | courses.filter(description__icontains=query)
+                contacts = contacts.filter(name__icontains=query) | contacts.filter(address__icontains=query)
+                events = events.filter(title__icontains=query) | events.filter(description__icontains=query)
+        
+            if audience:
+                courses = courses.filter(audience=audience)
+                contacts = contacts.filter(audience=audience)
+                events = events.filter(audience=audience)
+        
+            if format_type:
+                courses = courses.filter(format_type=format_type)
+        
+            context = {
+                'query': query,
+                'courses': courses,
+                'contacts': contacts,
+                'events': events,
+                'audience_filter': audience,
+                'format_filter': format_type,
+            }
+            return render(request, 'search/results.html', context)
+        --- КОНЕЦ ---
+
+  📁 static/
+    📁 css/
+      📄 style.css
+          --- СОДЕРЖИМОЕ ---
+          body {
+              font-size: 1rem;
+              line-height: 1.6;
+          }
+          
+          .card {
+              box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+              transition: transform 0.2s;
+          }
+          
+          .card:hover {
+              transform: translateY(-3px);
+          }
+          
+          footer {
+              font-size: 0.9rem;
+          }
+          --- КОНЕЦ ---
+
+  📁 templates/
+    📄 base.html
+        --- СОДЕРЖИМОЕ ---
+        {% load static %}
+        <!DOCTYPE html>
+        <html lang="ru">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Финансовая грамотность Удмуртии</title>
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+            <link href="{% static 'css/style.css' %}" rel="stylesheet">
+        </head>
+        <body>
+            <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                <div class="container">
+                    <a class="navbar-brand" href="{% url 'core:home' %}">ФинГрамота Удмуртии</a>
+                    <div class="navbar-nav ms-auto">
+                        <a class="nav-link" href="{% url 'core:home' %}">Главная</a>
+                        <a class="nav-link" href="{% url 'courses:list' %}">Курсы</a>
+                        <a class="nav-link" href="{% url 'core:contacts' %}">Контакты</a>
+                        <a class="nav-link" href="{% url 'core:events' %}">События</a>
+                        <form class="d-flex ms-3" action="{% url 'search:results' %}" method="get">
+                            <input class="form-control me-2" type="search" name="q" placeholder="Поиск..." aria-label="Поиск">
+                            <button class="btn btn-outline-light" type="submit">Найти</button>
+                        </form>
+                    </div>
+                </div>
+            </nav>
+        
+            <div class="container mt-4">
+                {% block content %}{% endblock %}
+            </div>
+        
+            <div id="chatbot-widget" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; width: 320px; height: 450px; display: flex; flex-direction: column; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 16px; background-color: white; overflow: hidden;">
+        
+            <div style="background-color: #d4c8b7; color: #5a6b4d; padding: 12px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
+                💰💼 Гений финансов
+                <button onclick="toggleChat()" style="background: none; border: none; color: #333; cursor: pointer; font-size: 16px;">×</button>
+            </div>
+        
+            <div id="chat-messages" style="flex-grow: 1; padding: 12px; overflow-y: auto; background-color: #f8f6f0; max-height: 320px;"></div>
+        
+            <div style="display: flex; padding: 10px; border-top: 1px solid #e0e0e0;">
+                <input type="text" id="chat-input" placeholder="Ваш вопрос"
+                       style="flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 20px; outline: none;"
+                       onkeydown="if(event.key==='Enter') sendQuestion()">
+                <button onclick="sendQuestion()"
+                        style="margin-left: 8px; padding: 8px 16px; background-color: #6a7d5d; color: white; border: none; border-radius: 20px; cursor: pointer; font-size: 14px;">
+                    Отправить
+                </button>
+            </div>
+        </div>
+        
+        <div id="chat-open-btn" style="position: fixed; bottom: 20px; right: 20px; z-index: 9998; width: 50px; height: 50px; border-radius: 50%; background-color: #6a7d5d; color: white; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer; display: none;">💬</div>
+        
+        <script>
+            function toggleChat() {
+            const widget = document.getElementById('chatbot-widget');
+            const openBtn = document.getElementById('chat-open-btn');
+        
+            if (widget.style.display === 'none' || !widget.style.display) {
+                widget.style.display = 'flex';
+                openBtn.style.display = 'none';
+                // ✅ Отправляем приветствие при открытии чата
+                sendGreeting();
+            } else {
+                widget.style.display = 'none';
+                openBtn.style.display = 'flex';
+            }
+        }
+        
+            // ✅ Флаг для проверки, было ли приветствие отправлено
+            let greetingSent = false;
+        
+        // ✅ Функция отправки приветствия при открытии чата
+            function sendGreeting() {
+                if (greetingSent) return; // Уже отправлено — не повторяем
+        
+                const messageArea = document.getElementById('chat-messages');
+        
+                const greeting = "Здравствуйте! Я — Финансовый Помощник. Задайте вопрос — помогу!";
+        
+                appendMessage(greeting, 'bot');
+        
+                greetingSent = true; // Помечаем, что приветствие отправлено
+        }
+        
+            window.onload = function() {
+                // При загрузке — чат открыт по умолчанию? Нет — скрываем его
+                document.getElementById('chatbot-widget').style.display = 'none';
+                document.getElementById('chat-open-btn').style.display = 'flex';
+            };
+        
+            async function sendQuestion() {
+                const input = document.getElementById('chat-input');
+                const messageArea = document.getElementById('chat-messages');
+                const question = input.value.trim();
+        
+                if (!question) return;
+        
+                appendMessage(question, 'user');
+                input.value = '';
+        
+                appendMessage("🔍 Ищу информацию...", 'bot');
+        
+                try {
+                    const response = await fetch('/chat-ask/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': getCookie('csrftoken')
+                        },
+                        body: JSON.stringify({ question: question })
+                    });
+        
+                    const data = await response.json();
+        
+                    const lastMsg = messageArea.lastElementChild;
+                    if (lastMsg && lastMsg.classList.contains('bot')) {
+                        messageArea.removeChild(lastMsg);
+                    }
+        
+                    if (data.error) {
+                        appendMessage(`❌ ${data.error}`, 'bot');
+                    } else {
+                        appendMessage(data.answer, 'bot');
+                    }
+        
+                } catch (error) {
+                    const lastMsg = messageArea.lastElementChild;
+                    if (lastMsg && lastMsg.classList.contains('bot')) {
+                        messageArea.removeChild(lastMsg);
+                    }
+                    appendMessage("❌ Ошибка соединения с сервером.", 'bot');
+                }
+            }
+        
+            function appendMessage(text, sender) {
+                const messageArea = document.getElementById('chat-messages');
+                const msgDiv = document.createElement('div');
+                msgDiv.style.marginBottom = '12px';
+                msgDiv.style.maxWidth = '80%';
+                msgDiv.style.padding = '10px 14px';
+                msgDiv.style.borderRadius = sender === 'user' ? '18px 18px 0 18px' : '18px 18px 18px 0';
+                msgDiv.style.backgroundColor = sender === 'user' ? '#6a7d5d' : '#f0f0f0';
+                msgDiv.style.color = sender === 'user' ? 'white' : '#333';
+                msgDiv.style.wordWrap = 'break-word';
+                msgDiv.style.fontSize = '14px';
+                msgDiv.style.alignSelf = sender === 'user' ? 'flex-end' : 'flex-start';
+                msgDiv.textContent = text;
+                msgDiv.className = sender;
+                messageArea.appendChild(msgDiv);
+                messageArea.scrollTop = messageArea.scrollHeight;
+            }
+        
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+        
+            document.getElementById('chat-input').addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') sendQuestion();
+            });
+        
+            // Фикс: Показывать кнопку только если чат закрыт
+            function updateChatButtonVisibility() {
+                const widget = document.getElementById('chatbot-widget');
+                const openBtn = document.getElementById('chat-open-btn');
+        
+                if (widget.style.display === 'none' || !widget.style.display) {
+                    openBtn.style.display = 'flex';
+                } else {
+                    openBtn.style.display = 'none';
+                }
+            }
+        
+            // Обновляем состояние кнопки при каждом скролле и при открытии/закрытии
+            window.addEventListener('scroll', updateChatButtonVisibility);
+            window.addEventListener('load', updateChatButtonVisibility);
+        
+            // Добавляем обработчик на кнопку открытия
+            document.getElementById('chat-open-btn').addEventListener('click', function() {
+                toggleChat();
+                // После открытия — скрываем кнопку
+                updateChatButtonVisibility();
+            });
+        
+            // Также обновляем при изменении размера окна (для мобильных)
+            window.addEventListener('resize', updateChatButtonVisibility);
+        
+        </script>
+        <style>
+            #chatbot-widget {
+                animation: slideIn 0.3s ease-out;
+            }
+            @keyframes slideIn {
+                from { transform: translateX(300px); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+        </style>
+        
+        
+            <footer class="bg-light text-center py-3 mt-5">
+                <p class="mb-0">© 2025 Портал финансовой грамотности Удмуртии</p>
+            </footer>
+        
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        </body>
+        </html>
+        --- КОНЕЦ ---
+
+    📁 core/
+      📄 contacts.html
+          --- СОДЕРЖИМОЕ ---
+          {% extends 'base.html' %}
+          
+          {% block content %}
+          <h1>Контакты</h1>
+          <div class="row">
+              {% for contact in contacts %}
+                  <div class="col-md-6 mb-4">
+                      <div class="card">
+                          <div class="card-body">
+                              <h5 class="card-title">{{ contact.name }}</h5>
+                              <p><strong>Адрес:</strong> {{ contact.address }}</p>
+                              <p><strong>Телефон:</strong> {{ contact.phone }}</p>
+                              {% if contact.email %}
+                                  <p><strong>Email:</strong> {{ contact.email }}</p>
+                              {% endif %}
+                              <p class="text-muted">Аудитория: {{ contact.audience }}</p>
+                          </div>
+                      </div>
+                  </div>
+              {% endfor %}
+          </div>
+          {% endblock %}
+          --- КОНЕЦ ---
+
+      📄 events.html
+          --- СОДЕРЖИМОЕ ---
+          {% extends 'base.html' %}
+          
+          {% block content %}
+          <h1>События</h1>
+          <div class="row">
+              {% for event in events %}
+                  <div class="col-md-6 mb-4">
+                      <div class="card">
+                          <div class="card-body">
+                              <h5 class="card-title">{{ event.title }}</h5>
+                              <p><strong>Дата:</strong> {{ event.date|date:"d.m.Y" }}</p>
+                              <p><strong>Место:</strong> {{ event.location }}</p>
+                              <p>{{ event.description|truncatewords:20 }}</p>
+                              <p class="text-muted">Для: {{ event.audience }}</p>
+                          </div>
+                      </div>
+                  </div>
+              {% empty %}
+                  <p>События не найдены.</p>
+              {% endfor %}
+          </div>
+          {% endblock %}
+          --- КОНЕЦ ---
+
+      📄 home.html
+          --- СОДЕРЖИМОЕ ---
+          {% extends 'base.html' %}
+          
+          {% block content %}
+          <h1 class="mb-4">Добро пожаловать на портал финансовой грамотности Удмуртии!</h1>
+          
+          <div class="row mb-5">
+              <div class="col-md-8">
+                  <p>Здесь вы найдете полезные материалы, курсы и контакты для повышения вашей финансовой грамотности.</p>
+                  <a href="{% url 'courses:list' %}" class="btn btn-primary">Начать обучение</a>
+              </div>
+              <div class="col-md-4">
+                  <div class="card">
+                      <div class="card-body">
+                          <h5 class="card-title">Ближайшие события</h5>
+                          {% for event in events %}
+                              <p class="card-text"><strong>{{ event.title }}</strong><br>{{ event.date|date:"d.m.Y" }} в {{ event.location }}</p>
+                          {% empty %}
+                              <p>События пока не запланированы.</p>
+                          {% endfor %}
+                      </div>
+                  </div>
+              </div>
+          </div>
+          
+          <h3>Популярные курсы</h3>
+          <div class="row">
+              {% for course in courses %}
+                  <div class="col-md-4 mb-4">
+                      <div class="card h-100">
+                          <div class="card-body">
+                              <h5 class="card-title">{{ course.title }}</h5>
+                              <p class="card-text">{{ course.description|truncatewords:15 }}</p>
+                              <a href="{% url 'courses:detail' course.id %}" class="btn btn-outline-primary">Подробнее</a>
+                          </div>
+                      </div>
+                  </div>
+              {% endfor %}
+          </div>
+          {% endblock %}
+          --- КОНЕЦ ---
+
+    📁 courses/
+      📄 detail.html
+          --- СОДЕРЖИМОЕ ---
+          {% extends 'base.html' %}
+          
+          {% block content %}
+          <h1>{{ course.title }}</h1>
+          <p>{{ course.description }}</p>
+          
+          <h3>Уроки</h3>
+          <div class="list-group">
+              {% for lesson in course.lessons.all %}
+                  <a href="{% url 'courses:lesson' lesson.id %}" class="list-group-item list-group-item-action">
+                      {{ lesson.title }}
+                  </a>
+              {% empty %}
+                  <p>Уроки пока не добавлены.</p>
+              {% endfor %}
+          </div>
+          {% endblock %}
+          --- КОНЕЦ ---
+
+      📄 lesson.html
+          --- СОДЕРЖИМОЕ ---
+          {% extends 'base.html' %}
+          
+          {% block content %}
+          <h1>{{ lesson.title }}</h1>
+          <div class="mb-4">{{ lesson.content|safe }}</div>
+          
+          {% if lesson.video_url %}
+          <div class="ratio ratio-16x9 mb-4">
+              <iframe src="{{ lesson.video_url }}" title="Видеоурок">
+              </iframe>
+          </div>
+          {% endif %}
+          
+          {% if lesson.questions.exists %}
+          <h3>Тест</h3>
+          <form method="post" action="{% url 'courses:test' lesson.id %}">
+              {% csrf_token %}
+              {% for q in questions %}
+              <div class="card mb-3">
+                  <div class="card-body">
+                      <p><strong>{{ forloop.counter }}. {{ q.text }}</strong></p>
+                      <div class="form-check">
+                          <input class="form-check-input" type="radio" name="q{{ q.id }}" value="A" id="q{{ q.id }}a" required>
+                          <label class="form-check-label" for="q{{ q.id }}a">{{ q.option_a }}</label>
+                      </div>
+                      <div class="form-check">
+                          <input class="form-check-input" type="radio" name="q{{ q.id }}" value="B" id="q{{ q.id }}b">
+                          <label class="form-check-label" for="q{{ q.id }}b">{{ q.option_b }}</label>
+                      </div>
+                      {% if q.option_c %}
+                      <div class="form-check">
+                          <input class="form-check-input" type="radio" name="q{{ q.id }}" value="C" id="q{{ q.id }}c">
+                          <label class="form-check-label" for="q{{ q.id }}c">{{ q.option_c }}</label>
+                      </div>
+                      {% endif %}
+                      {% if q.option_d %}
+                      <div class="form-check">
+                          <input class="form-check-input" type="radio" name="q{{ q.id }}" value="D" id="q{{ q.id }}d">
+                          <label class="form-check-label" for="q{{ q.id }}d">{{ q.option_d }}</label>
+                      </div>
+                      {% endif %}
+                  </div>
+              </div>
+              {% endfor %}
+              <button type="submit" class="btn btn-success">Проверить результаты</button>
+          </form>
+          {% endif %}
+          {% endblock %}
+          --- КОНЕЦ ---
+
+      📄 list.html
+          --- СОДЕРЖИМОЕ ---
+          {% extends 'base.html' %}
+          
+          {% block content %}
+          <h1>Курсы</h1>
+          
+          <form method="get" class="mb-4">
+              <div class="row">
+                  <div class="col-md-4">
+                      <select name="audience" class="form-select">
+                          <option value="">Все аудитории</option>
+                          <option value="школьник" {% if request.GET.audience == 'школьник' %}selected{% endif %}>Школьники</option>
+                          <option value="пенсионер" {% if request.GET.audience == 'пенсионер' %}selected{% endif %}>Пенсионеры</option>
+                          <option value="МСП" {% if request.GET.audience == 'МСП' %}selected{% endif %}>МСП</option>
+                      </select>
+                  </div>
+                  <div class="col-md-4">
+                      <select name="format" class="form-select">
+                          <option value="">Все форматы</option>
+                          <option value="текст" {% if request.GET.format == 'текст' %}selected{% endif %}>Текст</option>
+                          <option value="видео" {% if request.GET.format == 'видео' %}selected{% endif %}>Видео</option>
+                          <option value="тест" {% if request.GET.format == 'тест' %}selected{% endif %}>Тест</option>
+                      </select>
+                  </div>
+                  <div class="col-md-4">
+                      <button type="submit" class="btn btn-primary w-100">Применить фильтры</button>
+                  </div>
+              </div>
+          </form>
+          
+          <div class="row">
+              {% for course in courses %}
+                  <div class="col-md-4 mb-4">
+                      <div class="card">
+                          <div class="card-body">
+                              <h5 class="card-title">{{ course.title }}</h5>
+                              <p class="text-muted">Для: {{ course.audience }} | Формат: {{ course.format_type }}</p>
+                              <p>{{ course.description|truncatewords:10 }}</p>
+                              <a href="{% url 'courses:detail' course.id %}" class="btn btn-primary">Открыть</a>
+                          </div>
+                      </div>
+                  </div>
+              {% empty %}
+                  <p>Курсы не найдены.</p>
+              {% endfor %}
+          </div>
+          {% endblock %}
+          --- КОНЕЦ ---
+
+      📄 result.html
+          --- СОДЕРЖИМОЕ ---
+          {% extends 'base.html' %}
+          
+          {% block content %}
+          <div class="text-center">
+              <h1>Результаты теста</h1>
+              <div class="display-1 text-success">{{ score }} / {{ total }}</div>
+              <p class="lead">Процент правильных ответов: <strong>{{ percent }}%</strong></p>
+              <a href="{% url 'courses:lesson' lesson.id %}" class="btn btn-primary">Повторить урок</a>
+              <a href="{% url 'courses:list' %}" class="btn btn-outline-secondary">К курсам</a>
+          </div>
+          {% endblock %}
+          --- КОНЕЦ ---
+
+    📁 search/
+      📄 results.html
+          --- СОДЕРЖИМОЕ ---
+          {% extends 'base.html' %}
+          
+          {% block content %}
+          <h1>Результаты поиска для: "{{ query }}"</h1>
+          
+          <h3>Курсы</h3>
+          <div class="row">
+              {% for course in courses %}
+                  <div class="col-md-4 mb-3">
+                      <div class="card">
+                          <div class="card-body">
+                              <h5>{{ course.title }}</h5>
+                              <p class="text-muted">{{ course.audience }} | {{ course.format_type }}</p>
+                              <a href="{% url 'courses:detail' course.id %}" class="btn btn-sm btn-outline-primary">Открыть</a>
+                          </div>
+                      </div>
+                  </div>
+              {% empty %}
+                  <p>Курсы не найдены.</p>
+              {% endfor %}
+          </div>
+          
+          <h3>Контакты</h3>
+          <div class="row">
+              {% for contact in contacts %}
+                  <div class="col-md-6 mb-3">
+                      <div class="card">
+                          <div class="card-body">
+                              <h5>{{ contact.name }}</h5>
+                              <p>{{ contact.address }}</p>
+                              <p>{{ contact.phone }}</p>
+                          </div>
+                      </div>
+                  </div>
+              {% empty %}
+                  <p>Контакты не найдены.</p>
+              {% endfor %}
+          </div>
+          
+          <h3>События</h3>
+          <div class="row">
+              {% for event in events %}
+                  <div class="col-md-6 mb-3">
+                      <div class="card">
+                          <div class="card-body">
+                              <h5>{{ event.title }}</h5>
+                              <p>{{ event.date|date:"d.m.Y" }} — {{ event.location }}</p>
+                          </div>
+                      </div>
+                  </div>
+              {% empty %}
+                  <p>События не найдены.</p>
+              {% endfor %}
+          </div>
+          {% endblock %}
+          --- КОНЕЦ ---
+
+📄 project_structure.txt
+    --- СОДЕРЖИМОЕ ---
+    === СТРУКТУРА ПРОЕКТА:  ===
+    Путь: C:\Users\ilagr\PycharmProjects\hackaton\cyberforum
+    ============================================================
+    
+    📁 .git/
+      📄 config (бинарный, пропущен)
+      📄 description (бинарный, пропущен)
+      📄 HEAD (бинарный, пропущен)
+      📁 hooks/
+        📄 applypatch-msg.sample (бинарный, пропущен)
+        📄 commit-msg.sample (бинарный, пропущен)
+        📄 fsmonitor-watchman.sample (бинарный, пропущен)
+        📄 post-update.sample (бинарный, пропущен)
+        📄 pre-applypatch.sample (бинарный, пропущен)
+        📄 pre-commit.sample (бинарный, пропущен)
+        📄 pre-merge-commit.sample (бинарный, пропущен)
+        📄 pre-push.sample (бинарный, пропущен)
+        📄 pre-rebase.sample (бинарный, пропущен)
+        📄 pre-receive.sample (бинарный, пропущен)
+        📄 prepare-commit-msg.sample (бинарный, пропущен)
+        📄 push-to-checkout.sample (бинарный, пропущен)
+        📄 sendemail-validate.sample (бинарный, пропущен)
+        📄 update.sample (бинарный, пропущен)
+      📄 index (бинарный, пропущен)
+      📁 info/
+        📄 exclude (бинарный, пропущен)
+      📁 logs/
+        📄 HEAD (бинарный, пропущен)
+        📁 refs/
+          📁 heads/
+            📄 main (бинарный, пропущен)
+          📁 remotes/
+            📁 origin/
+              📄 HEAD (бинарный, пропущен)
+      📁 objects/
+        📁 info/
+        📁 pack/
+          📄 pack-94a7ee2f43268eff4999f8595bb8161f04755458.idx (бинарный, пропущен)
+          📄 pack-94a7ee2f43268eff4999f8595bb8161f04755458.pack (бинарный, пропущен)
+          📄 pack-94a7ee2f43268eff4999f8595bb8161f04755458.rev (бинарный, пропущен)
+      📄 packed-refs (бинарный, пропущен)
+      📁 refs/
+        📁 heads/
+          📄 main (бинарный, пропущен)
+        📁 remotes/
+          📁 origin/
+            📄 HEAD (бинарный, пропущен)
+        📁 tags/
+    📁 .idea/
+      📄 .gitignore
+          --- СОДЕРЖИМОЕ ---
+          # Default ignored files
+          /shelf/
+          /workspace.xml
+          --- КОНЕЦ ---
+    
+    📁 cyberforum/
+      📁 core/
+        📄 __init__.py
+            --- СОДЕРЖИМОЕ ---
+            --- КОНЕЦ ---
+    
+        📁 __pycache__/
+          📄 __init__.cpython-313.pyc (бинарный, пропущен)
+          📄 admin.cpython-313.pyc (бинарный, пропущен)
+          📄 apps.cpython-313.pyc (бинарный, пропущен)
+          📄 models.cpython-313.pyc (бинарный, пропущен)
+          📄 urls.cpython-313.pyc (бинарный, пропущен)
+          📄 views.cpython-313.pyc (бинарный, пропущен)
+        📄 admin.py
+            --- СОДЕРЖИМОЕ ---
+            from django.contrib import admin
+            from .models import Contact, Event
+            
+            @admin.register(Contact)
+            class ContactAdmin(admin.ModelAdmin):
+                list_display = ['name', 'phone', 'email', 'audience']
+                search_fields = ['name', 'address']
+                list_filter = ['audience']
+            
+            @admin.register(Event)
+            class EventAdmin(admin.ModelAdmin):
+                list_display = ['title', 'date', 'location', 'audience']
+                list_filter = ['audience', 'date']
+                date_hierarchy = 'date'
+            --- КОНЕЦ ---
+    
+        📄 apps.py
+            --- СОДЕРЖИМОЕ ---
+            from django.apps import AppConfig
+            
+            
+            class CoreConfig(AppConfig):
+                default_auto_field = 'django.db.models.BigAutoField'
+                name = 'core'
+            --- КОНЕЦ ---
+    
+        📁 llm_assistant/
+          📄 __init__.py
+              --- СОДЕРЖИМОЕ ---
+              --- КОНЕЦ ---
+    
+          📁 __pycache__/
+            📄 __init__.cpython-313.pyc (бинарный, пропущен)
+            📄 indexer.cpython-313.pyc (бинарный, пропущен)
+            📄 loader.cpython-313.pyc (бинарный, пропущен)
+            📄 model.cpython-313.pyc (бинарный, пропущен)
+            📄 rag.cpython-313.pyc (бинарный, пропущен)
+            📄 utils.cpython-313.pyc (бинарный, пропущен)
+          📁 docs/
+            📄 Keys_Web-razrabotka.pdf (бинарный, пропущен)
+          📄 indexer.py
+              --- СОДЕРЖИМОЕ ---
+              import os
+              from pathlib import Path
+              
+              from langchain_community.vectorstores import FAISS
+              from langchain_community.embeddings import HuggingFaceEmbeddings
+              from langchain_text_splitters import RecursiveCharacterTextSplitter
+              from .loader import load_documents_from_folder
+              from .utils import clean_text, count_tokens
+              
+              INDEX_DIR = "faiss_index"
+              
+              CURRENT_DIR = Path(__file__).parent
+              DOCS_DIR = CURRENT_DIR / "docs"
+              
+              def create_or_load_vectorstore():
+                  """
+                  Создаёт или загружает векторную базу.
+                  Вызывается один раз при запуске Django.
+                  """
+                  embedding_model = HuggingFaceEmbeddings(
+                      model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+                  )
+              
+                  if os.path.exists(INDEX_DIR):
+                      print("🔄 Загрузка существующего индекса...")
+                      vectorstore = FAISS.load_local(
+                          INDEX_DIR,
+                          embedding_model,
+                          allow_dangerous_deserialization=True
+                      )
+                      print("✅ Индекс загружен.")
+                  else:
+                      print("🆕 Создание нового индекса...")
+                      documents = load_documents_from_folder(DOCS_DIR)
+                      if not documents:
+                          raise RuntimeError("Нет документов для индексации!")
+              
+                      splitter = RecursiveCharacterTextSplitter(
+                          chunk_size=500,
+                          chunk_overlap=100,
+                          length_function=count_tokens,
+                          separators=["\n\n", "\n", ". ", "! ", "? ", " ", ""],
+                      )
+              
+                      chunks = splitter.split_documents(documents)
+                      for chunk in chunks:
+                          chunk.page_content = clean_text(chunk.page_content)
+              
+                      vectorstore = FAISS.from_documents(chunks, embedding_model)
+                      vectorstore.save_local(INDEX_DIR)
+                      print(f"✅ Индекс сохранён в {INDEX_DIR}/")
+              
+                  return vectorstore
+              --- КОНЕЦ ---
+    
+          📄 loader.py
+              --- СОДЕРЖИМОЕ ---
+              from pathlib import Path
+              from typing import List
+              from langchain_community.document_loaders import (
+                  TextLoader,
+                  PyMuPDFLoader,
+                  Docx2txtLoader,
+              )
+              
+              SUPPORTED_EXTENSIONS = {".txt", ".pdf", ".docx"}
+              
+              def load_documents_from_folder(folder_path: str) -> List:
+                  documents = []
+                  folder = Path(folder_path)
+                  if not folder.exists():
+                      raise FileNotFoundError(f"Папка {folder_path} не найдена!")
+              
+                  for file_path in folder.iterdir():
+                      if file_path.is_file() and file_path.suffix.lower() in SUPPORTED_EXTENSIONS:
+                          print(f"📄 Загружаю: {file_path.name}")
+                          if file_path.suffix.lower() == ".txt":
+                              loader = TextLoader(file_path, encoding="utf-8")
+                          elif file_path.suffix.lower() == ".pdf":
+                              loader = PyMuPDFLoader(file_path)
+                          elif file_path.suffix.lower() == ".docx":
+                              loader = Docx2txtLoader(file_path)
+                          else:
+                              continue
+              
+                          docs = loader.load()
+                          for doc in docs:
+                              doc.metadata["source"] = file_path.name
+                              doc.metadata["file_type"] = file_path.suffix.lower()[1:]
+                          documents.extend(docs)
+              
+                  if not documents:
+                      print("⚠️  В папке docs не найдено ни одного поддерживаемого файла (.txt, .pdf, .docx)")
+                  else:
+                      print(f"✅ Успешно загружено {len(documents)} документов.")
+              
+                  return documents
+              --- КОНЕЦ ---
+    
+          📄 model.py
+              --- СОДЕРЖИМОЕ ---
+              import os
+              from langchain_gigachat.chat_models import GigaChat
+              
+              # Установите ключ в .env или здесь (лучше через .env)
+              os.environ["GIGACHAT_CREDENTIALS"] = "NGRiZjA5MmMtYmJkOS00NzkzLWJlZGQtM2UzYWFlZTNiNWMwOjlmMjQ0MjU5LWUxM2YtNGUyYy1iYTg1LWFlOTlhZDhjMWUzOQ=="
+              
+              llm = GigaChat(
+                  model="GigaChat-Pro",
+                  verify_ssl_certs=False,
+                  timeout=60
+              )
+              --- КОНЕЦ ---
+    
+          📄 rag.py
+              --- СОДЕРЖИМОЕ ---
+              from .model import llm
+              from .indexer import create_or_load_vectorstore
+              from langchain_core.prompts import ChatPromptTemplate
+              from langchain_core.output_parsers import StrOutputParser
+              
+              # Промпт — лучше вынести сюда, чтобы легко менять
+              PROMPT_TEMPLATE = """
+              Вы — помощник, который отвечает на вопросы на основе предоставленного контекста.
+              Если в контексте нет информации, скажите: "Информация не найдена".
+              (Учти, что этот текст будет отображаться на html странице, то есть например 
+              использовать ** и html-тэги для выделения текста жирным не получится. Лучше оставить текст 
+              без выделений, чем с непонятными символами)
+              Контекст:
+              {context}
+              
+              Вопрос:
+              {question}
+              
+              Ответ:
+              """
+              
+              prompt = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
+              chain = prompt | llm | StrOutputParser()
+              
+              def generate_answer(question: str, top_k: int = 3) -> str:
+                  """
+                  Генерирует ответ на вопрос с использованием RAG.
+                  Вызывается из Django view.
+                  """
+                  # Индекс уже должен быть загружен при старте сервера
+                  # Мы не пересоздаём его каждый раз!
+                  vectorstore = create_or_load_vectorstore()
+              
+                  relevant_docs = vectorstore.similarity_search(question, k=top_k)
+              
+                  context = "\n\n".join([
+                      f"Источник: {doc.metadata['source']} (тип: {doc.metadata['file_type']})\n{doc.page_content}"
+                      for doc in relevant_docs
+                  ])
+              
+                  response = chain.invoke({
+                      "context": context,
+                      "question": question
+                  })
+              
+                  return response
+              --- КОНЕЦ ---
+    
+          📄 utils.py
+              --- СОДЕРЖИМОЕ ---
+              import re
+              from bs4 import BeautifulSoup
+              
+              def clean_text(text: str) -> str:
+                  soup = BeautifulSoup(text, "html.parser")
+                  text = soup.get_text()
+                  text = re.sub(r'\s+', ' ', text)
+                  text = re.sub(r'[\u200b-\u200d\uFEFF]', '', text)
+                  text = re.sub(r'страниц[а-ы]?\s*\d+\s*из\s*\d+', '', text, flags=re.IGNORECASE)
+                  text = re.sub(r'http\S+|www\S+|https\S+', '', text, flags=re.MULTILINE)
+                  text = re.sub(r'[^\w\s.,!?;:()\-\–—\"\'\n]', ' ', text)
+                  return text.strip()
+              
+              # Используем ту же кодировку, что и у GigaChat (GPT-4)
+              try:
+                  import tiktoken
+                  encoder = tiktoken.encoding_for_model("gpt-4")
+              except ImportError:
+                  encoder = None
+              
+              def count_tokens(text: str) -> int:
+                  if encoder is None:
+                      return len(text.split()) * 1.3  # Приблизительно
+                  return len(encoder.encode(text))
+              --- КОНЕЦ ---
+    
+        📁 management/
+          📁 commands/
+            📄 initdata.py
+                --- СОДЕРЖИМОЕ ---
+                from django.core.management.base import BaseCommand
+                from core.models import Contact, Event
+                from courses.models import Course, Lesson, Question
+                
+                class Command(BaseCommand):
+                    help = 'Заполняет БД тестовыми данными'
+                
+                    def handle(self, *args, **kwargs):
+                        # Очистка
+                        Contact.objects.all().delete()
+                        Event.objects.all().delete()
+                        Course.objects.all().delete()
+                
+                        # Контакты
+                        Contact.objects.create(
+                            name="Центр финансовой грамотности Ижевск",
+                            address="ул. Пушкинская, 100",
+                            phone="+7 (3412) 12-34-56",
+                            audience="все"
+                        )
+                
+                        # События
+                        from datetime import date
+                        Event.objects.create(
+                            title="День финансовой грамотности в школе №1",
+                            description="Открытый урок для школьников 8-11 классов",
+                            date=date(2025, 4, 20),
+                            location="Школа №1, Ижевск",
+                            audience="школьник"
+                        )
+                
+                        # Курсы
+                        course1 = Course.objects.create(
+                            title="Семейный бюджет",
+                            description="Научитесь планировать доходы и расходы семьи.",
+                            audience="все",
+                            format_type="текст"
+                        )
+                        lesson1 = Lesson.objects.create(
+                            course=course1,
+                            title="Как составить бюджет",
+                            content="<p>Шаг 1: Учет всех доходов...</p>",
+                            video_url="https://www.youtube.com/embed/dQw4w9WgXcQ",
+                            order=1
+                        )
+                        Question.objects.create(
+                            lesson=lesson1,
+                            text="Что входит в обязательные расходы?",
+                            option_a="Аренда жилья",
+                            option_b="Покупка нового телефона",
+                            option_c="Отпуск",
+                            correct_answer="A"
+                        )
+                
+                        self.stdout.write(self.style.SUCCESS('Тестовые данные успешно загружены!'))
+                --- КОНЕЦ ---
+    
+        📁 migrations/
+          📄 0001_initial.py
+              --- СОДЕРЖИМОЕ ---
+              # Generated by Django 5.2.6 on 2025-09-21 14:04
+              
+              from django.db import migrations, models
+              
+              
+              class Migration(migrations.Migration):
+              
+                  initial = True
+              
+                  dependencies = [
+                  ]
+              
+                  operations = [
+                      migrations.CreateModel(
+                          name='Contact',
+                          fields=[
+                              ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                              ('name', models.CharField(max_length=200)),
+                              ('address', models.TextField()),
+                              ('phone', models.CharField(max_length=50)),
+                              ('email', models.EmailField(blank=True, max_length=254)),
+                              ('audience', models.CharField(max_length=50)),
+                          ],
+                      ),
+                      migrations.CreateModel(
+                          name='Event',
+                          fields=[
+                              ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                              ('title', models.CharField(max_length=200)),
+                              ('description', models.TextField()),
+                              ('date', models.DateField()),
+                              ('location', models.CharField(max_length=200)),
+                              ('audience', models.CharField(max_length=50)),
+                          ],
+                      ),
+                  ]
+              --- КОНЕЦ ---
+    
+          📄 __init__.py
+              --- СОДЕРЖИМОЕ ---
+              --- КОНЕЦ ---
+    
+          📁 __pycache__/
+            📄 0001_initial.cpython-313.pyc (бинарный, пропущен)
+            📄 __init__.cpython-313.pyc (бинарный, пропущен)
+        📄 models.py
+            --- СОДЕРЖИМОЕ ---
+            from django.db import models
+            
+            class Contact(models.Model):
+                name = models.CharField(max_length=200)
+                address = models.TextField()
+                phone = models.CharField(max_length=50)
+                email = models.EmailField(blank=True)
+                audience = models.CharField(max_length=50)  # все, школьники, пенсионеры
+            
+                def __str__(self):
+                    return self.name
+            
+            class Event(models.Model):
+                title = models.CharField(max_length=200)
+                description = models.TextField()
+                date = models.DateField()
+                location = models.CharField(max_length=200)
+                audience = models.CharField(max_length=50)
+            
+                def __str__(self):
+                    return self.title
+            --- КОНЕЦ ---
+    
+        📄 tests.py
+            --- СОДЕРЖИМОЕ ---
+            from django.test import TestCase
+            
+            # Create your tests here.
+            --- КОНЕЦ ---
+    
+        📄 urls.py
+            --- СОДЕРЖИМОЕ ---
+            from django.urls import path
+            from . import views
+            
+            app_name = 'core'
+            
+            urlpatterns = [
+                path('', views.home_view, name='home'),
+                path('contacts/', views.contacts_view, name='contacts'),
+                path('events/', views.events_view, name='events'),
+                path('chat-ask/', views.chat_ask, name='chat_ask'),
+            ]
+            --- КОНЕЦ ---
+    
+        📄 views.py
+            --- СОДЕРЖИМОЕ ---
+            import json
+            
+            from django.http import JsonResponse
+            from django.shortcuts import render
+            from django.views.decorators.csrf import csrf_exempt
+            
+            from .llm_assistant.rag import generate_answer
+            from .models import Contact, Event
+            from courses.models import Course
+            
+            
+            
+            def home_view(request):
+                courses = Course.objects.all()[:6]
+                upcoming_events = Event.objects.order_by('date')[:3]
+                return render(request, 'core/home.html', {
+                    'courses': courses,
+                    'events': upcoming_events,
+                })
+            
+            
+            def contacts_view(request):
+                contacts = Contact.objects.all()
+                return render(request, 'core/contacts.html', {'contacts': contacts})
+            
+            
+            def events_view(request):
+                events = Event.objects.order_by('date')
+                return render(request, 'core/events.html', {'events': events})
+            
+            
+            @csrf_exempt
+            def chat_ask(request):
+                if request.method != 'POST':
+                    return JsonResponse({'error': 'Метод не поддерживается'}, status=405)
+            
+                try:
+                    data = json.loads(request.body)
+                    question = data.get('question', '').strip()
+            
+                    if not question:
+                        return JsonResponse({'error': 'Вопрос не может быть пустым'}, status=400)
+            
+                    answer = generate_answer(question)
+            
+                    return JsonResponse({'answer': answer})
+            
+                except Exception as e:
+                    return JsonResponse({'error': f'Ошибка сервера: {str(e)}'}, status=500)
+            --- КОНЕЦ ---
+    
+      📁 courses/
+        📄 __init__.py
+            --- СОДЕРЖИМОЕ ---
+            --- КОНЕЦ ---
+    
+        📁 __pycache__/
+          📄 __init__.cpython-313.pyc (бинарный, пропущен)
+          📄 admin.cpython-313.pyc (бинарный, пропущен)
+          📄 apps.cpython-313.pyc (бинарный, пропущен)
+          📄 models.cpython-313.pyc (бинарный, пропущен)
+          📄 urls.cpython-313.pyc (бинарный, пропущен)
+          📄 views.cpython-313.pyc (бинарный, пропущен)
+        📄 admin.py
+            --- СОДЕРЖИМОЕ ---
+            from django.contrib import admin
+            from .models import Course, Lesson, Question
+            
+            class LessonInline(admin.TabularInline):
+                model = Lesson
+                extra = 1
+            
+            class QuestionInline(admin.TabularInline):
+                model = Question
+                extra = 1
+            
+            @admin.register(Course)
+            class CourseAdmin(admin.ModelAdmin):
+                list_display = ['title', 'audience', 'format_type', 'created_at']
+                list_filter = ['audience', 'format_type']
+                search_fields = ['title', 'description']
+                inlines = [LessonInline]  # Показывает уроки прямо внутри курса
+            
+            @admin.register(Lesson)
+            class LessonAdmin(admin.ModelAdmin):
+                list_display = ['title', 'course', 'order']
+                list_filter = ['course']
+                search_fields = ['title', 'content']
+                inlines = [QuestionInline]  # Вопросы внутри урока
+            
+            @admin.register(Question)
+            class QuestionAdmin(admin.ModelAdmin):
+                list_display = ['text', 'lesson', 'correct_answer']
+                list_filter = ['lesson__course']
+                search_fields = ['text']
+            --- КОНЕЦ ---
+    
+        📄 apps.py
+            --- СОДЕРЖИМОЕ ---
+            from django.apps import AppConfig
+            
+            
+            class CoursesConfig(AppConfig):
+                default_auto_field = 'django.db.models.BigAutoField'
+                name = 'courses'
+            --- КОНЕЦ ---
+    
+        📁 migrations/
+          📄 0001_initial.py
+              --- СОДЕРЖИМОЕ ---
+              # Generated by Django 5.2.6 on 2025-09-21 14:04
+              
+              import django.db.models.deletion
+              from django.db import migrations, models
+              
+              
+              class Migration(migrations.Migration):
+              
+                  initial = True
+              
+                  dependencies = [
+                  ]
+              
+                  operations = [
+                      migrations.CreateModel(
+                          name='Course',
+                          fields=[
+                              ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                              ('title', models.CharField(max_length=200)),
+                              ('description', models.TextField()),
+                              ('audience', models.CharField(max_length=50)),
+                              ('format_type', models.CharField(max_length=50)),
+                              ('created_at', models.DateTimeField(auto_now_add=True)),
+                          ],
+                      ),
+                      migrations.CreateModel(
+                          name='Lesson',
+                          fields=[
+                              ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                              ('title', models.CharField(max_length=200)),
+                              ('content', models.TextField()),
+                              ('video_url', models.URLField(blank=True, null=True)),
+                              ('order', models.IntegerField(default=1)),
+                              ('course', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='lessons', to='courses.course')),
+                          ],
+                      ),
+                      migrations.CreateModel(
+                          name='Question',
+                          fields=[
+                              ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                              ('text', models.CharField(max_length=300)),
+                              ('option_a', models.CharField(max_length=200)),
+                              ('option_b', models.CharField(max_length=200)),
+                              ('option_c', models.CharField(blank=True, max_length=200)),
+                              ('option_d', models.CharField(blank=True, max_length=200)),
+                              ('correct_answer', models.CharField(max_length=1)),
+                              ('lesson', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='questions', to='courses.lesson')),
+                          ],
+                      ),
+                  ]
+              --- КОНЕЦ ---
+    
+          📄 __init__.py
+              --- СОДЕРЖИМОЕ ---
+              --- КОНЕЦ ---
+    
+          📁 __pycache__/
+            📄 0001_initial.cpython-313.pyc (бинарный, пропущен)
+            📄 __init__.cpython-313.pyc (бинарный, пропущен)
+        📄 models.py
+            --- СОДЕРЖИМОЕ ---
+            from django.db import models
+            
+            class Course(models.Model):
+                title = models.CharField(max_length=200)
+                description = models.TextField()
+                audience = models.CharField(max_length=50)  # школьник, пенсионер, МСП
+                format_type = models.CharField(max_length=50)  # текст, видео, тест
+                created_at = models.DateTimeField(auto_now_add=True)
+            
+                def __str__(self):
+                    return self.title
+            
+            class Lesson(models.Model):
+                course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='lessons')
+                title = models.CharField(max_length=200)
+                content = models.TextField()
+                video_url = models.URLField(blank=True, null=True)  # YouTube
+                order = models.IntegerField(default=1)
+            
+                def __str__(self):
+                    return f"{self.course.title} - {self.title}"
+            
+            class Question(models.Model):
+                lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='questions')
+                text = models.CharField(max_length=300)
+                option_a = models.CharField(max_length=200)
+                option_b = models.CharField(max_length=200)
+                option_c = models.CharField(max_length=200, blank=True)
+                option_d = models.CharField(max_length=200, blank=True)
+                correct_answer = models.CharField(max_length=1)  # A, B, C, D
+            
+                def __str__(self):
+                    return self.text
+            --- КОНЕЦ ---
+    
+        📄 tests.py
+            --- СОДЕРЖИМОЕ ---
+            from django.test import TestCase
+            
+            # Create your tests here.
+            --- КОНЕЦ ---
+    
+        📄 urls.py
+            --- СОДЕРЖИМОЕ ---
+            from django.urls import path
+            from . import views
+            
+            app_name = 'courses'
+            
+            urlpatterns = [
+                path('', views.course_list_view, name='list'),
+                path('<int:course_id>/', views.course_detail_view, name='detail'),
+                path('lesson/<int:lesson_id>/', views.lesson_view, name='lesson'),
+                path('lesson/<int:lesson_id>/test/', views.submit_test_view, name='test'),
+            ]
+            --- КОНЕЦ ---
+    
+        📄 views.py
+            --- СОДЕРЖИМОЕ ---
+            from django.shortcuts import render, get_object_or_404, redirect
+            from .models import Course, Lesson, Question
+            
+            def course_list_view(request):
+                courses = Course.objects.all()
+                return render(request, 'courses/list.html', {'courses': courses})
+            
+            def course_detail_view(request, course_id):
+                course = get_object_or_404(Course, id=course_id)
+                return render(request, 'courses/detail.html', {'course': course})
+            
+            def lesson_view(request, lesson_id):
+                lesson = get_object_or_404(Lesson, id=lesson_id)
+                questions = lesson.questions.all()
+                return render(request, 'courses/lesson.html', {
+                    'lesson': lesson,
+                    'questions': questions,
+                })
+            
+            def submit_test_view(request, lesson_id):
+                lesson = get_object_or_404(Lesson, id=lesson_id)
+                questions = lesson.questions.all()
+                total = questions.count()
+                correct = 0
+            
+                if request.method == "POST":
+                    for q in questions:
+                        user_answer = request.POST.get(f'q{q.id}')
+                        if user_answer == q.correct_answer:
+                            correct += 1
+            
+                    score_percent = int((correct / total) * 100) if total > 0 else 0
+                    return render(request, 'courses/result.html', {
+                        'score': correct,
+                        'total': total,
+                        'percent': score_percent,
+                        'lesson': lesson,
+                    })
+            
+                return redirect('courses:lesson', lesson_id=lesson_id)
+            --- КОНЕЦ ---
+    
+      📁 cyberforum/
+        📄 __init__.py
+            --- СОДЕРЖИМОЕ ---
+            --- КОНЕЦ ---
+    
+        📁 __pycache__/
+          📄 __init__.cpython-313.pyc (бинарный, пропущен)
+          📄 settings.cpython-313.pyc (бинарный, пропущен)
+          📄 urls.cpython-313.pyc (бинарный, пропущен)
+          📄 wsgi.cpython-313.pyc (бинарный, пропущен)
+        📄 asgi.py
+            --- СОДЕРЖИМОЕ ---
+            """
+            ASGI config for cyberforum project.
+            
+            It exposes the ASGI callable as a module-level variable named ``application``.
+            
+            For more information on this file, see
+            https://docs.djangoproject.com/en/5.2/howto/deployment/asgi/
+            """
+            
+            import os
+            
+            from django.core.asgi import get_asgi_application
+            
+            os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'cyberforum.settings')
+            
+            application = get_asgi_application()
+            --- КОНЕЦ ---
+    
+        📄 settings.py
+            --- СОДЕРЖИМОЕ ---
+            """
+            Django settings for cyberforum project.
+            
+            Generated by 'django-admin startproject' using Django 5.2.6.
+            
+            For more information on this file, see
+            https://docs.djangoproject.com/en/5.2/topics/settings/
+            
+            For the full list of settings and their values, see
+            https://docs.djangoproject.com/en/5.2/ref/settings/
+            """
+            
+            from pathlib import Path
+            
+            # Build paths inside the project like this: BASE_DIR / 'subdir'.
+            BASE_DIR = Path(__file__).resolve().parent.parent
+            
+            
+            # Quick-start development settings - unsuitable for production
+            # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
+            
+            # SECURITY WARNING: keep the secret key used in production secret!
+            SECRET_KEY = 'django-insecure-l#=@!evoxr(qh0c#lbm==+7=1q*^youjnqlb1h@$4)iz3bw@$r'
+            
+            # SECURITY WARNING: don't run with debug turned on in production!
+            DEBUG = True
+            
+            ALLOWED_HOSTS = []
+            
+            
+            # Application definition
+            
+            INSTALLED_APPS = [
+                'django.contrib.admin',
+                'django.contrib.auth',
+                'django.contrib.contenttypes',
+                'django.contrib.sessions',
+                'django.contrib.messages',
+                'django.contrib.staticfiles',
+                'core',
+                'courses',
+                'search',
+                'crispy_forms',
+                'widget_tweaks',
+            ]
+            
+            MIDDLEWARE = [
+                'django.middleware.security.SecurityMiddleware',
+                'django.contrib.sessions.middleware.SessionMiddleware',
+                'django.middleware.common.CommonMiddleware',
+                'django.middleware.csrf.CsrfViewMiddleware',
+                'django.contrib.auth.middleware.AuthenticationMiddleware',
+                'django.contrib.messages.middleware.MessageMiddleware',
+                'django.middleware.clickjacking.XFrameOptionsMiddleware',
+            ]
+            
+            ROOT_URLCONF = 'cyberforum.urls'
+            
+            TEMPLATES = [
+                {
+                    'BACKEND': 'django.template.backends.django.DjangoTemplates',
+                    'DIRS': ['templates'],
+                    'APP_DIRS': True,
+                    'OPTIONS': {
+                        'context_processors': [
+                            'django.template.context_processors.request',
+                            'django.contrib.auth.context_processors.auth',
+                            'django.contrib.messages.context_processors.messages',
+                        ],
+                    },
+                },
+            ]
+            
+            WSGI_APPLICATION = 'cyberforum.wsgi.application'
+            
+            
+            # Database
+            # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+            
+            DATABASES = {
+                'default': {
+                    'ENGINE': 'django.db.backends.sqlite3',
+                    'NAME': BASE_DIR / 'db.sqlite3',
+                }
+            }
+            
+            
+            # Password validation
+            # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
+            
+            AUTH_PASSWORD_VALIDATORS = [
+                {
+                    'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+                },
+                {
+                    'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+                },
+                {
+                    'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+                },
+                {
+                    'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+                },
+            ]
+            
+            
+            # Internationalization
+            # https://docs.djangoproject.com/en/5.2/topics/i18n/
+            
+            LANGUAGE_CODE = 'ru-ru'
+            TIME_ZONE = 'Europe/Samara'
+            USE_I18N = True
+            USE_TZ = True
+            
+            
+            STATIC_URL = '/static/'
+            STATICFILES_DIRS = [BASE_DIR / "static"]
+            STATIC_ROOT = BASE_DIR / "staticfiles"
+            
+            MEDIA_URL = '/media/'
+            MEDIA_ROOT = BASE_DIR / 'media'
+            
+            CRISPY_TEMPLATE_PACK = 'bootstrap4'
+            
+            DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+            --- КОНЕЦ ---
+    
+        📄 urls.py
+            --- СОДЕРЖИМОЕ ---
+            from django.contrib import admin
+            from django.urls import path, include
+            from django.conf import settings
+            from django.conf.urls.static import static
+            
+            urlpatterns = [
+                path('admin/', admin.site.urls),
+                path('', include('core.urls')),
+                path('courses/', include('courses.urls')),
+                path('search/', include('search.urls')),
+            ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+            --- КОНЕЦ ---
+    
+        📄 wsgi.py
+            --- СОДЕРЖИМОЕ ---
+            """
+            WSGI config for cyberforum project.
+            
+            It exposes the WSGI callable as a module-level variable named ``application``.
+            
+            For more information on this file, see
+            https://docs.djangoproject.com/en/5.2/howto/deployment/wsgi/
+            """
+            
+            import os
+            
+            from django.core.wsgi import get_wsgi_application
+            
+            os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'cyberforum.settings')
+            
+            application = get_wsgi_application()
+            --- КОНЕЦ ---
+    
+      📄 db.sqlite3 (бинарный, пропущен)
+      📁 faiss_index/
+        📄 index.faiss (бинарный, пропущен)
+        📄 index.pkl (бинарный, пропущен)
+      📄 manage.py
+          --- СОДЕРЖИМОЕ ---
+          #!/usr/bin/env python
+          """Django's command-line utility for administrative tasks."""
+          import os
+          import sys
+          
+          
+          def main():
+              """Run administrative tasks."""
+              os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'cyberforum.settings')
+              try:
+                  from django.core.management import execute_from_command_line
+              except ImportError as exc:
+                  raise ImportError(
+                      "Couldn't import Django. Are you sure it's installed and "
+                      "available on your PYTHONPATH environment variable? Did you "
+                      "forget to activate a virtual environment?"
+                  ) from exc
+              execute_from_command_line(sys.argv)
+          
+          
+          if __name__ == '__main__':
+              main()
+          --- КОНЕЦ ---
+    
+      📁 search/
+        📄 __init__.py
+            --- СОДЕРЖИМОЕ ---
+            --- КОНЕЦ ---
+    
+        📁 __pycache__/
+          📄 __init__.cpython-313.pyc (бинарный, пропущен)
+          📄 admin.cpython-313.pyc (бинарный, пропущен)
+          📄 apps.cpython-313.pyc (бинарный, пропущен)
+          📄 models.cpython-313.pyc (бинарный, пропущен)
+          📄 urls.cpython-313.pyc (бинарный, пропущен)
+          📄 views.cpython-313.pyc (бинарный, пропущен)
+        📄 admin.py
+            --- СОДЕРЖИМОЕ ---
+            from django.contrib import admin
+            
+            # Register your models here.
+            --- КОНЕЦ ---
+    
+        📄 apps.py
+            --- СОДЕРЖИМОЕ ---
+            from django.apps import AppConfig
+            
+            
+            class SearchConfig(AppConfig):
+                default_auto_field = 'django.db.models.BigAutoField'
+                name = 'search'
+            --- КОНЕЦ ---
+    
+        📁 migrations/
+          📄 __init__.py
+              --- СОДЕРЖИМОЕ ---
+              --- КОНЕЦ ---
+    
+          📁 __pycache__/
+            📄 __init__.cpython-313.pyc (бинарный, пропущен)
+        📄 models.py
+            --- СОДЕРЖИМОЕ ---
+            from django.db import models
+            
+            # Create your models here.
+            --- КОНЕЦ ---
+    
+        📄 tests.py
+            --- СОДЕРЖИМОЕ ---
+            from django.test import TestCase
+            
+            # Create your tests here.
+            --- КОНЕЦ ---
+    
+        📄 urls.py
+            --- СОДЕРЖИМОЕ ---
+            from django.urls import path
+            from . import views
+            
+            app_name = 'search'
+            
+            urlpatterns = [
+                path('', views.search_view, name='results'),
+            ]
+            --- КОНЕЦ ---
+    
+        📄 views.py
+            --- СОДЕРЖИМОЕ ---
+            from django.shortcuts import render
+            from courses.models import Course
+            from core.models import Contact, Event
+            
+            def search_view(request):
+                query = request.GET.get('q', '').strip()
+                audience = request.GET.get('audience', '')
+                format_type = request.GET.get('format', '')
+            
+                courses = Course.objects.all()
+                contacts = Contact.objects.all()
+                events = Event.objects.all()
+            
+                if query:
+                    courses = courses.filter(title__icontains=query) | courses.filter(description__icontains=query)
+                    contacts = contacts.filter(name__icontains=query) | contacts.filter(address__icontains=query)
+                    events = events.filter(title__icontains=query) | events.filter(description__icontains=query)
+            
+                if audience:
+                    courses = courses.filter(audience=audience)
+                    contacts = contacts.filter(audience=audience)
+                    events = events.filter(audience=audience)
+            
+                if format_type:
+                    courses = courses.filter(format_type=format_type)
+            
+                context = {
+                    'query': query,
+                    'courses': courses,
+                    'contacts': contacts,
+                    'events': events,
+                    'audience_filter': audience,
+                    'format_filter': format_type,
+                }
+                return render(request, 'search/results.html', context)
+            --- КОНЕЦ ---
+    
+      📁 static/
+        📁 css/
+          📄 style.css
+              --- СОДЕРЖИМОЕ ---
+              body {
+                  font-size: 1rem;
+                  line-height: 1.6;
+              }
+              
+              .card {
+                  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+                  transition: transform 0.2s;
+              }
+              
+              .card:hover {
+                  transform: translateY(-3px);
+              }
+              
+              footer {
+                  font-size: 0.9rem;
+              }
+              --- КОНЕЦ ---
+    
+      📁 templates/
+        📄 base.html
+            --- СОДЕРЖИМОЕ ---
+            {% load static %}
+            <!DOCTYPE html>
+            <html lang="ru">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1">
+                <title>Финансовая грамотность Удмуртии</title>
+                <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+                <link href="{% static 'css/style.css' %}" rel="stylesheet">
+            </head>
+            <body>
+                <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+                    <div class="container">
+                        <a class="navbar-brand" href="{% url 'core:home' %}">ФинГрамота Удмуртии</a>
+                        <div class="navbar-nav ms-auto">
+                            <a class="nav-link" href="{% url 'core:home' %}">Главная</a>
+                            <a class="nav-link" href="{% url 'courses:list' %}">Курсы</a>
+                            <a class="nav-link" href="{% url 'core:contacts' %}">Контакты</a>
+                            <a class="nav-link" href="{% url 'core:events' %}">События</a>
+                            <form class="d-flex ms-3" action="{% url 'search:results' %}" method="get">
+                                <input class="form-control me-2" type="search" name="q" placeholder="Поиск..." aria-label="Поиск">
+                                <button class="btn btn-outline-light" type="submit">Найти</button>
+                            </form>
+                        </div>
+                    </div>
+                </nav>
+            
+                <div class="container mt-4">
+                    {% block content %}{% endblock %}
+                </div>
+            
+                <div id="chatbot-widget" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; width: 320px; height: 450px; display: flex; flex-direction: column; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 16px; background-color: white; overflow: hidden;">
+            
+                <div style="background-color: #d4c8b7; color: #5a6b4d; padding: 12px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
+                    💰💼 Гений финансов
+                    <button onclick="toggleChat()" style="background: none; border: none; color: #333; cursor: pointer; font-size: 16px;">×</button>
+                </div>
+            
+                <div id="chat-messages" style="flex-grow: 1; padding: 12px; overflow-y: auto; background-color: #f8f6f0; max-height: 320px;"></div>
+            
+                <div style="display: flex; padding: 10px; border-top: 1px solid #e0e0e0;">
+                    <input type="text" id="chat-input" placeholder="Ваш вопрос"
+                           style="flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 20px; outline: none;"
+                           onkeydown="if(event.key==='Enter') sendQuestion()">
+                    <button onclick="sendQuestion()"
+                            style="margin-left: 8px; padding: 8px 16px; background-color: #6a7d5d; color: white; border: none; border-radius: 20px; cursor: pointer; font-size: 14px;">
+                        Отправить
+                    </button>
+                </div>
+            </div>
+            
+            <div id="chat-open-btn" style="position: fixed; bottom: 20px; right: 20px; z-index: 9998; width: 50px; height: 50px; border-radius: 50%; background-color: #6a7d5d; color: white; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer; display: none;">💬</div>
+            
+            <script>
+                function toggleChat() {
+                const widget = document.getElementById('chatbot-widget');
+                const openBtn = document.getElementById('chat-open-btn');
+            
+                if (widget.style.display === 'none' || !widget.style.display) {
+                    widget.style.display = 'flex';
+                    openBtn.style.display = 'none';
+                    // ✅ Отправляем приветствие при открытии чата
+                    sendGreeting();
+                } else {
+                    widget.style.display = 'none';
+                    openBtn.style.display = 'flex';
+                }
+            }
+            
+                // ✅ Флаг для проверки, было ли приветствие отправлено
+                let greetingSent = false;
+            
+            // ✅ Функция отправки приветствия при открытии чата
+                function sendGreeting() {
+                    if (greetingSent) return; // Уже отправлено — не повторяем
+            
+                    const messageArea = document.getElementById('chat-messages');
+            
+                    const greeting = "Здравствуйте! Я — Финансовый Помощник. Задайте вопрос — помогу!";
+            
+                    appendMessage(greeting, 'bot');
+            
+                    greetingSent = true; // Помечаем, что приветствие отправлено
+            }
+            
+                window.onload = function() {
+                    // При загрузке — чат открыт по умолчанию? Нет — скрываем его
+                    document.getElementById('chatbot-widget').style.display = 'none';
+                    document.getElementById('chat-open-btn').style.display = 'flex';
+                };
+            
+                async function sendQuestion() {
+                    const input = document.getElementById('chat-input');
+                    const messageArea = document.getElementById('chat-messages');
+                    const question = input.value.trim();
+            
+                    if (!question) return;
+            
+                    appendMessage(question, 'user');
+                    input.value = '';
+            
+                    appendMessage("🔍 Ищу информацию...", 'bot');
+            
+                    try {
+                        const response = await fetch('/chat-ask/', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRFToken': getCookie('csrftoken')
+                            },
+                            body: JSON.stringify({ question: question })
+                        });
+            
+                        const data = await response.json();
+            
+                        const lastMsg = messageArea.lastElementChild;
+                        if (lastMsg && lastMsg.classList.contains('bot')) {
+                            messageArea.removeChild(lastMsg);
+                        }
+            
+                        if (data.error) {
+                            appendMessage(`❌ ${data.error}`, 'bot');
+                        } else {
+                            appendMessage(data.answer, 'bot');
+                        }
+            
+                    } catch (error) {
+                        const lastMsg = messageArea.lastElementChild;
+                        if (lastMsg && lastMsg.classList.contains('bot')) {
+                            messageArea.removeChild(lastMsg);
+                        }
+                        appendMessage("❌ Ошибка соединения с сервером.", 'bot');
+                    }
+                }
+            
+                function appendMessage(text, sender) {
+                    const messageArea = document.getElementById('chat-messages');
+                    const msgDiv = document.createElement('div');
+                    msgDiv.style.marginBottom = '12px';
+                    msgDiv.style.maxWidth = '80%';
+                    msgDiv.style.padding = '10px 14px';
+                    msgDiv.style.borderRadius = sender === 'user' ? '18px 18px 0 18px' : '18px 18px 18px 0';
+                    msgDiv.style.backgroundColor = sender === 'user' ? '#6a7d5d' : '#f0f0f0';
+                    msgDiv.style.color = sender === 'user' ? 'white' : '#333';
+                    msgDiv.style.wordWrap = 'break-word';
+                    msgDiv.style.fontSize = '14px';
+                    msgDiv.style.alignSelf = sender === 'user' ? 'flex-end' : 'flex-start';
+                    msgDiv.textContent = text;
+                    msgDiv.className = sender;
+                    messageArea.appendChild(msgDiv);
+                    messageArea.scrollTop = messageArea.scrollHeight;
+                }
+            
+                function getCookie(name) {
+                    let cookieValue = null;
+                    if (document.cookie && document.cookie !== '') {
+                        const cookies = document.cookie.split(';');
+                        for (let i = 0; i < cookies.length; i++) {
+                            const cookie = cookies[i].trim();
+                            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                                break;
+                            }
+                        }
+                    }
+                    return cookieValue;
+                }
+            
+                document.getElementById('chat-input').addEventListener('keydown', function(e) {
+                    if (e.key === 'Enter') sendQuestion();
+                });
+            
+                // Фикс: Показывать кнопку только если чат закрыт
+                function updateChatButtonVisibility() {
+                    const widget = document.getElementById('chatbot-widget');
+                    const openBtn = document.getElementById('chat-open-btn');
+            
+                    if (widget.style.display === 'none' || !widget.style.display) {
+                        openBtn.style.display = 'flex';
+                    } else {
+                        openBtn.style.display = 'none';
+                    }
+                }
+            
+                // Обновляем состояние кнопки при каждом скролле и при открытии/закрытии
+                window.addEventListener('scroll', updateChatButtonVisibility);
+                window.addEventListener('load', updateChatButtonVisibility);
+            
+                // Добавляем обработчик на кнопку открытия
+                document.getElementById('chat-open-btn').addEventListener('click', function() {
+                    toggleChat();
+                    // После открытия — скрываем кнопку
+                    updateChatButtonVisibility();
+                });
+            
+                // Также обновляем при изменении размера окна (для мобильных)
+                window.addEventListener('resize', updateChatButtonVisibility);
+            
+            </script>
+            <style>
+                #chatbot-widget {
+                    animation: slideIn 0.3s ease-out;
+                }
+                @keyframes slideIn {
+                    from { transform: translateX(300px); opacity: 0; }
+                    to { transform: translateX(0); opacity: 1; }
+                }
+            </style>
+            
+            
+                <footer class="bg-light text-center py-3 mt-5">
+                    <p class="mb-0">© 2025 Портал финансовой грамотности Удмуртии</p>
+                </footer>
+            
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+            </body>
+            </html>
+            --- КОНЕЦ ---
+    
+        📁 core/
+          📄 contacts.html
+              --- СОДЕРЖИМОЕ ---
+              {% extends 'base.html' %}
+              
+              {% block content %}
+              <h1>Контакты</h1>
+              <div class="row">
+                  {% for contact in contacts %}
+                      <div class="col-md-6 mb-4">
+                          <div class="card">
+                              <div class="card-body">
+                                  <h5 class="card-title">{{ contact.name }}</h5>
+                                  <p><strong>Адрес:</strong> {{ contact.address }}</p>
+                                  <p><strong>Телефон:</strong> {{ contact.phone }}</p>
+                                  {% if contact.email %}
+                                      <p><strong>Email:</strong> {{ contact.email }}</p>
+                                  {% endif %}
+                                  <p class="text-muted">Аудитория: {{ contact.audience }}</p>
+                              </div>
+                          </div>
+                      </div>
+                  {% endfor %}
+              </div>
+              {% endblock %}
+              --- КОНЕЦ ---
+    
+          📄 events.html
+              --- СОДЕРЖИМОЕ ---
+              {% extends 'base.html' %}
+              
+              {% block content %}
+              <h1>События</h1>
+              <div class="row">
+                  {% for event in events %}
+                      <div class="col-md-6 mb-4">
+                          <div class="card">
+                              <div class="card-body">
+                                  <h5 class="card-title">{{ event.title }}</h5>
+                                  <p><strong>Дата:</strong> {{ event.date|date:"d.m.Y" }}</p>
+                                  <p><strong>Место:</strong> {{ event.location }}</p>
+                                  <p>{{ event.description|truncatewords:20 }}</p>
+                                  <p class="text-muted">Для: {{ event.audience }}</p>
+                              </div>
+                          </div>
+                      </div>
+                  {% empty %}
+                      <p>События не найдены.</p>
+                  {% endfor %}
+              </div>
+              {% endblock %}
+              --- КОНЕЦ ---
+    
+          📄 home.html
+              --- СОДЕРЖИМОЕ ---
+              {% extends 'base.html' %}
+              
+              {% block content %}
+              <h1 class="mb-4">Добро пожаловать на портал финансовой грамотности Удмуртии!</h1>
+              
+              <div class="row mb-5">
+                  <div class="col-md-8">
+                      <p>Здесь вы найдете полезные материалы, курсы и контакты для повышения вашей финансовой грамотности.</p>
+                      <a href="{% url 'courses:list' %}" class="btn btn-primary">Начать обучение</a>
+                  </div>
+                  <div class="col-md-4">
+                      <div class="card">
+                          <div class="card-body">
+                              <h5 class="card-title">Ближайшие события</h5>
+                              {% for event in events %}
+                                  <p class="card-text"><strong>{{ event.title }}</strong><br>{{ event.date|date:"d.m.Y" }} в {{ event.location }}</p>
+                              {% empty %}
+                                  <p>События пока не запланированы.</p>
+                              {% endfor %}
+                          </div>
+                      </div>
+                  </div>
+              </div>
+              
+              <h3>Популярные курсы</h3>
+              <div class="row">
+                  {% for course in courses %}
+                      <div class="col-md-4 mb-4">
+                          <div class="card h-100">
+                              <div class="card-body">
+                                  <h5 class="card-title">{{ course.title }}</h5>
+                                  <p class="card-text">{{ course.description|truncatewords:15 }}</p>
+                                  <a href="{% url 'courses:detail' course.id %}" class="btn btn-outline-primary">Подробнее</a>
+                              </div>
+                          </div>
+                      </div>
+                  {% endfor %}
+              </div>
+              {% endblock %}
+              --- КОНЕЦ ---
+    
+        📁 courses/
+          📄 detail.html
+              --- СОДЕРЖИМОЕ ---
+              {% extends 'base.html' %}
+              
+              {% block content %}
+              <h1>{{ course.title }}</h1>
+              <p>{{ course.description }}</p>
+              
+              <h3>Уроки</h3>
+              <div class="list-group">
+                  {% for lesson in course.lessons.all %}
+                      <a href="{% url 'courses:lesson' lesson.id %}" class="list-group-item list-group-item-action">
+                          {{ lesson.title }}
+                      </a>
+                  {% empty %}
+                      <p>Уроки пока не добавлены.</p>
+                  {% endfor %}
+              </div>
+              {% endblock %}
+              --- КОНЕЦ ---
+    
+          📄 lesson.html
+              --- СОДЕРЖИМОЕ ---
+              {% extends 'base.html' %}
+              
+              {% block content %}
+              <h1>{{ lesson.title }}</h1>
+              <div class="mb-4">{{ lesson.content|safe }}</div>
+              
+              {% if lesson.video_url %}
+              <div class="ratio ratio-16x9 mb-4">
+                  <iframe src="{{ lesson.video_url }}" title="Видеоурок">
+                  </iframe>
+              </div>
+              {% endif %}
+              
+              {% if lesson.questions.exists %}
+              <h3>Тест</h3>
+              <form method="post" action="{% url 'courses:test' lesson.id %}">
+                  {% csrf_token %}
+                  {% for q in questions %}
+                  <div class="card mb-3">
+                      <div class="card-body">
+                          <p><strong>{{ forloop.counter }}. {{ q.text }}</strong></p>
+                          <div class="form-check">
+                              <input class="form-check-input" type="radio" name="q{{ q.id }}" value="A" id="q{{ q.id }}a" required>
+                              <label class="form-check-label" for="q{{ q.id }}a">{{ q.option_a }}</label>
+                          </div>
+                          <div class="form-check">
+                              <input class="form-check-input" type="radio" name="q{{ q.id }}" value="B" id="q{{ q.id }}b">
+                              <label class="form-check-label" for="q{{ q.id }}b">{{ q.option_b }}</label>
+                          </div>
+                          {% if q.option_c %}
+                          <div class="form-check">
+                              <input class="form-check-input" type="radio" name="q{{ q.id }}" value="C" id="q{{ q.id }}c">
+                              <label class="form-check-label" for="q{{ q.id }}c">{{ q.option_c }}</label>
+                          </div>
+                          {% endif %}
+                          {% if q.option_d %}
+                          <div class="form-check">
+                              <input class="form-check-input" type="radio" name="q{{ q.id }}" value="D" id="q{{ q.id }}d">
+                              <label class="form-check-label" for="q{{ q.id }}d">{{ q.option_d }}</label>
+                          </div>
+                          {% endif %}
+                      </div>
+                  </div>
+                  {% endfor %}
+                  <button type="submit" class="btn btn-success">Проверить результаты</button>
+              </form>
+              {% endif %}
+              {% endblock %}
+              --- КОНЕЦ ---
+    
+          📄 list.html
+              --- СОДЕРЖИМОЕ ---
+              {% extends 'base.html' %}
+              
+              {% block content %}
+              <h1>Курсы</h1>
+              
+              <form method="get" class="mb-4">
+                  <div class="row">
+                      <div class="col-md-4">
+                          <select name="audience" class="form-select">
+                              <option value="">Все аудитории</option>
+                              <option value="школьник" {% if request.GET.audience == 'школьник' %}selected{% endif %}>Школьники</option>
+                              <option value="пенсионер" {% if request.GET.audience == 'пенсионер' %}selected{% endif %}>Пенсионеры</option>
+                              <option value="МСП" {% if request.GET.audience == 'МСП' %}selected{% endif %}>МСП</option>
+                          </select>
+                      </div>
+                      <div class="col-md-4">
+                          <select name="format" class="form-select">
+                              <option value="">Все форматы</option>
+                              <option value="текст" {% if request.GET.format == 'текст' %}selected{% endif %}>Текст</option>
+                              <option value="видео" {% if request.GET.format == 'видео' %}selected{% endif %}>Видео</option>
+                              <option value="тест" {% if request.GET.format == 'тест' %}selected{% endif %}>Тест</option>
+                          </select>
+                      </div>
+                      <div class="col-md-4">
+                          <button type="submit" class="btn btn-primary w-100">Применить фильтры</button>
+                      </div>
+                  </div>
+              </form>
+              
+              <div class="row">
+                  {% for course in courses %}
+                      <div class="col-md-4 mb-4">
+                          <div class="card">
+                              <div class="card-body">
+                                  <h5 class="card-title">{{ course.title }}</h5>
+                                  <p class="text-muted">Для: {{ course.audience }} | Формат: {{ course.format_type }}</p>
+                                  <p>{{ course.description|truncatewords:10 }}</p>
+                                  <a href="{% url 'courses:detail' course.id %}" class="btn btn-primary">Открыть</a>
+                              </div>
+                          </div>
+                      </div>
+                  {% empty %}
+                      <p>Курсы не найдены.</p>
+                  {% endfor %}
+              </div>
+              {% endblock %}
+              --- КОНЕЦ ---
+    
+          📄 result.html
+              --- СОДЕРЖИМОЕ ---
+    --- КОНЕЦ ---
+
+📄 requirements.txt
+    --- СОДЕРЖИМОЕ ---
+    Django==5.2.6
+    Pillow>=9.0.0
+    django-crispy-forms>=2.1
+    gunicorn>=21.2.0
+    whitenoise>=6.7.0
+    --- КОНЕЦ ---
+
+📄 vibe_maker.py
+    --- СОДЕРЖИМОЕ ---
+    import os
+    import sys
+    from pathlib import Path
+    
+    
+    def is_text_file(file_path):
+        """Проверяет, является ли файл текстовым (не бинарным)"""
+        text_extensions = {
+            '.py', '.txt', '.json', '.yaml', '.yml', '.xml', '.html', '.css', '.js',
+            '.ini', '.cfg', '.toml', '.env', '.log', '.sql', '.csv', '.bat', '.sh', '.rst'
+        }
+        return file_path.suffix.lower() in text_extensions or file_path.name.endswith('.gitignore')
+    
+    
+    def export_project_structure(root_dir, output_file="project_structure.txt"):
+        """
+        Экспортирует структуру проекта и содержимое файлов в текстовый файл.
+        """
+        root_path = Path(root_dir)
+        if not root_path.exists() or not root_path.is_dir():
+            print(f"❌ Ошибка: Папка '{root_dir}' не существует или не является директорией.")
+            return
+    
+        with open(output_file, 'w', encoding='utf-8') as f:
+            f.write(f"=== СТРУКТУРА ПРОЕКТА: {root_path.name} ===\n")
+            f.write(f"Путь: {root_path.absolute()}\n")
+            f.write("=" * 60 + "\n\n")
+    
+            def write_tree(path, indent=""):
+                items = sorted(path.iterdir())  # Сортируем для стабильности
+                for item in items:
+                    rel_path = item.relative_to(root_path)
+                    if item.is_dir():
+                        f.write(f"{indent}📁 {item.name}/\n")
+                        write_tree(item, indent + "  ")
+                    elif item.is_file():
+                        # Проверяем, текстовый ли файл
+                        if is_text_file(item):
+                            f.write(f"{indent}📄 {item.name}\n")
+                            try:
+                                content = item.read_text(encoding='utf-8')
+                                f.write(f"{indent}    --- СОДЕРЖИМОЕ ---\n")
+                                for line in content.splitlines():
+                                    f.write(f"{indent}    {line}\n")
+                                f.write(f"{indent}    --- КОНЕЦ ---\n\n")
+                            except UnicodeDecodeError:
+                                f.write(f"{indent}    ❗ Не удалось прочитать (неподдерживаемая кодировка)\n\n")
+                        else:
+                            # Не текстовый файл — просто упоминаем
+                            f.write(f"{indent}📄 {item.name} (бинарный, пропущен)\n")
+    
+            write_tree(root_path)
+    
+        print(f"✅ Успешно! Структура проекта сохранена в файл: {output_file}")
+    
+    
+    if __name__ == "__main__":
+        # Если путь не передан — используем текущую директорию
+        folder_path = sys.argv[1] if len(sys.argv) > 1 else "."
+        export_project_structure(folder_path)
+    --- КОНЕЦ ---
+
