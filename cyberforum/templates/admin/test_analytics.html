@@ -1,0 +1,68 @@
+<!-- templates/admin/test_analytics.html -->
+{% extends "admin/base_site.html" %}
+{% load static %}
+
+{% block title %}Аналитика тестов{% endblock %}
+
+{% block extrahead %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+    <h1>📊 Аналитика результатов тестов</h1>
+
+    <div class="row mt-4">
+        <div class="col-md-6">
+            <h3>Средний балл по курсам</h3>
+            <canvas id="courseChart" height="100"></canvas>
+        </div>
+        <div class="col-md-6">
+            <h3>Динамика прохождений (последние дни)</h3>
+            <canvas id="dailyChart" height="100"></canvas>
+        </div>
+    </div>
+</div>
+
+<script>
+const courseCtx = document.getElementById('courseChart').getContext('2d');
+new Chart(courseCtx, {
+    type: 'bar',
+    data: {
+        labels: {{ course_labels|safe }},
+        datasets: [{
+            label: 'Средний %',
+            data: {{ course_data|safe }},
+            backgroundColor: '#6a7d5d'
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: { beginAtZero: true, max: 100 }
+        }
+    }
+});
+
+const dailyCtx = document.getElementById('dailyChart').getContext('2d');
+new Chart(dailyCtx, {
+    type: 'line',
+    data: {
+        labels: {{ daily_labels|safe }},
+        datasets: [{
+            label: 'Количество прохождений',
+            data: {{ daily_data|safe }},
+            borderColor: '#d4c8b7',
+            backgroundColor: 'rgba(212, 200, 183, 0.2)',
+            fill: true
+        }]
+    },
+    options: {
+        responsive: true,
+        scales: {
+            y: { beginAtZero: true }
+        }
+    }
+});
+</script>
+{% endblock %}
