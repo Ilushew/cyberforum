@@ -33,24 +33,25 @@ def export_project_structure(root_dir, output_file="project_structure.txt"):
             items = sorted(path.iterdir())  # Сортируем для стабильности
             for item in items:
                 rel_path = item.relative_to(root_path)
-                if item.is_dir():
-                    f.write(f"{indent}📁 {item.name}/\n")
-                    write_tree(item, indent + "  ")
-                elif item.is_file():
-                    # Проверяем, текстовый ли файл
-                    if is_text_file(item):
-                        f.write(f"{indent}📄 {item.name}\n")
-                        try:
-                            content = item.read_text(encoding='utf-8')
-                            f.write(f"{indent}    --- СОДЕРЖИМОЕ ---\n")
-                            for line in content.splitlines():
-                                f.write(f"{indent}    {line}\n")
-                            f.write(f"{indent}    --- КОНЕЦ ---\n\n")
-                        except UnicodeDecodeError:
-                            f.write(f"{indent}    ❗ Не удалось прочитать (неподдерживаемая кодировка)\n\n")
-                    else:
-                        # Не текстовый файл — просто упоминаем
-                        f.write(f"{indent}📄 {item.name} (бинарный, пропущен)\n")
+                if item.name != '.venv':
+                    if item.is_dir():
+                        f.write(f"{indent}📁 {item.name}/\n")
+                        write_tree(item, indent + "  ")
+                    elif item.is_file():
+                        # Проверяем, текстовый ли файл
+                        if is_text_file(item) and item.name != 'project_structure.txt' and item.name != 'vibe_maker.py':
+                            f.write(f"{indent}📄 {item.name}\n")
+                            try:
+                                content = item.read_text(encoding='utf-8')
+                                f.write(f"{indent}    --- СОДЕРЖИМОЕ ---\n")
+                                for line in content.splitlines():
+                                    f.write(f"{indent}    {line}\n")
+                                f.write(f"{indent}    --- КОНЕЦ ---\n\n")
+                            except UnicodeDecodeError:
+                                f.write(f"{indent}    ❗ Не удалось прочитать (неподдерживаемая кодировка)\n\n")
+                        else:
+                            # Не текстовый файл — просто упоминаем
+                            f.write(f"{indent}📄 {item.name} (бинарный, пропущен)\n")
 
         write_tree(root_path)
 
