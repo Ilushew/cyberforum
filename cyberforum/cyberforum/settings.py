@@ -123,3 +123,8 @@ MEDIA_ROOT = BASE_DIR / 'media'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'core.User'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+DEFAULT_FROM_EMAIL = 'noreply@fingramota.ru'
