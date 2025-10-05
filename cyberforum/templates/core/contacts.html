@@ -1,10 +1,14 @@
 {% extends 'base.html' %}
-
 {% block content %}
 <h1>Контакты</h1>
+
+{% if contacts %}
+<div id="map-contacts" style="width: 100%; height: 400px; margin-bottom: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+{% endif %}
+
 <div class="row">
     {% for contact in contacts %}
-         <div class="col-12 col-md-6 col-lg-4 mb-4">
+        <div class="col-12 col-md-6 col-lg-4 mb-4">
             <div class="card">
                 <div class="card-body">
                     <h5 class="card-title">{{ contact.name }}</h5>
@@ -19,4 +23,48 @@
         </div>
     {% endfor %}
 </div>
+
+<!-- Подключение Яндекс.Карт -->
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+<script type="text/javascript">
+    ymaps.ready(initContactsMap);
+    function initContactsMap() {
+        const map = new ymaps.Map("map-contacts", {
+            center: [56.8498, 53.2045],
+            zoom: 10,
+            controls: ['zoomControl', 'fullscreenControl']
+        });
+
+        const contacts = [
+            {% for contact in contacts %}
+                {
+                    name: "{{ contact.name|escapejs }}",
+                    address: "{{ contact.address|escapejs }}",
+                    coords: [{{ contact.latitude }}, {{ contact.longitude }}]
+                },
+            {% endfor %}
+        ];
+
+        contacts.forEach(contact => {
+            const placemark = new ymaps.Placemark(
+                contact.coords,
+                {
+                    balloonContentHeader: contact.name,
+                    balloonContentBody: contact.address,
+                    hintContent: contact.name
+                },
+                {
+                    preset: 'islands#icon',
+                    iconColor: '#6a7d5d'
+                }
+            );
+            map.geoObjects.add(placemark);
+        });
+
+        if (contacts.length > 0) {
+            const bounds = ymaps.util.bounds.fromPoints(contacts.map(c => c.coords));
+            map.setBounds(bounds, { checkZoomRange: true });
+        }
+    }
+</script>
 {% endblock %}

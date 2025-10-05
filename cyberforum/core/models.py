@@ -1,7 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-
+from .utils import geocode_address
 
 class User(AbstractUser):
     email = models.EmailField(unique=True, verbose_name="Email")
@@ -25,12 +25,20 @@ AUDIENCE_CHOICES = [
 class Contact(models.Model):
     name = models.CharField(max_length=200)
     address = models.TextField()
+    latitude = models.CharField(max_length=20, null=True, blank=True)
+    longitude = models.CharField(max_length=20, null=True, blank=True)
     phone = models.CharField(max_length=50)
     email = models.EmailField(blank=True)
     audience = models.CharField(max_length=50, choices=AUDIENCE_CHOICES, default='все')
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwargs):
+        lat, lon = geocode_address(self.address)
+        self.latitude = lat
+        self.longitude = lon
+        super().save(*args, **kwargs)
 
 class Event(models.Model):
     title = models.CharField(max_length=200)

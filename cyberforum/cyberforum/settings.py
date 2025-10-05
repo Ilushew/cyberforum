@@ -133,3 +133,4 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'ilya.grishk@yandex.ru'    # Замените на реальный email
 EMAIL_HOST_PASSWORD = 'rfyolaerqnjbzhbt'   # Пароль приложения, не пароль от аккаунта!
 DEFAULT_FROM_EMAIL = 'ilya.grishk@yandex.ru'
+YANDEX_GEOCODER_API_KEY = '315adbb6-0466-4fd1-9580-bef99d765a5c'
