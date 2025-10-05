@@ -22,14 +22,16 @@ User = get_user_model()
 def home_view(request):
     courses = Course.objects.all()[:6]
     upcoming_events = Event.objects.order_by('date')[:3]
+    contacts = Contact.objects.exclude(latitude__isnull=True).exclude(longitude__isnull=True)
     return render(request, 'core/home.html', {
         'courses': courses,
         'events': upcoming_events,
+        'contacts': contacts,
     })
 
 
 def contacts_view(request):
-    contacts = Contact.objects.all()
+    contacts = Contact.objects.exclude(latitude__isnull=True).exclude(longitude__isnull=True)
     return render(request, 'core/contacts.html', {'contacts': contacts})
 
 

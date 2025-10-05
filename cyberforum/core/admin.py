@@ -20,6 +20,7 @@ class ContactAdmin(admin.ModelAdmin):
     list_display = ['name', 'phone', 'email', 'audience']
     search_fields = ['name', 'address']
     list_filter = ['audience']
+    fields = ['name', 'address', 'latitude', 'longitude', 'phone', 'email', 'audience']
 
 
 @admin.register(Event)
