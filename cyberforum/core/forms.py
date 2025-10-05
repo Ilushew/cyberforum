@@ -1,3 +1,5 @@
+import uuid
+
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.tokens import default_token_generator
@@ -15,7 +17,13 @@ class UserRegistrationForm(UserCreationForm):
 
     def save(self, commit=True):
         user = super().save(commit=False)
-        user.is_active = False  # Пока не подтверждён email — неактивен
+        user.is_active = False
+
+        # Генерируем уникальный username из email или UUID
+        if not user.username:
+
+            user.username = str(uuid.uuid4())  # гарантирует уникальность
+
         if commit:
             user.save()
             self.send_confirmation_email(user)

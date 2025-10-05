@@ -1,5 +1,6 @@
 import json
 
+from django.db.models import Avg
 from django.http import JsonResponse
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout, get_user_model
@@ -13,6 +14,7 @@ from .forms import UserRegistrationForm, UserProfileForm
 from .llm_assistant.rag import generate_answer
 from .models import Contact, Event
 from courses.models import Course
+from courses.models import TestResult
 
 User = get_user_model()
 
@@ -109,7 +111,18 @@ def profile_view(request):
             return redirect('core:profile')
     else:
         form = UserProfileForm(instance=request.user)
-    return render(request, 'core/profile.html', {'form': form})
+
+    # Статистика пользователя
+    test_results = TestResult.objects.filter(user=request.user)
+    total_tests = test_results.count()
+    avg_percent = test_results.aggregate(Avg('percent'))['percent__avg']
+    avg_percent = round(avg_percent, 1) if avg_percent is not None else 0
+
+    return render(request, 'core/profile.html', {
+        'form': form,
+        'total_tests': total_tests,
+        'avg_percent': avg_percent,
+    })
 
 def logout_view(request):
     logout(request)

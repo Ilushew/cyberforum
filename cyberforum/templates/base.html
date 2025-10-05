@@ -9,28 +9,50 @@
     <link href="{% static 'css/style.css' %}" rel="stylesheet">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <div class="container">
-            <a class="navbar-brand" href="{% url 'core:home' %}">ФинГрамота Удмуртии</a>
-            <div class="navbar-nav ms-auto">
-        <a class="nav-link" href="{% url 'core:home' %}">Главная</a>
-        <a class="nav-link" href="{% url 'courses:list' %}">Курсы</a>
-        <a class="nav-link" href="{% url 'core:contacts' %}">Контакты</a>
-        <a class="nav-link" href="{% url 'core:events' %}">События</a>
-        {% if user.is_authenticated %}
-            <a class="nav-link" href="{% url 'core:profile' %}">Кабинет</a>
-            <a class="nav-link" href="{% url 'core:logout' %}">Выйти</a>
-        {% else %}
-            <a class="nav-link" href="{% url 'core:login' %}">Войти</a>
-            <a class="nav-link" href="{% url 'core:register' %}">Регистрация</a>
-        {% endif %}
-        <form class="d-flex ms-3" action="{% url 'search:results' %}" method="get">
+     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+      <div class="container">
+        <a class="navbar-brand" href="{% url 'core:home' %}">ФинГрамота Удмуртии</a>
+
+        <!-- Бургер-меню для мобильных -->
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                aria-controls="mainNavbar" aria-expanded="false" aria-label="Переключить навигацию">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="mainNavbar">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item"><a class="nav-link" href="{% url 'core:home' %}">Главная</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'courses:list' %}">Курсы</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'core:contacts' %}">Контакты</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'core:events' %}">События</a></li>
+
+            {% if user.is_authenticated %}
+              <li class="nav-item"><a class="nav-link" href="{% url 'core:profile' %}">Кабинет</a></li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'core:logout' %}">Выйти</a></li>
+            {% else %}
+              <li class="nav-item"><a class="nav-link" href="{% url 'core:login' %}">Войти</a></li>
+              <li class="nav-item"><a class="nav-link" href="{% url 'core:register' %}">Регистрация</a></li>
+            {% endif %}
+          </ul>
+
+          <!-- Форма поиска — только на средних и больших экранах в навбаре -->
+          <form class="d-none d-lg-flex" action="{% url 'search:results' %}" method="get">
             <input class="form-control me-2" type="search" name="q" placeholder="Поиск..." aria-label="Поиск">
             <button class="btn btn-outline-light" type="submit">Найти</button>
-        </form>
-    </div>
+          </form>
         </div>
+      </div>
     </nav>
+
+<!-- На мобильных — отдельная строка с поиском под навбаром -->
+    <div class="container d-lg-none mt-2 mb-3">
+  <form action="{% url 'search:results' %}" method="get">
+    <div class="input-group">
+      <input type="search" name="q" class="form-control" placeholder="Поиск по сайту..." aria-label="Поиск">
+      <button class="btn btn-outline-primary" type="submit">Найти</button>
+    </div>
+  </form>
+</div>
 
 
     <div class="container mt-4">
@@ -209,6 +231,29 @@
     #chatbot-widget {
         animation: slideIn 0.3s ease-out;
     }
+    @media (max-width: 576px) {
+    #chatbot-widget {
+      width: calc(100vw - 40px);
+      max-width: 320px;
+      right: 20px;
+      bottom: 20px;
+    }
+    #chat-open-btn {
+      width: 44px;
+      height: 44px;
+      font-size: 20px;
+    }
+  }
+
+  /* Гарантируем, что контент не уезжает под фиксированный чат */
+  body {
+    padding-bottom: 70px; /* компенсация под фиксированный чат на мобилках */
+  }
+  @media (min-width: 577px) {
+    body {
+      padding-bottom: 0;
+    }
+  }
     @keyframes slideIn {
         from { transform: translateX(300px); opacity: 0; }
         to { transform: translateX(0); opacity: 1; }
