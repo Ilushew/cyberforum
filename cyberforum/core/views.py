@@ -17,6 +17,9 @@ from courses.models import TestResult
 from django.http import JsonResponse
 from .models import DocumentationFile
 from .forms import DocumentationFileForm
+from .models import Event
+from courses.models import CourseCompletion
+
 
 User = get_user_model()
 
@@ -187,16 +190,22 @@ def profile_view(request):
     else:
         form = UserProfileForm(instance=request.user)
 
-    # Статистика пользователя
+    # Статистика
     test_results = TestResult.objects.filter(user=request.user)
     total_tests = test_results.count()
     avg_percent = test_results.aggregate(Avg('percent'))['percent__avg']
     avg_percent = round(avg_percent, 1) if avg_percent is not None else 0
 
+    # Пройденные курсы
+    completed_courses = CourseCompletion.objects.filter(user=request.user).select_related('course')
+    completed_courses_count = completed_courses.count()
+
     return render(request, 'core/profile.html', {
         'form': form,
         'total_tests': total_tests,
         'avg_percent': avg_percent,
+        'completed_courses': completed_courses,
+        'completed_courses_count': completed_courses_count,  # ← добавлено
     })
 
 
@@ -287,6 +296,7 @@ def news_delete(request, news_id):
         messages.success(request, "Новость удалена.")
         return redirect('core:news_moderator_list')
     return render(request, 'core/news_confirm_delete.html', {'news': news})
+
 
 
 @user_passes_test(is_moderator, login_url='/login/')
@@ -429,3 +439,8 @@ def textbook_delete(request, textbook_id):
         messages.success(request, "Учебник удалён.")
         return redirect('core:textbook_moderator_list')
     return render(request, 'core/textbook_confirm_delete.html', {'textbook': textbook})
+
+
+def event_detail_view(request, event_id):
+    event = get_object_or_404(Event, id=event_id)
+    return render(request, 'core/event_detail.html', {'event': event})
