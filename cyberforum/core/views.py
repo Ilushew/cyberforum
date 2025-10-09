@@ -188,7 +188,6 @@ def logout_view(request):
 from .telegram_utils import send_telegram_message
 
 from .telegram_utils import send_telegram_message
-from .models import TelegramSubscriber
 
 from .telegram_utils import send_telegram_message
 
@@ -270,7 +269,6 @@ import json
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
-from .models import TelegramSubscriber
 
 @csrf_exempt
 @require_POST
