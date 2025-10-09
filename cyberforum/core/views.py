@@ -279,3 +279,10 @@ def news_delete(request, news_id):
         messages.success(request, "Новость удалена.")
         return redirect('core:news_moderator_list')
     return render(request, 'core/news_confirm_delete.html', {'news': news})
+
+
+from .models import DocumentationFile
+
+def documentation_view(request):
+    docs = DocumentationFile.objects.all()
+    return render(request, 'core/documentation.html', {'docs': docs})
