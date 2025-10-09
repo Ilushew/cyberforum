@@ -98,3 +98,17 @@ class DocumentationFileForm(forms.ModelForm):
             'title': forms.TextInput(attrs={'class': 'form-control'}),
             'file': forms.FileInput(attrs={'class': 'form-control'}),
         }
+
+
+from .models import Textbook
+
+class TextbookForm(forms.ModelForm):
+    class Meta:
+        model = Textbook
+        fields = ['title', 'description', 'audience', 'file']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'audience': forms.Select(attrs={'class': 'form-select'}),
+            'file': forms.ClearableFileInput(attrs={'class': 'form-control'}),
+        }

@@ -41,10 +41,6 @@ def contacts_view(request):
     return render(request, 'core/contacts.html', {'contacts': contacts})
 
 
-def textbooks_view(request):
-    return render(request, 'core/textbooks.html')
-
-
 def faq_view(request):
     faq_items = [
         {
@@ -384,3 +380,52 @@ def documentation_delete(request, doc_id):
         messages.success(request, "Документ удалён.")
         return redirect('core:documentation_moderator_list')
     return render(request, 'core/documentation_confirm_delete.html', {'doc': doc})
+
+
+from .models import Textbook
+
+def textbooks_view(request):
+    textbooks = Textbook.objects.all()
+    grouped = {}
+    for code, name in Textbook.AUDIENCE_CHOICES:
+        grouped[code] = textbooks.filter(audience=code)
+    return render(request, 'core/textbooks.html', {
+        'grouped_textbooks': grouped,
+        'audiences': Textbook.AUDIENCE_CHOICES
+    })
+
+
+from django.contrib.auth.decorators import user_passes_test
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import messages
+from .models import Textbook
+from .forms import TextbookForm
+
+def is_moderator(user):
+    return user.is_staff or user.is_superuser
+
+@user_passes_test(is_moderator, login_url='/login/')
+def textbook_moderator_list(request):
+    textbooks = Textbook.objects.all().order_by('-created_at')
+    return render(request, 'core/textbook_moderator_list.html', {'textbooks': textbooks})
+
+@user_passes_test(is_moderator, login_url='/login/')
+def textbook_create(request):
+    if request.method == 'POST':
+        form = TextbookForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Учебник успешно загружен!")
+            return redirect('core:textbook_moderator_list')
+    else:
+        form = TextbookForm()
+    return render(request, 'core/textbook_form.html', {'form': form, 'title': 'Загрузить учебник'})
+
+@user_passes_test(is_moderator, login_url='/login/')
+def textbook_delete(request, textbook_id):
+    textbook = get_object_or_404(Textbook, id=textbook_id)
+    if request.method == 'POST':
+        textbook.delete()
+        messages.success(request, "Учебник удалён.")
+        return redirect('core:textbook_moderator_list')
+    return render(request, 'core/textbook_confirm_delete.html', {'textbook': textbook})

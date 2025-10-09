@@ -92,3 +92,26 @@ class DocumentationFile(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Textbook(models.Model):
+    AUDIENCE_CHOICES = [
+        ('1-4', 'Для 1–4 классов'),
+        ('5-9', 'Для 5–9 классов'),
+        ('10-11', 'Для 10–11 классов'),
+        ('adults', 'Для взрослых'),
+    ]
+
+    title = models.CharField("Название", max_length=255)
+    description = models.TextField("Описание", blank=True)
+    audience = models.CharField("Аудитория", max_length=10, choices=AUDIENCE_CHOICES)
+    file = models.FileField("Файл (PDF/DOCX)", upload_to='textbooks/')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Учебник"
+        verbose_name_plural = "Учебники"
+        ordering = ['audience', 'title']
+
+    def __str__(self):
+        return self.title
