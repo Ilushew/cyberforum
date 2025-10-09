@@ -1,197 +1,39 @@
 {% extends 'base.html' %}
+{% load static %}
 {% block content %}
+{% load utils %}
 
-<div class="container mt-4">
-  <h1>Учебные комплекты по финансовой грамотности</h1>
+<h1>Учебные комплекты</h1>
 
-  <!-- Табы по классам -->
-  <ul class="nav nav-tabs mb-4" id="classTabs" role="tablist">
-    <li class="nav-item" role="presentation">
-      <button class="nav-link active" id="tab-2-3-tab" data-bs-toggle="tab" data-bs-target="#tab-2-3" type="button" role="tab" aria-controls="tab-2-3" aria-selected="true">Для 2–3 классов</button>
+<ul class="nav nav-tabs mb-4">
+  {% for code, name in audiences %}
+    <li class="nav-item">
+      <button class="nav-link {% if forloop.first %}active{% endif %}"
+              data-bs-toggle="tab"
+              data-bs-target="#{{ code }}">
+        {{ name }}
+      </button>
     </li>
-    <li class="nav-item" role="presentation">
-      <button class="nav-link" id="tab-4-tab" data-bs-toggle="tab" data-bs-target="#tab-4" type="button" role="tab" aria-controls="tab-4" aria-selected="false">Для 4 класса</button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button class="nav-link" id="tab-5-7-tab" data-bs-toggle="tab" data-bs-target="#tab-5-7" type="button" role="tab" aria-controls="tab-5-7" aria-selected="false">Для 5–7 классов</button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button class="nav-link" id="tab-8-9-tab" data-bs-toggle="tab" data-bs-target="#tab-8-9" type="button" role="tab" aria-controls="tab-8-9" aria-selected="false">Для 8-9 класса</button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button class="nav-link" id="tab-10-11-tab" data-bs-toggle="tab" data-bs-target="#tab-10-11" type="button" role="tab" aria-controls="tab-10-11" aria-selected="false">Для 10–11 классов</button>
-    </li>
-  </ul>
+  {% endfor %}
+</ul>
 
-  <!-- Контент табов -->
-  <div class="tab-content" id="classTabContent">
-
-    <!-- Для 2–3 классов -->
-    <div class="tab-pane fade show active" id="tab-2-3" role="tabpanel" aria-labelledby="tab-2-3-tab">
-      <div class="row g-4">
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Учебная программа</h5>
-              <p class="text-muted">Основы финансовой грамотности для младших школьников.</p>
-              <a href="#" class="btn btn-outline-primary mt-auto">Скачать</a>
+<div class="tab-content">
+  {% for code, name in audiences %}
+    <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="{{ code }}">
+      {% for book in grouped_textbooks|get_item:code %}
+        <div class="card mb-3">
+          <div class="card-body d-flex justify-content-between align-items-center">
+            <div>
+              <h5>{{ book.title }}</h5>
             </div>
+            <a href="{{ book.file.url }}" class="btn btn-outline-primary" download>Скачать</a>
           </div>
         </div>
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Методические рекомендации для учителя</h5>
-              <p class="text-muted">Как преподавать финансовую грамотность в начальной школе.</p>
-              <a href="#" class="btn btn-outline-primary mt-auto">Скачать</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Материалы для родителей</h5>
-              <p class="text-muted">Как помочь ребёнку разобраться в финансах.</p>
-              <a href="#" class="btn btn-outline-primary mt-auto">Скачать</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Материалы для учащихся.</h5>
-              <p class="text-muted">Работа с деньгами, бюджет семьи, сбережения.</p>
-              <a href="#" class="btn btn-outline-primary mt-auto">Скачать</a>
-            </div>
-          </div>
-        </div>
-      </div>
+      {% empty %}
+        <p>Материалы не добавлены.</p>
+      {% endfor %}
     </div>
-
-    <!-- Для 4 класса -->
-    <div class="tab-pane fade" id="tab-4" role="tabpanel" aria-labelledby="tab-4-tab">
-      <div class="row g-4">
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Материалы для учащихся. Часть 1</h5>
-              <p class="text-muted">Работа с деньгами, бюджет семьи, сбережения.</p>
-              <a href="#" class="btn btn-outline-primary mt-auto">Скачать</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Рабочая тетрадь</h5>
-              <p class="text-muted">Упражнения и задания для закрепления знаний.</p>
-              <a href="#" class="btn btn-outline-primary mt-auto">Скачать</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Для 5–7 классов -->
-    <div class="tab-pane fade" id="tab-5-7" role="tabpanel" aria-labelledby="tab-5-7-tab">
-      <div class="row g-4">
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Материалы для учащихся. Часть 2</h5>
-              <p class="text-muted">Кредиты, инвестиции, налоги, финансовые риски.</p>
-              <a href="#" class="btn btn-outline-primary mt-auto">Скачать</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Методические рекомендации для учителя</h5>
-              <p class="text-muted">Поддержка при обучении финансовой грамотности в средней школе.</p>
-              <a href="#" class="btn btn-outline-primary mt-auto">Скачать</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Материалы для родителей</h5>
-              <p class="text-muted">Как обсуждать с подростком деньги, кредиты и ответственность.</p>
-              <a href="#" class="btn btn-outline-primary mt-auto">Скачать</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Для 4 класса -->
-    <div class="tab-pane fade" id="tab-8-9" role="tabpanel" aria-labelledby="tab-8-9-tab">
-      <div class="row g-4">
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Материалы для учащихся. Часть 1</h5>
-              <p class="text-muted">Работа с деньгами, бюджет семьи, сбережения.</p>
-              <a href="#" class="btn btn-outline-primary mt-auto">Скачать</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Рабочая тетрадь</h5>
-              <p class="text-muted">Упражнения и задания для закрепления знаний.</p>
-              <a href="#" class="btn btn-outline-primary mt-auto">Скачать</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Для 10–11 классов -->
-    <div class="tab-pane fade" id="tab-10-11" role="tabpanel" aria-labelledby="tab-10-11-tab">
-      <div class="row g-4">
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Материалы для учащихся. Часть 3</h5>
-              <p class="text-muted">Финансовое планирование, страхование, пенсионные накопления.</p>
-              <a href="#" class="btn btn-outline-primary mt-auto">Скачать</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Методические рекомендации для учителя</h5>
-              <p class="text-muted">Преподавание сложных тем: инвестирование, налоги, права потребителя.</p>
-              <a href="#" class="btn btn-outline-primary mt-auto">Скачать</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-6 col-lg-4">
-          <div class="card h-100">
-            <div class="card-body d-flex flex-column">
-              <h5 class="card-title">Материалы для родителей</h5>
-              <p class="text-muted">Как подготовить подростка к самостоятельной жизни и финансовой независимости.</p>
-              <a href="#" class="btn btn-outline-primary mt-auto">Скачать</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- Информационный блок -->
-  <div class="mt-5 p-4 bg-light rounded">
-    <h5>Все материалы подготовлены в соответствии с федеральным государственным образовательным стандартом</h5>
-    <p class="mb-0">
-      Материалы разработаны при участии Министерства финансов РФ, Банка России и ведущих экспертов в области финансового образования.
-    </p>
-  </div>
-
+  {% endfor %}
 </div>
 
 {% endblock %}

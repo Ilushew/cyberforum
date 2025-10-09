@@ -30,7 +30,6 @@ class EventAdmin(admin.ModelAdmin):
     date_hierarchy = 'date'
 
 
-
 from .models import News
 
 @admin.register(News)
@@ -46,3 +45,20 @@ class NewsAdmin(admin.ModelAdmin):
         # Ограничиваем выбор автора только модераторами
         form.base_fields['author'].queryset = User.objects.filter(is_moderator=True)
         return form
+
+
+from .models import DocumentationFile
+
+@admin.register(DocumentationFile)
+class DocumentationFileAdmin(admin.ModelAdmin):
+    list_display = ['title', 'file', 'uploaded_at']
+    list_per_page = 20
+
+
+from .models import Textbook
+
+@admin.register(Textbook)
+class TextbookAdmin(admin.ModelAdmin):
+    list_display = ['title', 'audience', 'file']
+    list_filter = ['audience']
+    search_fields = ['title']

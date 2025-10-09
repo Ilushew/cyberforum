@@ -51,6 +51,7 @@ class Event(models.Model):
     def __str__(self):
         return self.title
 
+
 class News(models.Model):
     title = models.CharField(max_length=200, verbose_name="Заголовок")
     content = models.TextField(verbose_name="Содержание")
@@ -74,6 +75,43 @@ class News(models.Model):
         verbose_name = "Новость"
         verbose_name_plural = "Новости"
         ordering = ['-created_at']
+
+    def __str__(self):
+        return self.title
+
+
+class DocumentationFile(models.Model):
+    title = models.CharField("Название документа", max_length=255)
+    file = models.FileField("Файл", upload_to='documentation/')
+    uploaded_at = models.DateTimeField("Дата загрузки", auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Документ"
+        verbose_name_plural = "Документы"
+        ordering = ['-uploaded_at']
+
+    def __str__(self):
+        return self.title
+
+
+class Textbook(models.Model):
+    AUDIENCE_CHOICES = [
+        ('1-4', 'Для 1–4 классов'),
+        ('5-9', 'Для 5–9 классов'),
+        ('10-11', 'Для 10–11 классов'),
+        ('adults', 'Для взрослых'),
+    ]
+
+    title = models.CharField("Название", max_length=255)
+    description = models.TextField("Описание", blank=True)
+    audience = models.CharField("Аудитория", max_length=10, choices=AUDIENCE_CHOICES)
+    file = models.FileField("Файл (PDF/DOCX)", upload_to='textbooks/')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Учебник"
+        verbose_name_plural = "Учебники"
+        ordering = ['audience', 'title']
 
     def __str__(self):
         return self.title

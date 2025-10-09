@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}
+{% block content %}
+<h1>{{ title }}</h1>
+
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+  <div class="mb-3">
+    {{ form.title.label_tag }}
+    {{ form.title|add_class:"form-control" }}
+  </div>
+  <div class="mb-3">
+    {{ form.audience.label_tag }}
+    {{ form.audience|add_class:"form-select" }}
+  </div>
+  <div class="mb-3">
+    {{ form.file.label_tag }}
+    {{ form.file|add_class:"form-control" }}
+  </div>
+  <button type="submit" class="btn btn-primary">Сохранить</button>
+  <a href="{% url 'core:textbook_moderator_list' %}" class="btn btn-secondary">Отмена</a>
+</form>
+{% endblock %}

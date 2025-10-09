@@ -7,7 +7,7 @@ from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.core.mail import send_mail
 from django.conf import settings
-from .models import User
+from .models import User, Event, News, DocumentationFile
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -65,8 +65,6 @@ class UserProfileForm(forms.ModelForm):
             'phone': forms.TextInput(attrs={'class': 'form-control'}),
         }
 
-from .models import News
-
 class NewsForm(forms.ModelForm):
     class Meta:
         model = News
@@ -76,4 +74,41 @@ class NewsForm(forms.ModelForm):
             'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 10}),
             'image': forms.FileInput(attrs={'class': 'form-control'}),
             'is_published': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+        }
+        from .models import Event
+
+class EventForm(forms.ModelForm):
+    class Meta:
+        model = Event
+        fields = ['title', 'description', 'date', 'location', 'audience']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
+            'date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
+            'location': forms.TextInput(attrs={'class': 'form-control'}),
+            'audience': forms.Select(attrs={'class': 'form-select'}),
+        }
+
+
+class DocumentationFileForm(forms.ModelForm):
+    class Meta:
+        model = DocumentationFile
+        fields = ['title', 'file']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'file': forms.FileInput(attrs={'class': 'form-control'}),
+        }
+
+
+from .models import Textbook
+
+class TextbookForm(forms.ModelForm):
+    class Meta:
+        model = Textbook
+        fields = ['title', 'description', 'audience', 'file']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'audience': forms.Select(attrs={'class': 'form-select'}),
+            'file': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }
