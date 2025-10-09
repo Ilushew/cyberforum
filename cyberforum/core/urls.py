@@ -11,7 +11,6 @@ urlpatterns = [
     path('moderator/textbooks/', views.textbook_moderator_list, name='textbook_moderator_list'),
     path('moderator/textbooks/create/', views.textbook_create, name='textbook_create'),
     path('moderator/textbooks/delete/<int:textbook_id>/', views.textbook_delete, name='textbook_delete'),
-    path('faq/', views.faq_view, name='faq'),
     path('events/', views.events_view, name='events'),
     path('events/<int:event_id>/', views.event_detail_view, name='event_detail'),
     path('documentation/', views.documentation_view, name='documentation'),

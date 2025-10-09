@@ -316,13 +316,32 @@ def event_moderator_list(request):
     return render(request, 'core/event_moderator_list.html', {'event_list': events})
 
 
+from .telegram_utils import send_telegram_message
+
+from .telegram_utils import send_telegram_message
+from .models import TelegramSubscriber
+
+from .telegram_utils import send_telegram_message
+
 @user_passes_test(is_moderator, login_url='/login/')
 def event_create(request):
     if request.method == 'POST':
         form = EventForm(request.POST)
         if form.is_valid():
-            form.save()
+            event = form.save()
             messages.success(request, "Событие успешно создано!")
+
+            # === Отправка уведомления в Telegram ===
+            msg = (
+                f"📢 <b>Новое событие!</b>\n\n"
+                f"<b>{event.title}</b>\n\n"
+                f"📅 Дата: {event.date.strftime('%d.%m.%Y')}\n"
+                f"📍 Место: {event.location}\n"
+                f"👥 Аудитория: {event.get_audience_display()}\n\n"
+                f"{event.description[:200]}{'...' if len(event.description) > 200 else ''}"
+            )
+            send_telegram_message(msg)
+
             return redirect('core:event_moderator_list')
     else:
         form = EventForm()
@@ -439,6 +458,36 @@ def textbook_delete(request, textbook_id):
         messages.success(request, "Учебник удалён.")
         return redirect('core:textbook_moderator_list')
     return render(request, 'core/textbook_confirm_delete.html', {'textbook': textbook})
+
+
+import json
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.http import require_POST
+from .models import TelegramSubscriber
+
+@csrf_exempt
+@require_POST
+def telegram_webhook(request):
+    try:
+        data = json.loads(request.body)
+        if 'message' in data:
+            message = data['message']
+            chat = message['chat']
+            chat_id = chat['id']
+            text = message.get('text', '')
+            username = chat.get('username', '')
+
+            if text == '/start':
+                TelegramSubscriber.objects.update_or_create(
+                    telegram_id=chat_id,
+                    defaults={'username': username}
+                )
+
+        return JsonResponse({'ok': True})
+    except Exception as e:
+        print(f"Ошибка webhook: {e}")
+        return JsonResponse({'error': str(e)}, status=500)
 
 
 def event_detail_view(request, event_id):
