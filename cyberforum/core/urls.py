@@ -16,4 +16,5 @@ urlpatterns = [
     path('confirm-email/<uidb64>/<token>/', views.confirm_email_view, name='confirm_email'),
     path('api/events/', views.events_api_view, name='events_api'),
     path('calendar/', views.calendar_view, name='calendar'),
+    path('events/<int:event_id>/', views.event_detail_view, name='event_detail'),
 ]
