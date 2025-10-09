@@ -1,9 +1,9 @@
 {% extends 'base.html' %}
 {% block content %}
 <h2>Управление документами</h2>
-<a href="{% url 'core:documentation_create' %}" class="btn btn-success mb-3">+ Загрузить документ</a>
+<a href="{% url 'moderation:documentation_create' %}" class="btn btn-success mb-3">+ Загрузить документ</a>
 <div>
-  <a href="{% url 'core:moderator_dashboard' %}" class="btn btn-sm btn-outline-primary">Назад</a>
+  <a href="{% url 'moderation:dashboard' %}" class="btn btn-sm btn-outline-primary">Назад</a>
 </div>
 
 <div class="table-responsive">
@@ -24,7 +24,7 @@
           <td>{{ doc.uploaded_at|date:"d.m.Y H:i" }}</td>
           <td>
             <a href="{{ doc.file.url }}" class="btn btn-sm btn-outline-primary" download>Скачать</a>
-            <a href="{% url 'core:documentation_delete' doc.id %}" class="btn btn-sm btn-outline-danger">Удалить</a>
+            <a href="{% url 'moderation:documentation_delete' doc.id %}" class="btn btn-sm btn-outline-danger">Удалить</a>
           </td>
         </tr>
       {% empty %}

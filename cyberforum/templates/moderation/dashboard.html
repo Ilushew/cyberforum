@@ -14,7 +14,7 @@
                     <p class="card-text flex-grow-1">
                         Добавляйте, редактируйте и удаляйте новости портала.
                     </p>
-                    <a href="{% url 'core:news_moderator_list' %}" class="btn btn-primary mt-auto">
+                    <a href="{% url 'moderation:news_list' %}" class="btn btn-primary mt-auto">
                         Управление новостями
                     </a>
                 </div>
@@ -29,7 +29,7 @@
                     <p class="card-text flex-grow-1">
                         Управляйте мероприятиями: даты, локации, аудитория.
                     </p>
-                    <a href="{% url 'core:event_moderator_list' %}" class="btn btn-success mt-auto">
+                    <a href="{% url 'moderation:event_list' %}" class="btn btn-success mt-auto">
                         Управление событиями
                     </a>
                 </div>
@@ -43,7 +43,7 @@
                     <p class="card-text flex-grow-1">
                         Отправка статистики по мероприятию: дата, количество слушателей, тема и тд
                     </p>
-                    <a href="{% url 'core:event_moderator_list' %}" class="btn btn-primary mt-auto">
+                    <a href="{% url 'moderation:event_list' %}" class="btn btn-primary mt-auto">
                         Управление мероприятиями
                     </a>
                 </div>
@@ -57,7 +57,7 @@
                     <p class="card-text flex-grow-1">
                         Загрузка НПА, отчетность, сведения о ФХД
                     </p>
-                    <a href="{% url 'core:documentation_moderator_list' %}" class="btn btn-success mt-auto">Управление
+                    <a href="{% url 'moderation:documentation_list' %}" class="btn btn-success mt-auto">Управление
                         документами</a>
                 </div>
             </div>

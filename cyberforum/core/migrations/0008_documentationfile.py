@@ -6,22 +6,41 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0007_news_image'),
+        ("core", "0007_news_image"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='DocumentationFile',
+            name="DocumentationFile",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=255, verbose_name='Название документа')),
-                ('file', models.FileField(upload_to='documentation/', verbose_name='Файл')),
-                ('uploaded_at', models.DateTimeField(auto_now_add=True, verbose_name='Дата загрузки')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "title",
+                    models.CharField(max_length=255, verbose_name="Название документа"),
+                ),
+                (
+                    "file",
+                    models.FileField(upload_to="documentation/", verbose_name="Файл"),
+                ),
+                (
+                    "uploaded_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="Дата загрузки"
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Документ',
-                'verbose_name_plural': 'Документы',
-                'ordering': ['-uploaded_at'],
+                "verbose_name": "Документ",
+                "verbose_name_plural": "Документы",
+                "ordering": ["-uploaded_at"],
             },
         ),
     ]

@@ -3,9 +3,9 @@
 
 {% block content %}
 <h2>Управление событиями</h2>
-<a href="{% url 'core:event_create' %}" class="btn btn-success mb-3">+ Добавить событие</a>
+<a href="{% url 'moderation:event_create' %}" class="btn btn-success mb-3">+ Добавить событие</a>
 <div>
-  <a href="{% url 'core:moderator_dashboard' %}" class="btn btn-sm btn-outline-primary">Назад</a>
+  <a href="{% url 'moderation:dashboard' %}" class="btn btn-sm btn-outline-primary">Назад</a>
 </div>
 <div class="table-responsive">
   <table class="table table-striped">
@@ -26,8 +26,8 @@
           <td>{{ item.location }}</td>
           <td>{{ item.get_audience_display }}</td>
           <td>
-            <a href="{% url 'core:event_edit' item.id %}" class="btn btn-sm btn-outline-primary">Редактировать</a>
-            <a href="{% url 'core:event_delete' item.id %}" class="btn btn-sm btn-outline-danger">Удалить</a>
+            <a href="{% url 'moderation:event_edit' item.id %}" class="btn btn-sm btn-outline-primary">Редактировать</a>
+            <a href="{% url 'moderation:event_delete' item.id %}" class="btn btn-sm btn-outline-danger">Удалить</a>
           </td>
         </tr>
       {% empty %}
