@@ -273,13 +273,60 @@ def news_edit(request, news_id):
 
 @user_passes_test(is_moderator, login_url='/login/')
 def news_delete(request, news_id):
-    """Удаление новости"""
     news = get_object_or_404(News, id=news_id)
     if request.method == 'POST':
         news.delete()
         messages.success(request, "Новость удалена.")
         return redirect('core:news_moderator_list')
     return render(request, 'core/news_confirm_delete.html', {'news': news})
+
+@user_passes_test(is_moderator, login_url='/login/')
+def moderator_dashboard(request):
+    return render(request, 'core/moderator_dashboard.html')
+
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth.decorators import user_passes_test
+from .forms import EventForm
+from .models import Event
+
+@user_passes_test(is_moderator, login_url='/login/')
+def event_moderator_list(request):
+    events = Event.objects.all().order_by('date')
+    return render(request, 'core/event_moderator_list.html', {'event_list': events})
+
+@user_passes_test(is_moderator, login_url='/login/')
+def event_create(request):
+    if request.method == 'POST':
+        form = EventForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Событие успешно создано!")
+            return redirect('core:event_moderator_list')
+    else:
+        form = EventForm()
+    return render(request, 'core/event_form.html', {'form': form, 'title': 'Создать событие'})
+
+@user_passes_test(is_moderator, login_url='/login/')
+def event_edit(request, event_id):
+    event = get_object_or_404(Event, id=event_id)
+    if request.method == 'POST':
+        form = EventForm(request.POST, instance=event)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Событие успешно обновлено!")
+            return redirect('core:event_moderator_list')
+    else:
+        form = EventForm(instance=event)
+    return render(request, 'core/event_form.html', {'form': form, 'title': 'Редактировать событие'})
+
+@user_passes_test(is_moderator, login_url='/login/')
+def event_delete(request, event_id):
+    event = get_object_or_404(Event, id=event_id)
+    if request.method == 'POST':
+        event.delete()
+        messages.success(request, "Событие удалено.")
+        return redirect('core:event_moderator_list')
+    return render(request, 'core/event_confirm_delete.html', {'event': event})
 
 def event_detail_view(request, event_id):
     event = get_object_or_404(Event, id=event_id)

@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<h2>Управление событиями</h2>
+<a href="{% url 'core:event_create' %}" class="btn btn-success mb-3">+ Добавить событие</a>
+<div>
+  <a href="{% url 'core:moderator_dashboard' %}" class="btn btn-sm btn-outline-primary">Назад</a>
+</div>
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Название</th>
+        <th>Дата</th>
+        <th>Место</th>
+        <th>Аудитория</th>
+        <th>Действия</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in event_list %}
+        <tr>
+          <td>{{ item.title }}</td>
+          <td>{{ item.date|date:"d.m.Y" }}</td>
+          <td>{{ item.location }}</td>
+          <td>{{ item.get_audience_display }}</td>
+          <td>
+            <a href="{% url 'core:event_edit' item.id %}" class="btn btn-sm btn-outline-primary">Редактировать</a>
+            <a href="{% url 'core:event_delete' item.id %}" class="btn btn-sm btn-outline-danger">Удалить</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="5" class="text-center">Событий нет</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}

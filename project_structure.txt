@@ -1,0 +1,4250 @@
+=== СТРУКТУРА ПРОЕКТА:  ===
+Путь: C:\Users\Ilya\PycharmProjects\cyberforum
+============================================================
+
+📁 .git/
+  📄 .MERGE_MSG.swp (бинарный, пропущен)
+  📄 COMMIT_EDITMSG (бинарный, пропущен)
+  📄 config (бинарный, пропущен)
+  📄 description (бинарный, пропущен)
+  📄 FETCH_HEAD (бинарный, пропущен)
+  📄 HEAD (бинарный, пропущен)
+  📁 hooks/
+    📄 applypatch-msg.sample (бинарный, пропущен)
+    📄 commit-msg.sample (бинарный, пропущен)
+    📄 fsmonitor-watchman.sample (бинарный, пропущен)
+    📄 post-update.sample (бинарный, пропущен)
+    📄 pre-applypatch.sample (бинарный, пропущен)
+    📄 pre-commit.sample (бинарный, пропущен)
+    📄 pre-merge-commit.sample (бинарный, пропущен)
+    📄 pre-push.sample (бинарный, пропущен)
+    📄 pre-rebase.sample (бинарный, пропущен)
+    📄 pre-receive.sample (бинарный, пропущен)
+    📄 prepare-commit-msg.sample (бинарный, пропущен)
+    📄 push-to-checkout.sample (бинарный, пропущен)
+    📄 sendemail-validate.sample (бинарный, пропущен)
+    📄 update.sample (бинарный, пропущен)
+  📄 index (бинарный, пропущен)
+  📁 info/
+    📄 exclude (бинарный, пропущен)
+  📁 logs/
+    📄 HEAD (бинарный, пропущен)
+    📁 refs/
+      📁 heads/
+        📁 feature/
+          📄 maps (бинарный, пропущен)
+          📄 news (бинарный, пропущен)
+          📄 news-redactor (бинарный, пропущен)
+        📄 main (бинарный, пропущен)
+        📄 news (бинарный, пропущен)
+        📄 share-data (бинарный, пропущен)
+      📁 remotes/
+        📁 origin/
+          📁 auth/
+            📄 finished (бинарный, пропущен)
+          📄 auth_system (бинарный, пропущен)
+          📄 calendar (бинарный, пропущен)
+          📄 faq (бинарный, пропущен)
+          📁 feature/
+            📄 maps (бинарный, пропущен)
+            📄 news (бинарный, пропущен)
+            📄 news-redactor (бинарный, пропущен)
+          📄 HEAD (бинарный, пропущен)
+          📄 main (бинарный, пропущен)
+          📄 news (бинарный, пропущен)
+          📄 textbooks (бинарный, пропущен)
+  📁 objects/
+    📁 00/
+      📄 314caad44fec4e86a36e4477bedbb0718785fc (бинарный, пропущен)
+    📁 01/
+      📄 d952017d52f1fc1fbdf4e9b4fc6e2334a21695 (бинарный, пропущен)
+    📁 02/
+      📄 3dbbea3135701257402842d5b687ba440ca54e (бинарный, пропущен)
+    📁 03/
+      📄 130a40c8d6ef486d33b0e1da4e538c729d51c6 (бинарный, пропущен)
+      📄 4929cd8ca1a80e171b05f16dc939ff4827ae55 (бинарный, пропущен)
+      📄 f735128a546dd62d423177f5ee1ee958e52aea (бинарный, пропущен)
+      📄 fc9879cb9ff2a82507de9c6d50dcd38e9833eb (бинарный, пропущен)
+    📁 04/
+      📄 1376edbbbd7b78f425f1a9ac1db37007785d47 (бинарный, пропущен)
+      📄 46bf7cc5eb8971366bc1d0ed4aff37cdb39e4b (бинарный, пропущен)
+      📄 7f2c1946a406a97b2695365ba8f1a003291701 (бинарный, пропущен)
+    📁 05/
+      📄 4ecc723bcb98ba0f8145fbdf01c0c46fa6c21a (бинарный, пропущен)
+      📄 c0a725d35ccbd48497d2ae5a2dc7ee756947e4 (бинарный, пропущен)
+    📁 06/
+      📄 f5436850a6b24d49af06b6c45e141c84914ffe (бинарный, пропущен)
+    📁 07/
+      📄 c3265ec7ffb13f641c26a90ec2793af8a88990 (бинарный, пропущен)
+    📁 08/
+      📄 d760fd887724317ec4a38da4a4297ba22cd070 (бинарный, пропущен)
+    📁 09/
+      📄 367984e5dfca1a4629e007c30554f6675f1ea8 (бинарный, пропущен)
+      📄 459241f98dfb8b7225d79517987a2a4e8d432a (бинарный, пропущен)
+      📄 adcb2c92584aef336faeb582d7ebc03c2c4211 (бинарный, пропущен)
+      📄 ba20154a48123cc7c9b2606df686f58cce53c1 (бинарный, пропущен)
+      📄 f743c08b8176081816bfed8d25a57ef1b3987e (бинарный, пропущен)
+    📁 0a/
+      📄 5e84e7db1fb36a9ab80a8b1cb0749e1b4ba6d0 (бинарный, пропущен)
+    📁 0c/
+      📄 0fd7fd80e810689c29633ee2f92447f098a757 (бинарный, пропущен)
+      📄 2ccf5946871f4c23c6f3531fc30fa06ee272f6 (бинарный, пропущен)
+      📄 ca72ab6221087033992f9aba316d1e6d87bd99 (бинарный, пропущен)
+    📁 0e/
+      📄 19c1c979229b24566c854ba65550e1aab57f69 (бинарный, пропущен)
+      📄 63ffa1f9d057bc8a82e309715c9d11bfa5d324 (бинарный, пропущен)
+      📄 f39c525433829850f23620b524c074ae633511 (бинарный, пропущен)
+    📁 0f/
+      📄 0787a4f03aab9fe4dae1fc0ae93bc64cb4d106 (бинарный, пропущен)
+      📄 40bc386bcde7910af273e9b30874d943eb2e86 (бинарный, пропущен)
+      📄 5dd88e4b7a9dd2ac420f4eafc12554553e8c8a (бинарный, пропущен)
+      📄 87d9ec95ed26986666ca96e01c520cc5e8cf2a (бинарный, пропущен)
+    📁 11/
+      📄 d3ee51caab7a90e0bb0e6348169320f656f73e (бинарный, пропущен)
+    📁 13/
+      📄 de839ba00b76f8cb8f3ed11c2f14802cf11343 (бинарный, пропущен)
+    📁 14/
+      📄 9f8e61897a4c2e7639f9a602e91b93fa10f464 (бинарный, пропущен)
+      📄 e47eb900b787ac61f4a25096dbc5068f81972a (бинарный, пропущен)
+    📁 15/
+      📄 0e2003107c92a8742cba14005fb140e58c4eb4 (бинарный, пропущен)
+      📄 7e2c4ccdc2f24a4177f5f9b3e694d701e2202b (бинарный, пропущен)
+    📁 16/
+      📄 2309480324a7fc20f356d85af75c7ccceb9dc2 (бинарный, пропущен)
+      📄 2b8a7683c49a5b4ec8cbe10833469fe727d8ea (бинарный, пропущен)
+      📄 968698e451f4a5c8e78029fe15a9eca53f70b0 (бинарный, пропущен)
+      📄 b875db681c4f30729532c862d60ba4160a499e (бинарный, пропущен)
+    📁 17/
+      📄 8f290010a4cdecb5eeee8a0f80a145ff244822 (бинарный, пропущен)
+    📁 19/
+      📄 874af61655dbafd6f8e412740e432045df5929 (бинарный, пропущен)
+      📄 cb45586241a5e85383623dd1c60c7908e8fadf (бинарный, пропущен)
+    📁 1a/
+      📄 2bd2af6c6aad01a02a850cbfa30d2127a3ed5b (бинарный, пропущен)
+      📄 677e69e545922baa071f831873a3dff8a5f000 (бинарный, пропущен)
+      📄 a314e10539bffd09210f8b37eb2fbc69326ea1 (бинарный, пропущен)
+    📁 1b/
+      📄 1b97020078723faaa1ccaa80d6edd08f02de94 (бинарный, пропущен)
+      📄 2f4bb7245c07ebd4babb8ace5b6ffb21cdebd8 (бинарный, пропущен)
+    📁 1c/
+      📄 14bcb03045f5e1e5a829b162ece17a4e8e1a2d (бинарный, пропущен)
+      📄 8d69b3ec7aca9a6850e6f7120a2e20540a2531 (бинарный, пропущен)
+    📁 1d/
+      📄 baedf5c17983aa054896b9a5ea6ae1bb7661df (бинарный, пропущен)
+    📁 1e/
+      📄 3c9744dd395e90424df0dbe4c795aa2cfad5e2 (бинарный, пропущен)
+    📁 1f/
+      📄 2401fbccf422d42b6cfb5d85a3187c58d2247c (бинарный, пропущен)
+      📄 5a15d53cef9c88175193e74a599f9bb90ccbf2 (бинарный, пропущен)
+    📁 20/
+      📄 e8256c5503e67c7a7e8e0eb9fd4941324de276 (бинарный, пропущен)
+      📄 e9ac47a11743363442157162d598f674c6d8b6 (бинарный, пропущен)
+    📁 21/
+      📄 15c5de490222cb6a4311afc09baf3001da21db (бинарный, пропущен)
+    📁 22/
+      📄 5d8903321e957aeec20ba055a07ee59343d980 (бинарный, пропущен)
+      📄 c3d366a3bc78f37ae03087a6ffc3e5a460b932 (бинарный, пропущен)
+    📁 23/
+      📄 6095041bd8f60a1ed1895d2b14900be3f676a3 (бинарный, пропущен)
+    📁 24/
+      📄 515606a3e4891f4f8f01ac4d364ff0446f9b90 (бинарный, пропущен)
+    📁 25/
+      📄 b316d10a0861db64eff7a80e4212746e53f484 (бинарный, пропущен)
+    📁 27/
+      📄 0fe01793d7373d0e534a405619368a7eaca208 (бинарный, пропущен)
+      📄 95052047cf7fdb3db631300d3f1998fa9ce45e (бинарный, пропущен)
+      📄 bee481d82454098141d7246a88d12ea621f373 (бинарный, пропущен)
+    📁 28/
+      📄 cb8ba1997ee7812daaaf88a8824ced07b134ed (бинарный, пропущен)
+    📁 29/
+      📄 4c9918b2d5e8d329ec17b541aac6bf44544a2d (бинарный, пропущен)
+      📄 9d4aba1cf04321d61d5bffa46804319aa3c96d (бинарный, пропущен)
+    📁 2a/
+      📄 11f094ba3ff31a0fe9fdfabcdd311d0661e272 (бинарный, пропущен)
+      📄 56d08a9d3eda087dc1c3d41663f7c7d6f96a59 (бинарный, пропущен)
+    📁 2c/
+      📄 438b1f73c240ce7e1e8033e900e4f4481c16d7 (бинарный, пропущен)
+    📁 2d/
+      📄 3bac2d02aaebffaaa8fe879f4642a219c1cb55 (бинарный, пропущен)
+      📄 52280718fe8f9185dec1a89ef1f9b96161b2dd (бинарный, пропущен)
+      📄 7d6b0a05b1d4da90a08a57663f5e071116e06a (бинарный, пропущен)
+      📄 ac40a4f84fc26bb177f16aec97cb474500231a (бинарный, пропущен)
+    📁 2e/
+      📄 850ccadfe2f9a742fdc937da8bbb9f110d1740 (бинарный, пропущен)
+    📁 2f/
+      📄 0ffb6a06746f865a62e87dfd07d4d36daa456b (бинарный, пропущен)
+      📄 6650457c13bdb5a26ca8d5337ccb12c6d9c84b (бинарный, пропущен)
+    📁 31/
+      📄 91d332197ad7898b2390af55e5ce488faa7646 (бинарный, пропущен)
+      📄 97e9434b491f348f546c96917abfa0441fd54f (бинарный, пропущен)
+    📁 32/
+      📄 af5f4f1bf574fa8249f8857503a662540233dc (бинарный, пропущен)
+    📁 33/
+      📄 199e00895c98f4faaf5778df4792a8c74c8579 (бинарный, пропущен)
+      📄 6ac9c476080a4dda51e86bd0839e7acf42dad2 (бинарный, пропущен)
+    📁 37/
+      📄 5f7e4d160eaac9a38078f2448a6507e7d7ab64 (бинарный, пропущен)
+    📁 39/
+      📄 79a580a511613844b348ce44e986d7a22226a7 (бинарный, пропущен)
+    📁 3d/
+      📄 10c6c75a925de60d9dedccaaf74a8348fd8bb3 (бинарный, пропущен)
+      📄 377225d626ee46f6653ea738fb8c811787a3d9 (бинарный, пропущен)
+      📄 d3c6d96822ba6562354fe750be5ad75aa2a30e (бинарный, пропущен)
+      📄 e38b415d4ad064e1b3dd4e89b0436490437a36 (бинарный, пропущен)
+    📁 3f/
+      📄 f1cbda27d3f2f13e61d8c9ba12e5480f73e570 (бинарный, пропущен)
+    📁 42/
+      📄 bf55b8fcb95e5a4117c358ed227aa1979e78f1 (бинарный, пропущен)
+    📁 43/
+      📄 84434a2a8e1e1a82622504b98c72bb50a9cd64 (бинарный, пропущен)
+      📄 8d3b7fc5cda6082cd7d94a970fea8084cd6551 (бинарный, пропущен)
+    📁 45/
+      📄 bff787bf8ef4c42cb5cce660db9c6fdaf076fc (бинарный, пропущен)
+    📁 46/
+      📄 2c60f712812665b60238d1b2695b70bc08ac1e (бинарный, пропущен)
+      📄 652accc5ec7f6d011503133d198192bc2e0074 (бинарный, пропущен)
+    📁 48/
+      📄 cd54acf294f183ad021ed1ea2cd38ee95786fd (бинарный, пропущен)
+    📁 49/
+      📄 2d1f658f53e27b35159ceee186efb665033763 (бинарный, пропущен)
+      📄 b5f332bd35d88d8070a15a4b4bce25b4c9302c (бинарный, пропущен)
+      📄 c3e9017f5afd42fd7e301c03971bc2aa972f1f (бинарный, пропущен)
+    📁 4a/
+      📄 48968b0b46538ec4bfcfe7cf8e3d28a6b9ef3a (бинарный, пропущен)
+    📁 4b/
+      📄 2e82ca1df819630eb5d3ec0b282f000c74179b (бинарный, пропущен)
+      📄 dcfcb8ddf83909b37899b4a6cd01cf0932ea69 (бинарный, пропущен)
+    📁 4d/
+      📄 2c71e471b304d457304800aa1c14a0ed4abb46 (бинарный, пропущен)
+    📁 4e/
+      📄 b6e1414813f2dea9861dec2cb11db435e2d324 (бинарный, пропущен)
+    📁 4f/
+      📄 1d1e44334e757503485f54de28cc421e2349cf (бинарный, пропущен)
+    📁 50/
+      📄 948633a8f9dd80e2e4d1da58c2f3792a0661c7 (бинарный, пропущен)
+      📄 e6e7c1e92c14d2e07ffc55bd2245f7c901d52d (бинарный, пропущен)
+    📁 51/
+      📄 d20b518632c3d69a3866e4f6160a3e9dde8123 (бинарный, пропущен)
+    📁 52/
+      📄 7ffcaee331c15422948dab2ec3f0c02e3c9417 (бинарный, пропущен)
+      📄 8da4dac2039e2722c43435db6092aa2b2bc8fa (бинарный, пропущен)
+      📄 9e0536887c55bd602d08ca5cf0e85aa12cf66d (бинарный, пропущен)
+    📁 53/
+      📄 55c6637042c7799495ae5c19d56dc7328b24cf (бинарный, пропущен)
+      📄 65caae9ab67adb173115784af50812a62e6329 (бинарный, пропущен)
+    📁 54/
+      📄 50fac5cc201725a334f949088ebd5c7853e650 (бинарный, пропущен)
+    📁 57/
+      📄 28ebda99cbb9eb6dedcf0db8086f8098144963 (бинарный, пропущен)
+    📁 58/
+      📄 0a1dfa69251c066bdd7128828aa8b995ea641c (бинарный, пропущен)
+    📁 59/
+      📄 3c47ade85792c89897fd2ff082ca199cef0fbe (бинарный, пропущен)
+      📄 5aabec1a19244ba0c51b945767cb51edc1d515 (бинарный, пропущен)
+      📄 948274542eabadab94212f8c6d525bc060d616 (бинарный, пропущен)
+      📄 a0cb916f61439831d7981a14ff6c028f5d9c3b (бинарный, пропущен)
+    📁 5a/
+      📄 a5b5ee0b50826a533cf421e86efefa575a4044 (бинарный, пропущен)
+    📁 5b/
+      📄 1b4b2d4a40ebe3e310f92827a62b99900dc72c (бинарный, пропущен)
+      📄 a648278431616219b2d763f375cca3e7e6b65e (бинарный, пропущен)
+    📁 5d/
+      📄 c2780ea7bf060dad494a45c6926b90f6c96966 (бинарный, пропущен)
+      📄 c80cd179f4dec5c9cefb1ad6c8a912240efcf5 (бинарный, пропущен)
+    📁 5e/
+      📄 1a0d91f08cc21b8a8494ca7e0652fd63ea63ab (бинарный, пропущен)
+      📄 c51d6081c3ad003707d72cf243b560cdd18130 (бинарный, пропущен)
+    📁 62/
+      📄 69e9845715136e0ddcd78fe4270d799bb17a2a (бинарный, пропущен)
+      📄 c893550adb53d3a8fc29a1584ff831cb829062 (бинарный, пропущен)
+    📁 64/
+      📄 9770485d39c5f4f4878422e7d571074190d883 (бинарный, пропущен)
+    📁 65/
+      📄 c5a610267568bcf90f071d0e83551b24ddf468 (бинарный, пропущен)
+      📄 e51a36213eca77f8e7b10294e4882b814bc5d3 (бинарный, пропущен)
+    📁 68/
+      📄 23cbe57096be6e1c21933be7d4e1352a1542e6 (бинарный, пропущен)
+      📄 ae792fb04fab61f0712cc0cd518394b048ceb9 (бинарный, пропущен)
+      📄 e2d12cc72d74375f359a825c04d82828a5725f (бинарный, пропущен)
+    📁 6a/
+      📄 7336343259dd3de79a8846751ad5b43383f583 (бинарный, пропущен)
+      📄 cbdcb29bf3f9f2c05c50be9ae88bd204ce620a (бинарный, пропущен)
+      📄 feb7eb47893b813e5fc638c737c6f5ef72b744 (бинарный, пропущен)
+    📁 6b/
+      📄 b2f914857b3ce04010bbaf378d0667fbc2cb5f (бинарный, пропущен)
+    📁 6c/
+      📄 9c9e1d95a6e758c1d027ddf79b842156a58a1f (бинарный, пропущен)
+    📁 6d/
+      📄 1b6f713f3334cb74731c1f7dac13d9b1cca119 (бинарный, пропущен)
+    📁 6f/
+      📄 984c95957f51acd194f7345604c7ac0f9a80b8 (бинарный, пропущен)
+    📁 70/
+      📄 7932c5933dd6408ce488ec31474e1d87a7a4d3 (бинарный, пропущен)
+    📁 72/
+      📄 a5343f58f0338799fa295adcff7984b6a9205e (бинарный, пропущен)
+    📁 73/
+      📄 09f706128b09b4bfad4a9e66533ca2c7ca88b0 (бинарный, пропущен)
+      📄 79adb3d55220040e5c11a578bd939d4cda994b (бинарный, пропущен)
+      📄 b7661603d96a87973c9277d851843201b60376 (бинарный, пропущен)
+    📁 76/
+      📄 29fd0339c9a903fff7891c9ace468082ed6703 (бинарный, пропущен)
+      📄 e746693277f2ca9698501bbdba8908457481e0 (бинарный, пропущен)
+    📁 77/
+      📄 2b7e4e65b2c6ec922d595250291f44802ff240 (бинарный, пропущен)
+      📄 e0bc84c137ae992951fddc5c0207a3d2e894c2 (бинарный, пропущен)
+    📁 78/
+      📄 85aea67db9b77329413ac1b01c0d76f1630121 (бинарный, пропущен)
+    📁 79/
+      📄 8457f3468d348a501c27ac9c5866c98cef5297 (бинарный, пропущен)
+      📄 a0bc1f4ef4b8d7b0e495e3d39649b035539fb9 (бинарный, пропущен)
+    📁 7a/
+      📄 471aeb7374ee74cb680b38b1228af593ba60df (бинарный, пропущен)
+    📁 7b/
+      📄 93e537fdddd04ac54343f3772fa57087849573 (бинарный, пропущен)
+      📄 a0c03fb80774fb56a6aaf40c40d1de640419f7 (бинарный, пропущен)
+      📄 dacc93995c06d209737b8be7898302d2d3bcd0 (бинарный, пропущен)
+    📁 7c/
+      📄 7413a6869d078d712706771ff4a83241a04272 (бинарный, пропущен)
+    📁 80/
+      📄 207b8fa29d7c57caa2abd73bf7422a4e779ca5 (бинарный, пропущен)
+      📄 96b9e5a68d7888af7d42dc30d73fbe4182bc70 (бинарный, пропущен)
+      📄 fcac603ef6cb99ebb130acc29cfad9d4d6426f (бинарный, пропущен)
+    📁 82/
+      📄 026c8eec9630eeb918959cd82d8700064f004f (бинарный, пропущен)
+      📄 44a5d40d406e4a057e1530fa822475ee0c2e36 (бинарный, пропущен)
+      📄 6971bb4c4615d9177f9f2ab99c894f428ca884 (бинарный, пропущен)
+    📁 83/
+      📄 32909f4ae191fb2b860bf046a2fded89c66604 (бинарный, пропущен)
+      📄 4eb2469dcd42c4ef425d758a4d3c81fdb4006a (бинарный, пропущен)
+      📄 56d1481e328937dcc04cd42147d46ec243943c (бинарный, пропущен)
+      📄 62f70e2c8d087869ec6288d45e2c983945440b (бинарный, пропущен)
+      📄 9f909c5f7921f33087e9b8d7e94731d6c9a843 (бинарный, пропущен)
+    📁 85/
+      📄 bbbdcd0e2fd99cae0788be66dd809f2a18a2dd (бинарный, пропущен)
+    📁 88/
+      📄 5f5226c26fbaa54340eb08b1f77249e16cf0cd (бинарный, пропущен)
+      📄 b9f6f646f047d5049768a5d29671de9107c3c4 (бинарный, пропущен)
+    📁 8a/
+      📄 520f11bd7d1e03a67c03d3505e469e76302053 (бинарный, пропущен)
+      📄 6f8756b0a09cc591acabb4c917b436bbc658ae (бинарный, пропущен)
+      📄 7a09864d2a67c08f2d2d29cdfdb301ecacb22f (бинарный, пропущен)
+    📁 8b/
+      📄 1993867fbc4220d4ef1a8406f41606980af3fc (бинарный, пропущен)
+      📄 7282a6805fd7bb509f13d3621fd823a7daef1e (бинарный, пропущен)
+    📁 8c/
+      📄 9299e6eb7bbd01e13f5667a13192bbaac51770 (бинарный, пропущен)
+      📄 937783ae0e7d0b3ff3b6117d42d92c31627ffa (бинарный, пропущен)
+      📄 f617726305adf2576fa2d019d5b47c9f231065 (бинарный, пропущен)
+    📁 8d/
+      📄 00aeb9edba8efcb8223de94629e9168d957726 (бинарный, пропущен)
+    📁 8e/
+      📄 061fa8579da184ddde60f91fc7eec367aa51e1 (бинарный, пропущен)
+      📄 14ea766894dadd7ff4d7605be48db2983d5835 (бинарный, пропущен)
+    📁 8f/
+      📄 5313620ce4b8d432672a5e2743ca7241b6854c (бинарный, пропущен)
+      📄 b210f301833bc9f1ec79f5c346256dcc4c139c (бинарный, пропущен)
+      📄 c08b9052550245a3b78614c2241189314053f3 (бинарный, пропущен)
+    📁 90/
+      📄 b615067ebd1b31922dd932da913bf9acf54af5 (бинарный, пропущен)
+    📁 92/
+      📄 952075734991c46c2dede5b47e585c059d135f (бинарный, пропущен)
+      📄 a26187ad6e1f1acec4535edb5e8062604b143a (бинарный, пропущен)
+    📁 94/
+      📄 71af8ea4a1ae733db13298c1f23ff5e4bee9ad (бинарный, пропущен)
+    📁 95/
+      📄 25fc043ca08e448786ec5e23b68228020ccff4 (бинарный, пропущен)
+      📄 711c49585ba851e2030f6fc790c78275943bd4 (бинарный, пропущен)
+    📁 96/
+      📄 1c72bac0c91d78b8679270ffd49a0c6642b3b2 (бинарный, пропущен)
+    📁 97/
+      📄 59842dd130893b32a838f3056404fcbcb65a8f (бинарный, пропущен)
+      📄 905e96f3a487e3372012e07a4882fd8b09db7b (бинарный, пропущен)
+      📄 d47030bd0f86dd438dd3af535853fad321d6c7 (бинарный, пропущен)
+    📁 99/
+      📄 b10011895a011cea8528329d4cbda92bb08736 (бинарный, пропущен)
+    📁 9a/
+      📄 039b41cf419b8fe5a57cc3c502214a4b6adde3 (бинарный, пропущен)
+      📄 139160b3ad1f3a89b82a943aea53d744141aa8 (бинарный, пропущен)
+      📄 d737fe87931b31fe5cdfefa4de473a44010a17 (бинарный, пропущен)
+    📁 9b/
+      📄 3d96ba19b9663b3e98e21b5bec2e9685ebd799 (бинарный, пропущен)
+      📄 86ba3933dfe521f92b8e736bc13a94985ef333 (бинарный, пропущен)
+      📄 95af8d369214d04b814ca5487b9e008dc85ed9 (бинарный, пропущен)
+    📁 9c/
+      📄 274847c599724e4a4f5d166ebed434ef82f445 (бинарный, пропущен)
+    📁 9e/
+      📄 39fd4b2b05809c0d1839252f346cdf4d02906f (бинарный, пропущен)
+    📁 9f/
+      📄 1753d6749b7df5ac23825fb5c4c63c13306056 (бинарный, пропущен)
+    📁 a0/
+      📄 37c4f701cc143fd2e607bdc4704636124d3e4f (бинарный, пропущен)
+      📄 48b3b211a4aadf44121f07520fa51f98cd5588 (бинарный, пропущен)
+      📄 f79d0198f9e804552a4d38d6d71257eba44ca1 (бинарный, пропущен)
+    📁 a1/
+      📄 8ab9bb7ba8e721bef2f042ae9e308784366db9 (бинарный, пропущен)
+      📄 a0b620e2702fe44deecc4a07fdd1a221f86989 (бинарный, пропущен)
+    📁 a2/
+      📄 18c4622f8105b4a25a56c7bafbf081052d9a6c (бинарный, пропущен)
+      📄 33e68bb129e4791304d4811236fc7a02104ed2 (бинарный, пропущен)
+    📁 a4/
+      📄 8a8df414ff18541f113ead41d6467e39e907ce (бинарный, пропущен)
+      📄 b456ff96678d65c47ea80565bef7fd365f802b (бинарный, пропущен)
+    📁 a5/
+      📄 43fcafb95d2cb36bf75e20a4aeedc682be19eb (бинарный, пропущен)
+      📄 4abfd6a09dad2b4091c03dc99615d6672213ac (бинарный, пропущен)
+      📄 b9bd16d94f93c0657b149834e20eea0a8b0209 (бинарный, пропущен)
+      📄 d83fb4cc8ecee7639684e80b0a4f38afc3f01e (бинарный, пропущен)
+    📁 a6/
+      📄 03fc2d40934433b220559dfb3195a2f7351c2f (бинарный, пропущен)
+      📄 234cbf6de3d3bf2f0b8e06a9df29b259189250 (бинарный, пропущен)
+      📄 3f181178465a80da01105bd801b9bf8a2a0326 (бинарный, пропущен)
+    📁 a7/
+      📄 03722aa014e4953751a6e9c77e67478456d342 (бинарный, пропущен)
+      📄 b1a053c92ba239bd71bee94becd42705bc45ea (бинарный, пропущен)
+      📄 bc303739774d01d3782b31bcfc9eaf5f64516e (бинарный, пропущен)
+    📁 a8/
+      📄 8b50bcb484b73f797453b2ed91e9d80e243ef2 (бинарный, пропущен)
+    📁 a9/
+      📄 46da2c245e21be1343f2abcd5b7ed3ef09703a (бинарный, пропущен)
+      📄 8a2d214eb1869064a938c08efbc240b356061b (бинарный, пропущен)
+    📁 aa/
+      📄 81d69f394eddcd89622ea1a2870c109ed89364 (бинарный, пропущен)
+      📄 b3f7ede3c50af687eeb1b083b3a86e08d276a6 (бинарный, пропущен)
+      📄 f852b325274ff1c3c74463ce9792b240791f4e (бинарный, пропущен)
+    📁 ab/
+      📄 c9ff798556bc822f1751388c5b7a10543840e5 (бинарный, пропущен)
+    📁 ac/
+      📄 2734d4ba46da43e22459e400916c62fb10da66 (бинарный, пропущен)
+      📄 72d96d169d93de8d549fadec603967b6a02c36 (бинарный, пропущен)
+      📄 a1f7b1536ced6b0adaccbf100e8daf53378853 (бинарный, пропущен)
+    📁 ad/
+      📄 1bc871cb6ee828f6d3404430ec30970547d1a8 (бинарный, пропущен)
+      📄 28a61018317b6457c0e10033bb2ad548e55cef (бинарный, пропущен)
+      📄 e9ef9221fef2af95f1960b4389200191152914 (бинарный, пропущен)
+    📁 af/
+      📄 bbf92f616f1fcac5ecefa99f8bc149f80d7e52 (бинарный, пропущен)
+    📁 b0/
+      📄 0ca932e2a9a4f2fa52e3d2acb5eaa10c013060 (бинарный, пропущен)
+    📁 b2/
+      📄 e26b3ccbaa8e13eb3253841e4b57ac1a66787c (бинарный, пропущен)
+    📁 b3/
+      📄 231aeffd6bac893a0c2ac1e7131c3793cbeef0 (бинарный, пропущен)
+      📄 3e1565fece547aa4786d8a7b316ea7129eef5e (бинарный, пропущен)
+      📄 e274f23f4dc103a0cc408239b07a3978a630e8 (бинарный, пропущен)
+    📁 b4/
+      📄 74bfb58612a981803e82977bbf808532b1d305 (бинарный, пропущен)
+      📄 f584649e9869f92c095acbcec01272a37b31b5 (бинарный, пропущен)
+    📁 b5/
+      📄 4947303517a7e4b07666a5e3e2169500d467fa (бинарный, пропущен)
+    📁 b6/
+      📄 65564a347b94d9cf598b95db3101fc2d24c081 (бинарный, пропущен)
+      📄 87efa894e8869623549d3903823756e56ea825 (бинарный, пропущен)
+    📁 b7/
+      📄 b627d4b028cedda67734c3e10deaeb6cad97de (бинарный, пропущен)
+      📄 dfd9c5735685e3ebdabcd9f6aecd6d7a795929 (бинарный, пропущен)
+    📁 b8/
+      📄 36d47dfeffeea16841a288f30909b5feeb9a74 (бинарный, пропущен)
+      📄 8824ee97cb55dceb58f1db07e71cd206f829a0 (бинарный, пропущен)
+    📁 b9/
+      📄 04d7b011a7bb74552ef0d630d4a9dbff2d9c67 (бинарный, пропущен)
+    📁 ba/
+      📄 35b5363f0ee06d2d50e7052773a8bde84b54dd (бинарный, пропущен)
+      📄 8f3089e8d64a69382bf091c11d2d1bd8ef3d2e (бинарный, пропущен)
+      📄 92269eb8250af7c3076a58f646562c3c67b8c4 (бинарный, пропущен)
+    📁 bb/
+      📄 c8ee00457ec762b51c1764706453025340b99c (бинарный, пропущен)
+    📁 bc/
+      📄 6fa93114da35a82f43e4021fbf9a3cd4bfbec1 (бинарный, пропущен)
+      📄 9be1886f4ad7cf96803fb20b39b440cd02152c (бинарный, пропущен)
+    📁 be/
+      📄 511d6887b52428800e4ea4ec9ceb3370a49d45 (бинарный, пропущен)
+      📄 f2d2d94115dc27aaff5598edd056b75396ebab (бинарный, пропущен)
+    📁 bf/
+      📄 80db8a5beb8214b12340adf057decfc7d06dae (бинарный, пропущен)
+    📁 c1/
+      📄 8d667cd2917255d0b52ebb7371f8c1e2385003 (бинарный, пропущен)
+    📁 c3/
+      📄 2a08c63c14ac74394baee168f5c794ca600163 (бинарный, пропущен)
+      📄 306a58b595cc79039a3d61d5b2cc443b174483 (бинарный, пропущен)
+      📄 3f62d0fc6da59253ee1c1894e747213c5ab637 (бинарный, пропущен)
+      📄 5b4bb669996d83d0311fa2ea01c346753676f6 (бинарный, пропущен)
+      📄 7e396046f37f9cf9021d92cd642c52d8cfbe0b (бинарный, пропущен)
+    📁 c4/
+      📄 7eba37697fc66bd9ac87a41067c7103461b4a9 (бинарный, пропущен)
+      📄 fcb9f4d67efabeecafdb6db78e89cd2fd9da9e (бинарный, пропущен)
+    📁 c5/
+      📄 0c5d84f05147d398acdb6f4a552b9edd48da10 (бинарный, пропущен)
+      📄 14c32576cf8e93e8856e3bcd6016e4ef0e8140 (бинарный, пропущен)
+      📄 24c87d6cbb519d2392e4fa307d86b14fd7f0e2 (бинарный, пропущен)
+    📁 c6/
+      📄 1579e093157949ea6b7ee88b837b9d788e290f (бинарный, пропущен)
+      📄 b7971137d76033cbafdaaef78d696ed1f58500 (бинарный, пропущен)
+      📄 dfbc0b640cd9bf2d772df68c249b44c3516397 (бинарный, пропущен)
+      📄 e6abff6c741224b5243fe783db5a0f9e9f6050 (бинарный, пропущен)
+    📁 c7/
+      📄 a6e7da4305dec8e73dcb0319dac802adb0c69b (бинарный, пропущен)
+      📄 e0d46d937ef165b6aa1bb179913b0b80ba8ed4 (бинарный, пропущен)
+    📁 c8/
+      📄 4a6839f956b17e3231f1300f035cbe3a82d179 (бинарный, пропущен)
+      📄 65cc63ad03ca5a77c53b979b041b3c2083ba0b (бинарный, пропущен)
+    📁 c9/
+      📄 54625d9c52cfe515b8333211ed0684beac0357 (бинарный, пропущен)
+    📁 ca/
+      📄 9566f419235e1658df83688af21e0f6f6a6a29 (бинарный, пропущен)
+      📄 a326feba94cd28e32260fac46e0f787eea4a34 (бинарный, пропущен)
+    📁 cb/
+      📄 db479a51d563cd4d1699bcb5b9b084ff34deb9 (бинарный, пропущен)
+    📁 cc/
+      📄 8810644af1268dcbda7e251b9cffb35df7091a (бинарный, пропущен)
+      📄 b61d81f3dd7924847f2e3114db628b1f1f7b87 (бинарный, пропущен)
+    📁 d0/
+      📄 03b195dd2d78ee6933096df54c4b3f83e1db4a (бинарный, пропущен)
+      📄 6520946fad529f3677b70e6c631215df6f0478 (бинарный, пропущен)
+    📁 d1/
+      📄 980d4443dfa9be126ed2de02aef23d7a11a209 (бинарный, пропущен)
+    📁 d2/
+      📄 46de60c301b349573221ab0a62f7b402618637 (бинарный, пропущен)
+      📄 647f2af1440fe10cfa6f9fbf80b08c34c9f2a6 (бинарный, пропущен)
+      📄 6d03aa0e34c8fd8a53d9bf72d6f79b90570df1 (бинарный, пропущен)
+      📄 8453c29e9643819e9a4afbb47edb39e9a7122d (бинарный, пропущен)
+      📄 e4f89e66f10330bdbd5f603de62d2a4a3858aa (бинарный, пропущен)
+    📁 d3/
+      📄 9f807e6a7a88d2452f3c99fa2c00f57b7dd1dd (бинарный, пропущен)
+      📄 a9ee1a82f784407ebc6c4b8bde1525a889217a (бинарный, пропущен)
+      📄 eb1fc491aa3c0a3cff7336c8f2ec5ad8000f63 (бинарный, пропущен)
+    📁 d5/
+      📄 c74eb75442ee10a348367e76871fef38c98632 (бинарный, пропущен)
+    📁 d6/
+      📄 9c2822c16f8311addabee3a912875169721b74 (бинарный, пропущен)
+    📁 d7/
+      📄 3a03a3029d548535051981bc83bbca5be077d3 (бинарный, пропущен)
+    📁 d8/
+      📄 635b17861d87d61965e5e26104425e036137a4 (бинарный, пропущен)
+    📁 d9/
+      📄 bb38cc5bf0dd0b89581c27f796cb8a9169216f (бинарный, пропущен)
+      📄 ee96d8f84d6071bb1ae1f026ed52dcdb31a9e9 (бинарный, пропущен)
+    📁 da/
+      📄 6ae8ccafbb1c0e8762d7669cf7f0e85867bbe6 (бинарный, пропущен)
+    📁 dd/
+      📄 95565fc10e108744ccc2d82ba05f82e60d9bce (бинарный, пропущен)
+    📁 de/
+      📄 33e57b2714790b0d523e76304488da3decab52 (бинарный, пропущен)
+    📁 df/
+      📄 151dab34ffb3306bfe8220abad9d89818faf78 (бинарный, пропущен)
+      📄 3b1fd45a80380c488a4e68ba8382638a56ab7d (бинарный, пропущен)
+    📁 e1/
+      📄 0dba14bb178ca9917868960cfb241131819e88 (бинарный, пропущен)
+    📁 e3/
+      📄 cc4027b97094d3549275bab93fd4f2db280c88 (бинарный, пропущен)
+      📄 cfe6751777594a2b336ea1e8b08ad6c5345079 (бинарный, пропущен)
+    📁 e4/
+      📄 777b2761a39ec2360e7ae65c6be9819c4e5fc7 (бинарный, пропущен)
+    📁 e5/
+      📄 592b616a54325b3e8984ace80346aa7261db72 (бинарный, пропущен)
+      📄 ac284f2eececac9aad81eb557260291284966e (бинарный, пропущен)
+    📁 e6/
+      📄 42b35428be3c02dbc0e4776fa16f9ca5d418b1 (бинарный, пропущен)
+    📁 e7/
+      📄 cdc3d4cfc6f331122f53aa4f159e9291f1e9fb (бинарный, пропущен)
+    📁 e8/
+      📄 0752a254f7f2d9c7922e408214addd05d8e330 (бинарный, пропущен)
+    📁 e9/
+      📄 bd01ae003de5bc1a5315a31cf93247c35267cf (бинарный, пропущен)
+    📁 eb/
+      📄 1e5b5e9c8f6de8fe8ba04a3831a72d1287c988 (бинарный, пропущен)
+      📄 a8817d84727a62ffa3d67b92909d27a031b2fa (бинарный, пропущен)
+      📄 cc6c01b41c950c9852799e5cb1eee731769564 (бинарный, пропущен)
+    📁 ee/
+      📄 1cf2670bd9ff55668dc4dd5926759bb07f51b7 (бинарный, пропущен)
+    📁 ef/
+      📄 60a74d40c9bd89bce7aa3fe06bea6b07e360df (бинарный, пропущен)
+      📄 7565c7dad1d4a90e91263147e53264effb1333 (бинарный, пропущен)
+      📄 c0effd04c775c373c42f538dcead17273d3750 (бинарный, пропущен)
+    📁 f1/
+      📄 61187707506e1f4ac4ac12820180c0f9982d65 (бинарный, пропущен)
+      📄 63b0bbc3a9b617f00b3af9cc4294ba0bd2358b (бинарный, пропущен)
+      📄 c01c5dc5724f32c50b7494f0d685961db2db48 (бинарный, пропущен)
+      📄 c7c517f00d813ffe967fe9bbeb5eeb48363214 (бинарный, пропущен)
+    📁 f2/
+      📄 44266967a57cce76cf4aa815fa3ee876c6c5de (бинарный, пропущен)
+    📁 f3/
+      📄 1a1b077d2d02fc3db8692975e4ae05431ba643 (бинарный, пропущен)
+      📄 1c85d798cdaf1038ccbdf4e3971e3fdc17c514 (бинарный, пропущен)
+      📄 62a6ebcbcb2762c4ff5c777b39538edd7a50bf (бинарный, пропущен)
+      📄 689592d322c416df6f8a3528cb15d1e291d516 (бинарный, пропущен)
+      📄 6de4b8fba0178f2aa72022306ca33350f10a82 (бинарный, пропущен)
+    📁 f5/
+      📄 461706417c53b2f71ad3d24fa1c4e82bab071a (бинарный, пропущен)
+      📄 470496e0304f111334c5a32815da0e7dfbefbf (бинарный, пропущен)
+      📄 80e38cd36d702beed68067ad450b24c8d60a08 (бинарный, пропущен)
+    📁 f6/
+      📄 8d4ecdb1109ac91ce2ab6eb09afd1018a45023 (бинарный, пропущен)
+      📄 a7c1729003f272aec7e52a648a893c8212d5f5 (бинарный, пропущен)
+      📄 a8a7b3f94603643b349515564dc235be18b793 (бинарный, пропущен)
+    📁 f8/
+      📄 47c3e93bd699e1a729d4ecd57528c16ba4a496 (бинарный, пропущен)
+      📄 879ed4c10054c2ba81196a29545ff2036fae61 (бинарный, пропущен)
+    📁 f9/
+      📄 0832df850e767d9ac00d0b96e7df915d99fc16 (бинарный, пропущен)
+      📄 7b604da5b33f95e7f7da92c7ba228434e16539 (бинарный, пропущен)
+    📁 fa/
+      📄 416c6d531f29303ba47ca885b2f4c4e6784378 (бинарный, пропущен)
+      📄 67b07a9c5dda53e7c67e4da72ab806fa21a639 (бинарный, пропущен)
+      📄 c656101514007e53e98020126518798c4a6bcb (бинарный, пропущен)
+    📁 fb/
+      📄 031dacf2d053f7dc0a203f27cad290ce34fbb3 (бинарный, пропущен)
+      📄 6726d97e0cc7a14ca5f3318415ae2ca46025af (бинарный, пропущен)
+      📄 6f289b2d7be9df8b720760f1ce4a61ced6a714 (бинарный, пропущен)
+      📄 b61202998f60aefba53b58b8e3102045fb0057 (бинарный, пропущен)
+    📁 fc/
+      📄 44b6f00709b0598334eeb20cfb3f60bed84694 (бинарный, пропущен)
+      📄 73a69e0c55610d927382aec3657ce78c3c5a7a (бинарный, пропущен)
+    📁 fd/
+      📄 5d433c48e5aa3cbbe0a190cc943adf0d2fdc4e (бинарный, пропущен)
+    📁 fe/
+      📄 2f98a0a366455869edf5496456e3889a9f03b6 (бинарный, пропущен)
+      📄 62bf6812757e9b1714715ca86fe6931243a7c9 (бинарный, пропущен)
+    📁 info/
+    📁 pack/
+      📄 pack-c5987828c8b1f7876ef86fce5c079a30d1a12736.idx (бинарный, пропущен)
+      📄 pack-c5987828c8b1f7876ef86fce5c079a30d1a12736.pack (бинарный, пропущен)
+      📄 pack-c5987828c8b1f7876ef86fce5c079a30d1a12736.rev (бинарный, пропущен)
+  📄 ORIG_HEAD (бинарный, пропущен)
+  📄 packed-refs (бинарный, пропущен)
+  📁 refs/
+    📁 heads/
+      📁 feature/
+        📄 maps (бинарный, пропущен)
+        📄 news (бинарный, пропущен)
+        📄 news-redactor (бинарный, пропущен)
+      📄 main (бинарный, пропущен)
+      📄 news (бинарный, пропущен)
+      📄 share-data (бинарный, пропущен)
+    📁 remotes/
+      📁 origin/
+        📁 auth/
+          📄 finished (бинарный, пропущен)
+        📄 auth_system (бинарный, пропущен)
+        📄 calendar (бинарный, пропущен)
+        📄 faq (бинарный, пропущен)
+        📁 feature/
+          📄 maps (бинарный, пропущен)
+          📄 news (бинарный, пропущен)
+          📄 news-redactor (бинарный, пропущен)
+        📄 HEAD (бинарный, пропущен)
+        📄 main (бинарный, пропущен)
+        📄 news (бинарный, пропущен)
+        📄 textbooks (бинарный, пропущен)
+    📁 tags/
+📄 .gitignore
+    --- СОДЕРЖИМОЕ ---
+    .idea/
+    __pycache__/
+    *.pyc
+    *.pyo
+    *.pyd
+    .Python
+    env/
+    venv/
+    .venv/
+    db.sqlite3
+    --- КОНЕЦ ---
+
+📁 .idea/
+  📄 .gitignore
+      --- СОДЕРЖИМОЕ ---
+      # Default ignored files
+      /shelf/
+      /workspace.xml
+      --- КОНЕЦ ---
+
+  📄 cyberforum_last.iml (бинарный, пропущен)
+  📁 inspectionProfiles/
+    📄 profiles_settings.xml
+        --- СОДЕРЖИМОЕ ---
+        <component name="InspectionProjectProfileManager">
+          <settings>
+            <option name="USE_PROJECT_PROFILE" value="false" />
+            <version value="1.0" />
+          </settings>
+        </component>
+        --- КОНЕЦ ---
+
+  📄 misc.xml
+      --- СОДЕРЖИМОЕ ---
+      <?xml version="1.0" encoding="UTF-8"?>
+      <project version="4">
+        <component name="Black">
+          <option name="sdkName" value="Python 3.13 (cyberforum) (3)" />
+        </component>
+        <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.13 (cyberforum) (3)" project-jdk-type="Python SDK" />
+      </project>
+      --- КОНЕЦ ---
+
+  📄 vcs.xml
+      --- СОДЕРЖИМОЕ ---
+      <?xml version="1.0" encoding="UTF-8"?>
+      <project version="4">
+        <component name="VcsDirectoryMappings">
+          <mapping directory="" vcs="Git" />
+        </component>
+      </project>
+      --- КОНЕЦ ---
+
+  📄 workspace.xml
+      --- СОДЕРЖИМОЕ ---
+      <?xml version="1.0" encoding="UTF-8"?>
+      <project version="4">
+        <component name="AutoImportSettings">
+          <option name="autoReloadType" value="SELECTIVE" />
+        </component>
+        <component name="ChangeListManager">
+          <list default="true" id="9aab387b-7b77-461c-91dc-26a39a490101" name="Changes" comment="fix">
+            <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+          </list>
+          <option name="SHOW_DIALOG" value="false" />
+          <option name="HIGHLIGHT_CONFLICTS" value="true" />
+          <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+          <option name="LAST_RESOLUTION" value="IGNORE" />
+        </component>
+        <component name="FileTemplateManagerImpl">
+          <option name="RECENT_TEMPLATES">
+            <list>
+              <option value="HTML File" />
+            </list>
+          </option>
+        </component>
+        <component name="Git.Settings">
+          <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+        </component>
+        <component name="GitHubPullRequestSearchHistory">{
+        &quot;lastFilter&quot;: {
+          &quot;state&quot;: &quot;OPEN&quot;,
+          &quot;assignee&quot;: &quot;Ilushew&quot;
+        }
+      }</component>
+        <component name="GithubPullRequestsUISettings">{
+        &quot;selectedUrlAndAccountId&quot;: {
+          &quot;url&quot;: &quot;https://github.com/Ilushew/cyberforum&quot;,
+          &quot;accountId&quot;: &quot;3c04e9a8-aa6e-491a-9ec2-73f427eda9de&quot;
+        }
+      }</component>
+        <component name="ProjectColorInfo">{
+        &quot;associatedIndex&quot;: 4
+      }</component>
+        <component name="ProjectId" id="33TQXjD12q5uE5gmKrAxsbFmjNj" />
+        <component name="ProjectViewState">
+          <option name="hideEmptyMiddlePackages" value="true" />
+          <option name="showLibraryContents" value="true" />
+          <option name="sortByType" value="true" />
+          <option name="sortKey" value="BY_TYPE" />
+        </component>
+        <component name="PropertiesComponent"><![CDATA[{
+        "keyToString": {
+          "DefaultHtmlFileTemplate": "HTML File",
+          "Python.admin.executor": "Run",
+          "Python.utils.executor": "Run",
+          "Python.vibe_maker.executor": "Run",
+          "RunOnceActivity.ShowReadmeOnStart": "true",
+          "git-widget-placeholder": "#5 on feature/news-redactor"
+        }
+      }]]></component>
+        <component name="SharedIndexes">
+          <attachedChunks>
+            <set>
+              <option value="bundled-python-sdk-0e3be3396995-c546a90a8094-com.jetbrains.pycharm.community.sharedIndexes.bundled-PC-242.23339.19" />
+            </set>
+          </attachedChunks>
+        </component>
+        <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+        <component name="TaskManager">
+          <task active="true" id="Default" summary="Default task">
+            <changelist id="9aab387b-7b77-461c-91dc-26a39a490101" name="Changes" comment="" />
+            <created>1759338624219</created>
+            <option name="number" value="Default" />
+            <option name="presentableId" value="Default" />
+            <updated>1759338624219</updated>
+          </task>
+          <task id="LOCAL-00001" summary="fix">
+            <option name="closed" value="true" />
+            <created>1759432105240</created>
+            <option name="number" value="00001" />
+            <option name="presentableId" value="LOCAL-00001" />
+            <option name="project" value="LOCAL" />
+            <updated>1759432105240</updated>
+          </task>
+          <option name="localTasksCounter" value="2" />
+          <servers />
+        </component>
+        <component name="Vcs.Log.Tabs.Properties">
+          <option name="TAB_STATES">
+            <map>
+              <entry key="MAIN">
+                <value>
+                  <State />
+                </value>
+              </entry>
+            </map>
+          </option>
+        </component>
+        <component name="VcsManagerConfiguration">
+          <MESSAGE value="fix" />
+          <option name="LAST_COMMIT_MESSAGE" value="fix" />
+        </component>
+      </project>
+      --- КОНЕЦ ---
+
+📁 cyberforum/
+  📁 core/
+    📄 __init__.py
+        --- СОДЕРЖИМОЕ ---
+        --- КОНЕЦ ---
+
+    📁 __pycache__/
+      📄 __init__.cpython-313.pyc (бинарный, пропущен)
+      📄 admin.cpython-313.pyc (бинарный, пропущен)
+      📄 apps.cpython-313.pyc (бинарный, пропущен)
+      📄 forms.cpython-313.pyc (бинарный, пропущен)
+      📄 models.cpython-313.pyc (бинарный, пропущен)
+      📄 urls.cpython-313.pyc (бинарный, пропущен)
+      📄 utils.cpython-313.pyc (бинарный, пропущен)
+      📄 views.cpython-313.pyc (бинарный, пропущен)
+    📄 admin.py
+        --- СОДЕРЖИМОЕ ---
+        from django.contrib import admin
+        from django.contrib.auth.admin import UserAdmin
+        
+        from .models import Contact, Event, User
+        
+        
+        @admin.register(User)
+        class CustomUserAdmin(UserAdmin):
+            # Добавляем поле phone в админку
+            fieldsets = UserAdmin.fieldsets + (
+                ('Дополнительно', {'fields': ('phone', 'is_moderator')}),
+            )
+            add_fieldsets = UserAdmin.add_fieldsets + (
+                ('Дополнительно', {'fields': ('phone', 'is_moderator')}),
+            )
+            list_display = UserAdmin.list_display + ('phone', 'is_moderator')
+        
+        @admin.register(Contact)
+        class ContactAdmin(admin.ModelAdmin):
+            list_display = ['name', 'phone', 'email', 'audience']
+            search_fields = ['name', 'address']
+            list_filter = ['audience']
+            fields = ['name', 'address', 'latitude', 'longitude', 'phone', 'email', 'audience']
+        
+        
+        @admin.register(Event)
+        class EventAdmin(admin.ModelAdmin):
+            list_display = ['title', 'date', 'location', 'audience']
+            list_filter = ['audience', 'date']
+            date_hierarchy = 'date'
+        
+        
+        
+        from .models import News
+        
+        @admin.register(News)
+        class NewsAdmin(admin.ModelAdmin):
+            list_display = ['title', 'author', 'created_at', 'is_published']
+            list_filter = ['is_published', 'created_at', 'author']
+            search_fields = ['title', 'content']
+            date_hierarchy = 'created_at'
+            fields = ['title', 'content', 'author', 'is_published', 'image']
+        
+            def get_form(self, request, obj=None, **kwargs):
+                form = super().get_form(request, obj, **kwargs)
+                # Ограничиваем выбор автора только модераторами
+                form.base_fields['author'].queryset = User.objects.filter(is_moderator=True)
+                return form
+        --- КОНЕЦ ---
+
+    📄 apps.py
+        --- СОДЕРЖИМОЕ ---
+        from django.apps import AppConfig
+        
+        
+        class CoreConfig(AppConfig):
+            default_auto_field = 'django.db.models.BigAutoField'
+            name = 'core'
+        --- КОНЕЦ ---
+
+    📄 forms.py
+        --- СОДЕРЖИМОЕ ---
+        import uuid
+        
+        from django import forms
+        from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+        from django.contrib.auth.tokens import default_token_generator
+        from django.utils.http import urlsafe_base64_encode
+        from django.utils.encoding import force_bytes
+        from django.core.mail import send_mail
+        from django.conf import settings
+        from .models import User
+        
+        
+        class UserRegistrationForm(UserCreationForm):
+            class Meta:
+                model = User
+                fields = ('email', 'password1', 'password2')
+        
+            def save(self, commit=True):
+                user = super().save(commit=False)
+                user.is_active = False
+        
+                # Генерируем уникальный username из email или UUID
+                if not user.username:
+        
+                    user.username = str(uuid.uuid4())  # гарантирует уникальность
+        
+                if commit:
+                    user.save()
+                    self.send_confirmation_email(user)
+                return user
+        
+            def send_confirmation_email(self, user):
+                token = default_token_generator.make_token(user)
+                uid = urlsafe_base64_encode(force_bytes(user.pk))
+                confirm_url = f"http://127.0.0.1:8000/confirm-email/{uid}/{token}/"
+        
+                subject = "Подтвердите ваш email"
+                message = f"""
+                Здравствуйте!
+        
+                Пожалуйста, подтвердите ваш email, перейдя по ссылке:
+                {confirm_url}
+        
+                Если вы не регистрировались на сайте, просто проигнорируйте это письмо.
+                """
+                send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
+        
+        class UserUpdateForm(UserChangeForm):
+            password = None  # Скрыть поле пароля
+        
+            class Meta:
+                model = User
+                fields = ('username', 'first_name', 'last_name', 'email', 'phone')
+                widgets = {
+                    'username': forms.TextInput(attrs={'readonly': 'readonly'}),
+                }
+        
+        class UserProfileForm(forms.ModelForm):
+            class Meta:
+                model = User
+                fields = ('first_name', 'last_name', 'phone')
+                widgets = {
+                    'first_name': forms.TextInput(attrs={'class': 'form-control'}),
+                    'last_name': forms.TextInput(attrs={'class': 'form-control'}),
+                    'phone': forms.TextInput(attrs={'class': 'form-control'}),
+                }
+        
+        from .models import News
+        
+        class NewsForm(forms.ModelForm):
+            class Meta:
+                model = News
+                fields = ['title', 'content', 'image', 'is_published']
+                widgets = {
+                    'title': forms.TextInput(attrs={'class': 'form-control'}),
+                    'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 10}),
+                    'image': forms.FileInput(attrs={'class': 'form-control'}),
+                    'is_published': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
+                }
+        --- КОНЕЦ ---
+
+    📁 llm_assistant/
+      📄 __init__.py
+          --- СОДЕРЖИМОЕ ---
+          --- КОНЕЦ ---
+
+      📁 __pycache__/
+        📄 __init__.cpython-313.pyc (бинарный, пропущен)
+        📄 indexer.cpython-313.pyc (бинарный, пропущен)
+        📄 loader.cpython-313.pyc (бинарный, пропущен)
+        📄 model.cpython-313.pyc (бинарный, пропущен)
+        📄 rag.cpython-313.pyc (бинарный, пропущен)
+        📄 utils.cpython-313.pyc (бинарный, пропущен)
+      📁 docs/
+        📄 Keys_Web-razrabotka.pdf (бинарный, пропущен)
+      📄 indexer.py
+          --- СОДЕРЖИМОЕ ---
+          import os
+          from pathlib import Path
+          
+          from langchain_community.vectorstores import FAISS
+          from langchain_community.embeddings import HuggingFaceEmbeddings
+          from langchain_text_splitters import RecursiveCharacterTextSplitter
+          from .loader import load_documents_from_folder
+          from .utils import clean_text, count_tokens
+          
+          INDEX_DIR = "faiss_index"
+          
+          CURRENT_DIR = Path(__file__).parent
+          DOCS_DIR = CURRENT_DIR / "docs"
+          
+          def create_or_load_vectorstore():
+              """
+              Создаёт или загружает векторную базу.
+              Вызывается один раз при запуске Django.
+              """
+              embedding_model = HuggingFaceEmbeddings(
+                  model_name="sentence-transformers/paraphrase-multilingual-MiniLM-L12-v2"
+              )
+          
+              if os.path.exists(INDEX_DIR):
+                  print("🔄 Загрузка существующего индекса...")
+                  vectorstore = FAISS.load_local(
+                      INDEX_DIR,
+                      embedding_model,
+                      allow_dangerous_deserialization=True
+                  )
+                  print("✅ Индекс загружен.")
+              else:
+                  print("🆕 Создание нового индекса...")
+                  documents = load_documents_from_folder(DOCS_DIR)
+                  if not documents:
+                      raise RuntimeError("Нет документов для индексации!")
+          
+                  splitter = RecursiveCharacterTextSplitter(
+                      chunk_size=500,
+                      chunk_overlap=100,
+                      length_function=count_tokens,
+                      separators=["\n\n", "\n", ". ", "! ", "? ", " ", ""],
+                  )
+          
+                  chunks = splitter.split_documents(documents)
+                  for chunk in chunks:
+                      chunk.page_content = clean_text(chunk.page_content)
+          
+                  vectorstore = FAISS.from_documents(chunks, embedding_model)
+                  vectorstore.save_local(INDEX_DIR)
+                  print(f"✅ Индекс сохранён в {INDEX_DIR}/")
+          
+              return vectorstore
+          --- КОНЕЦ ---
+
+      📄 loader.py
+          --- СОДЕРЖИМОЕ ---
+          from pathlib import Path
+          from typing import List
+          from langchain_community.document_loaders import (
+              TextLoader,
+              PyMuPDFLoader,
+              Docx2txtLoader,
+          )
+          
+          SUPPORTED_EXTENSIONS = {".txt", ".pdf", ".docx"}
+          
+          def load_documents_from_folder(folder_path: str) -> List:
+              documents = []
+              folder = Path(folder_path)
+              if not folder.exists():
+                  raise FileNotFoundError(f"Папка {folder_path} не найдена!")
+          
+              for file_path in folder.iterdir():
+                  if file_path.is_file() and file_path.suffix.lower() in SUPPORTED_EXTENSIONS:
+                      print(f"📄 Загружаю: {file_path.name}")
+                      if file_path.suffix.lower() == ".txt":
+                          loader = TextLoader(file_path, encoding="utf-8")
+                      elif file_path.suffix.lower() == ".pdf":
+                          loader = PyMuPDFLoader(file_path)
+                      elif file_path.suffix.lower() == ".docx":
+                          loader = Docx2txtLoader(file_path)
+                      else:
+                          continue
+          
+                      docs = loader.load()
+                      for doc in docs:
+                          doc.metadata["source"] = file_path.name
+                          doc.metadata["file_type"] = file_path.suffix.lower()[1:]
+                      documents.extend(docs)
+          
+              if not documents:
+                  print("⚠️  В папке docs не найдено ни одного поддерживаемого файла (.txt, .pdf, .docx)")
+              else:
+                  print(f"✅ Успешно загружено {len(documents)} документов.")
+          
+              return documents
+          --- КОНЕЦ ---
+
+      📄 model.py
+          --- СОДЕРЖИМОЕ ---
+          import os
+          from langchain_gigachat.chat_models import GigaChat
+          
+          # Установите ключ в .env или здесь (лучше через .env)
+          os.environ["GIGACHAT_CREDENTIALS"] = "NGRiZjA5MmMtYmJkOS00NzkzLWJlZGQtM2UzYWFlZTNiNWMwOjlmMjQ0MjU5LWUxM2YtNGUyYy1iYTg1LWFlOTlhZDhjMWUzOQ=="
+          
+          llm = GigaChat(
+              model="GigaChat-Pro",
+              verify_ssl_certs=False,
+              timeout=60
+          )
+          --- КОНЕЦ ---
+
+      📄 rag.py
+          --- СОДЕРЖИМОЕ ---
+          from .model import llm
+          from .indexer import create_or_load_vectorstore
+          from langchain_core.prompts import ChatPromptTemplate
+          from langchain_core.output_parsers import StrOutputParser
+          
+          # Промпт — лучше вынести сюда, чтобы легко менять
+          PROMPT_TEMPLATE = """
+          Вы — помощник, который отвечает на вопросы на основе предоставленного контекста.
+          Если в контексте нет информации, скажите: "Информация не найдена".
+          (Учти, что этот текст будет отображаться на html странице, то есть например 
+          использовать ** и html-тэги для выделения текста жирным не получится. Лучше оставить текст 
+          без выделений, чем с непонятными символами)
+          Контекст:
+          {context}
+          
+          Вопрос:
+          {question}
+          
+          Ответ:
+          """
+          
+          prompt = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
+          chain = prompt | llm | StrOutputParser()
+          
+          def generate_answer(question: str, top_k: int = 3) -> str:
+              """
+              Генерирует ответ на вопрос с использованием RAG.
+              Вызывается из Django view.
+              """
+              # Индекс уже должен быть загружен при старте сервера
+              # Мы не пересоздаём его каждый раз!
+              vectorstore = create_or_load_vectorstore()
+          
+              relevant_docs = vectorstore.similarity_search(question, k=top_k)
+          
+              context = "\n\n".join([
+                  f"Источник: {doc.metadata['source']} (тип: {doc.metadata['file_type']})\n{doc.page_content}"
+                  for doc in relevant_docs
+              ])
+          
+              response = chain.invoke({
+                  "context": context,
+                  "question": question
+              })
+          
+              return response
+          --- КОНЕЦ ---
+
+      📄 utils.py
+          --- СОДЕРЖИМОЕ ---
+          import re
+          from bs4 import BeautifulSoup
+          
+          def clean_text(text: str) -> str:
+              soup = BeautifulSoup(text, "html.parser")
+              text = soup.get_text()
+              text = re.sub(r'\s+', ' ', text)
+              text = re.sub(r'[\u200b-\u200d\uFEFF]', '', text)
+              text = re.sub(r'страниц[а-ы]?\s*\d+\s*из\s*\d+', '', text, flags=re.IGNORECASE)
+              text = re.sub(r'http\S+|www\S+|https\S+', '', text, flags=re.MULTILINE)
+              text = re.sub(r'[^\w\s.,!?;:()\-\–—\"\'\n]', ' ', text)
+              return text.strip()
+          
+          # Используем ту же кодировку, что и у GigaChat (GPT-4)
+          try:
+              import tiktoken
+              encoder = tiktoken.encoding_for_model("gpt-4")
+          except ImportError:
+              encoder = None
+          
+          def count_tokens(text: str) -> int:
+              if encoder is None:
+                  return len(text.split()) * 1.3  # Приблизительно
+              return len(encoder.encode(text))
+          --- КОНЕЦ ---
+
+    📁 management/
+      📁 commands/
+        📄 initdata.py
+            --- СОДЕРЖИМОЕ ---
+            from django.core.management.base import BaseCommand
+            from core.models import Contact, Event
+            from courses.models import Course, Lesson, Question
+            
+            class Command(BaseCommand):
+                help = 'Заполняет БД тестовыми данными'
+            
+                def handle(self, *args, **kwargs):
+                    # Очистка
+                    Contact.objects.all().delete()
+                    Event.objects.all().delete()
+                    Course.objects.all().delete()
+            
+                    # Контакты
+                    Contact.objects.create(
+                        name="Центр финансовой грамотности Ижевск",
+                        address="ул. Пушкинская, 100",
+                        phone="+7 (3412) 12-34-56",
+                        audience="все"
+                    )
+            
+                    # События
+                    from datetime import date
+                    Event.objects.create(
+                        title="День финансовой грамотности в школе №1",
+                        description="Открытый урок для школьников 8-11 классов",
+                        date=date(2025, 4, 20),
+                        location="Школа №1, Ижевск",
+                        audience="школьник"
+                    )
+            
+                    # Курсы
+                    course1 = Course.objects.create(
+                        title="Семейный бюджет",
+                        description="Научитесь планировать доходы и расходы семьи.",
+                        audience="все",
+                        format_type="текст"
+                    )
+                    lesson1 = Lesson.objects.create(
+                        course=course1,
+                        title="Как составить бюджет",
+                        content="<p>Шаг 1: Учет всех доходов...</p>",
+                        video_url="https://www.youtube.com/embed/dQw4w9WgXcQ",
+                        order=1
+                    )
+                    Question.objects.create(
+                        lesson=lesson1,
+                        text="Что входит в обязательные расходы?",
+                        option_a="Аренда жилья",
+                        option_b="Покупка нового телефона",
+                        option_c="Отпуск",
+                        correct_answer="A"
+                    )
+            
+                    self.stdout.write(self.style.SUCCESS('Тестовые данные успешно загружены!'))
+            --- КОНЕЦ ---
+
+    📁 migrations/
+      📄 0001_initial.py
+          --- СОДЕРЖИМОЕ ---
+          # Generated by Django 5.2.6 on 2025-10-02 11:33
+          
+          import django.contrib.auth.models
+          import django.contrib.auth.validators
+          import django.utils.timezone
+          from django.db import migrations, models
+          
+          
+          class Migration(migrations.Migration):
+          
+              initial = True
+          
+              dependencies = [
+                  ('auth', '0012_alter_user_first_name_max_length'),
+              ]
+          
+              operations = [
+                  migrations.CreateModel(
+                      name='Contact',
+                      fields=[
+                          ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                          ('name', models.CharField(max_length=200)),
+                          ('address', models.TextField()),
+                          ('phone', models.CharField(max_length=50)),
+                          ('email', models.EmailField(blank=True, max_length=254)),
+                          ('audience', models.CharField(choices=[('все', 'Все'), ('школьник', 'Школьники'), ('пенсионер', 'Пенсионеры'), ('МСП', 'МСП')], default='все', max_length=50)),
+                      ],
+                  ),
+                  migrations.CreateModel(
+                      name='Event',
+                      fields=[
+                          ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                          ('title', models.CharField(max_length=200)),
+                          ('description', models.TextField()),
+                          ('date', models.DateField()),
+                          ('location', models.CharField(max_length=200)),
+                          ('audience', models.CharField(choices=[('все', 'Все'), ('школьник', 'Школьники'), ('пенсионер', 'Пенсионеры'), ('МСП', 'МСП')], default='все', max_length=50)),
+                      ],
+                  ),
+                  migrations.CreateModel(
+                      name='User',
+                      fields=[
+                          ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                          ('password', models.CharField(max_length=128, verbose_name='password')),
+                          ('last_login', models.DateTimeField(blank=True, null=True, verbose_name='last login')),
+                          ('is_superuser', models.BooleanField(default=False, help_text='Designates that this user has all permissions without explicitly assigning them.', verbose_name='superuser status')),
+                          ('username', models.CharField(error_messages={'unique': 'A user with that username already exists.'}, help_text='Required. 150 characters or fewer. Letters, digits and @/./+/-/_ only.', max_length=150, unique=True, validators=[django.contrib.auth.validators.UnicodeUsernameValidator()], verbose_name='username')),
+                          ('first_name', models.CharField(blank=True, max_length=150, verbose_name='first name')),
+                          ('last_name', models.CharField(blank=True, max_length=150, verbose_name='last name')),
+                          ('is_staff', models.BooleanField(default=False, help_text='Designates whether the user can log into this admin site.', verbose_name='staff status')),
+                          ('is_active', models.BooleanField(default=True, help_text='Designates whether this user should be treated as active. Unselect this instead of deleting accounts.', verbose_name='active')),
+                          ('date_joined', models.DateTimeField(default=django.utils.timezone.now, verbose_name='date joined')),
+                          ('email', models.EmailField(max_length=254, unique=True, verbose_name='Email')),
+                          ('phone', models.CharField(blank=True, max_length=20, verbose_name='Телефон')),
+                          ('email_verified', models.BooleanField(default=False, verbose_name='Email подтверждён')),
+                          ('groups', models.ManyToManyField(blank=True, help_text='The groups this user belongs to. A user will get all permissions granted to each of their groups.', related_name='user_set', related_query_name='user', to='auth.group', verbose_name='groups')),
+                          ('user_permissions', models.ManyToManyField(blank=True, help_text='Specific permissions for this user.', related_name='user_set', related_query_name='user', to='auth.permission', verbose_name='user permissions')),
+                      ],
+                      options={
+                          'verbose_name': 'user',
+                          'verbose_name_plural': 'users',
+                          'abstract': False,
+                      },
+                      managers=[
+                          ('objects', django.contrib.auth.models.UserManager()),
+                      ],
+                  ),
+              ]
+          --- КОНЕЦ ---
+
+      📄 0002_contact_latitude_contact_longitude.py
+          --- СОДЕРЖИМОЕ ---
+          # Generated by Django 5.2.6 on 2025-10-05 15:02
+          
+          from django.db import migrations, models
+          
+          
+          class Migration(migrations.Migration):
+          
+              dependencies = [
+                  ('core', '0001_initial'),
+              ]
+          
+              operations = [
+                  migrations.AddField(
+                      model_name='contact',
+                      name='latitude',
+                      field=models.DecimalField(blank=True, decimal_places=6, max_digits=9, null=True),
+                  ),
+                  migrations.AddField(
+                      model_name='contact',
+                      name='longitude',
+                      field=models.DecimalField(blank=True, decimal_places=6, max_digits=9, null=True),
+                  ),
+              ]
+          --- КОНЕЦ ---
+
+      📄 0003_alter_contact_latitude_alter_contact_longitude.py
+          --- СОДЕРЖИМОЕ ---
+          # Generated by Django 5.2.6 on 2025-10-05 17:12
+          
+          from django.db import migrations, models
+          
+          
+          class Migration(migrations.Migration):
+          
+              dependencies = [
+                  ('core', '0002_contact_latitude_contact_longitude'),
+              ]
+          
+              operations = [
+                  migrations.AlterField(
+                      model_name='contact',
+                      name='latitude',
+                      field=models.CharField(blank=True, max_length=20, null=True),
+                  ),
+                  migrations.AlterField(
+                      model_name='contact',
+                      name='longitude',
+                      field=models.CharField(blank=True, max_length=20, null=True),
+                  ),
+              ]
+          --- КОНЕЦ ---
+
+      📄 0004_alter_contact_latitude_alter_contact_longitude.py
+          --- СОДЕРЖИМОЕ ---
+          # Generated by Django 5.2.6 on 2025-10-05 17:16
+          
+          from django.db import migrations, models
+          
+          
+          class Migration(migrations.Migration):
+          
+              dependencies = [
+                  ('core', '0003_alter_contact_latitude_alter_contact_longitude'),
+              ]
+          
+              operations = [
+                  migrations.AlterField(
+                      model_name='contact',
+                      name='latitude',
+                      field=models.DecimalField(blank=True, decimal_places=6, max_digits=9, null=True),
+                  ),
+                  migrations.AlterField(
+                      model_name='contact',
+                      name='longitude',
+                      field=models.DecimalField(blank=True, decimal_places=6, max_digits=9, null=True),
+                  ),
+              ]
+          --- КОНЕЦ ---
+
+      📄 0005_alter_contact_latitude_alter_contact_longitude.py
+          --- СОДЕРЖИМОЕ ---
+          # Generated by Django 5.2.6 on 2025-10-05 17:18
+          
+          from django.db import migrations, models
+          
+          
+          class Migration(migrations.Migration):
+          
+              dependencies = [
+                  ('core', '0004_alter_contact_latitude_alter_contact_longitude'),
+              ]
+          
+              operations = [
+                  migrations.AlterField(
+                      model_name='contact',
+                      name='latitude',
+                      field=models.CharField(blank=True, max_length=20, null=True),
+                  ),
+                  migrations.AlterField(
+                      model_name='contact',
+                      name='longitude',
+                      field=models.CharField(blank=True, max_length=20, null=True),
+                  ),
+              ]
+          --- КОНЕЦ ---
+
+      📄 0006_user_is_moderator_news.py
+          --- СОДЕРЖИМОЕ ---
+          # Generated by Django 5.2.6 on 2025-10-09 10:32
+          
+          import django.db.models.deletion
+          from django.conf import settings
+          from django.db import migrations, models
+          
+          
+          class Migration(migrations.Migration):
+          
+              dependencies = [
+                  ('core', '0005_alter_contact_latitude_alter_contact_longitude'),
+              ]
+          
+              operations = [
+                  migrations.AddField(
+                      model_name='user',
+                      name='is_moderator',
+                      field=models.BooleanField(default=False, verbose_name='Модератор'),
+                  ),
+                  migrations.CreateModel(
+                      name='News',
+                      fields=[
+                          ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                          ('title', models.CharField(max_length=200, verbose_name='Заголовок')),
+                          ('content', models.TextField(verbose_name='Содержание')),
+                          ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Дата публикации')),
+                          ('is_published', models.BooleanField(default=True, verbose_name='Опубликовано')),
+                          ('author', models.ForeignKey(limit_choices_to={'is_moderator': True}, null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL, verbose_name='Автор')),
+                      ],
+                      options={
+                          'verbose_name': 'Новость',
+                          'verbose_name_plural': 'Новости',
+                          'ordering': ['-created_at'],
+                      },
+                  ),
+              ]
+          --- КОНЕЦ ---
+
+      📄 0007_news_image.py
+          --- СОДЕРЖИМОЕ ---
+          # Generated by Django 5.2.6 on 2025-10-09 10:49
+          
+          from django.db import migrations, models
+          
+          
+          class Migration(migrations.Migration):
+          
+              dependencies = [
+                  ('core', '0006_user_is_moderator_news'),
+              ]
+          
+              operations = [
+                  migrations.AddField(
+                      model_name='news',
+                      name='image',
+                      field=models.ImageField(blank=True, null=True, upload_to='news_images/', verbose_name='Изображение'),
+                  ),
+              ]
+          --- КОНЕЦ ---
+
+      📄 __init__.py
+          --- СОДЕРЖИМОЕ ---
+          --- КОНЕЦ ---
+
+      📁 __pycache__/
+        📄 0001_initial.cpython-313.pyc (бинарный, пропущен)
+        📄 0002_contact_latitude_contact_longitude.cpython-313.pyc (бинарный, пропущен)
+        📄 0003_alter_contact_latitude_alter_contact_longitude.cpython-313.pyc (бинарный, пропущен)
+        📄 0004_alter_contact_latitude_alter_contact_longitude.cpython-313.pyc (бинарный, пропущен)
+        📄 0005_alter_contact_latitude_alter_contact_longitude.cpython-313.pyc (бинарный, пропущен)
+        📄 0006_alter_user_is_staff_news.cpython-313.pyc (бинарный, пропущен)
+        📄 0006_user_is_moderator_news.cpython-313.pyc (бинарный, пропущен)
+        📄 0007_news_image.cpython-313.pyc (бинарный, пропущен)
+        📄 0007_user_is_moderator_alter_news_author_and_more.cpython-313.pyc (бинарный, пропущен)
+        📄 __init__.cpython-313.pyc (бинарный, пропущен)
+    📄 models.py
+        --- СОДЕРЖИМОЕ ---
+        from django.db import models
+        from django.contrib.auth.models import AbstractUser
+        from django.db import models
+        from .utils import geocode_address
+        
+        class User(AbstractUser):
+            email = models.EmailField(unique=True, verbose_name="Email")
+            phone = models.CharField(max_length=20, blank=True, verbose_name="Телефон")
+            email_verified = models.BooleanField(default=False, verbose_name="Email подтверждён")
+            is_moderator = models.BooleanField(default=False, verbose_name="Модератор")
+        
+            USERNAME_FIELD = 'email'  # Используем email для входа
+            REQUIRED_FIELDS = ['username']      # Не требуем другие поля при создании через createsuperuser
+        
+            def __str__(self):
+                return self.email
+        
+        
+        AUDIENCE_CHOICES = [
+            ('все', 'Все'),
+            ('школьник', 'Школьники'),
+            ('пенсионер', 'Пенсионеры'),
+            ('МСП', 'МСП'),
+        ]
+        
+        class Contact(models.Model):
+            name = models.CharField(max_length=200)
+            address = models.TextField()
+            latitude = models.CharField(max_length=20, null=True, blank=True)
+            longitude = models.CharField(max_length=20, null=True, blank=True)
+            phone = models.CharField(max_length=50)
+            email = models.EmailField(blank=True)
+            audience = models.CharField(max_length=50, choices=AUDIENCE_CHOICES, default='все')
+        
+            def __str__(self):
+                return self.name
+        
+            def save(self, *args, **kwargs):
+                lat, lon = geocode_address(self.address)
+                self.latitude = lat
+                self.longitude = lon
+                super().save(*args, **kwargs)
+        
+        class Event(models.Model):
+            title = models.CharField(max_length=200)
+            description = models.TextField()
+            date = models.DateField()
+            location = models.CharField(max_length=200)
+            audience = models.CharField(max_length=50, choices=AUDIENCE_CHOICES, default='все')
+        
+            def __str__(self):
+                return self.title
+        
+        class News(models.Model):
+            title = models.CharField(max_length=200, verbose_name="Заголовок")
+            content = models.TextField(verbose_name="Содержание")
+            image = models.ImageField(
+                upload_to='news_images/',
+                blank=True,
+                null=True,
+                verbose_name="Изображение"
+            )
+            created_at = models.DateTimeField(auto_now_add=True, verbose_name="Дата публикации")
+            author = models.ForeignKey(
+                'User',
+                on_delete=models.SET_NULL,
+                null=True,
+                limit_choices_to={'is_moderator': True},
+                verbose_name="Автор"
+            )
+            is_published = models.BooleanField(default=True, verbose_name="Опубликовано")
+        
+            class Meta:
+                verbose_name = "Новость"
+                verbose_name_plural = "Новости"
+                ordering = ['-created_at']
+        
+            def __str__(self):
+                return self.title
+        --- КОНЕЦ ---
+
+    📄 tests.py
+        --- СОДЕРЖИМОЕ ---
+        from django.test import TestCase
+        
+        # Create your tests here.
+        --- КОНЕЦ ---
+
+    📄 urls.py
+        --- СОДЕРЖИМОЕ ---
+        from django.urls import path
+        from . import views
+        from django.conf import settings
+        from django.conf.urls.static import static
+        
+        app_name = 'core'
+        urlpatterns = [
+            path('', views.home_view, name='home'),
+            path('contacts/', views.contacts_view, name='contacts'),
+            path('textbooks/', views.textbooks_view, name='textbooks'),
+            path('faq/', views.faq_view, name='faq'),
+            path('events/', views.events_view, name='events'),
+            path('chat-ask/', views.chat_ask, name='chat_ask'),
+            path('register/', views.register_view, name='register'),
+            path('login/', views.login_view, name='login'),
+            path('logout/', views.logout_view, name='logout'),
+            path('profile/', views.profile_view, name='profile'),
+            path('confirm-email/<uidb64>/<token>/', views.confirm_email_view, name='confirm_email'),
+            path('api/events/', views.events_api_view, name='events_api'),
+            path('calendar/', views.calendar_view, name='calendar'),
+            path('news/', views.news_list_view, name='news_list'),
+            path('news/<int:news_id>/', views.news_detail_view, name='news_detail'),
+            path('moderator/news/', views.news_moderator_list, name='news_moderator_list'),
+            path('moderator/news/create/', views.news_create, name='news_create'),
+            path('moderator/news/<int:news_id>/edit/', views.news_edit, name='news_edit'),
+            path('moderator/news/<int:news_id>/delete/', views.news_delete, name='news_delete'),
+            path('moderator/', views.moderator_dashboard, name='moderator_dashboard'),
+        ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+        --- КОНЕЦ ---
+
+    📄 utils.py
+        --- СОДЕРЖИМОЕ ---
+        # core/utils.py
+        import requests
+        from django.conf import settings
+        
+        def geocode_address(address: str):
+            """
+            Получает координаты по адресу через Яндекс.Геокодер.
+            Возвращает (lat, lon) или (None, None) при ошибке.
+            """
+            api_key = getattr(settings, 'YANDEX_GEOCODER_API_KEY', None)
+            if not api_key:
+                # Без ключа работает с ограничениями (до 25k запросов/день с одного IP)
+                url = "https://geocode-maps.yandex.ru/1.x/"
+            else:
+                url = f"https://geocode-maps.yandex.ru/1.x/?apikey={api_key}"
+        
+            params = {
+                'geocode': address,
+                'format': 'json',
+                'results': 1
+            }
+        
+            try:
+                response = requests.get(url, params=params, timeout=5)
+                if response.status_code == 200:
+                    data = response.json()
+                    geo_object = data.get('response', {}).get('GeoObjectCollection', {}).get('featureMember')
+                    if geo_object:
+                        coords = geo_object[0]['GeoObject']['Point']['pos']  # "lon lat"
+                        lon, lat = map(float, coords.split())
+                        lon, lat = str(lon).replace(',', '.'), str(lat).replace(',', '.')
+                        return lat, lon
+            except Exception as e:
+                print(f"Ошибка геокодинга для '{address}': {e}")
+        
+            return None, None
+        --- КОНЕЦ ---
+
+    📄 views.py
+        --- СОДЕРЖИМОЕ ---
+        import json
+        from datetime import datetime
+        
+        from django.db.models import Avg
+        from django.contrib.auth import authenticate, login, logout, get_user_model
+        from django.contrib import messages
+        from django.contrib.auth.decorators import login_required
+        from django.contrib.auth.tokens import default_token_generator
+        from django.utils.http import urlsafe_base64_decode
+        from django.views.decorators.csrf import csrf_exempt
+        
+        from .forms import UserRegistrationForm, UserProfileForm
+        from .llm_assistant.rag import generate_answer
+        from .models import Contact, Event, AUDIENCE_CHOICES
+        from courses.models import Course
+        from courses.models import TestResult
+        from django.http import JsonResponse
+        from .models import Event
+        
+        
+        User = get_user_model()
+        
+        def is_moderator(user):
+            return user.is_authenticated and user.is_moderator
+        
+        def home_view(request):
+            courses = Course.objects.all()[:6]
+            upcoming_events = Event.objects.order_by('date')[:3]
+            contacts = Contact.objects.exclude(latitude__isnull=True).exclude(longitude__isnull=True)
+            return render(request, 'core/home.html', {
+                'courses': courses,
+                'events': upcoming_events,
+                'contacts': contacts,
+            })
+        
+        
+        def contacts_view(request):
+            contacts = Contact.objects.exclude(latitude__isnull=True).exclude(longitude__isnull=True)
+            return render(request, 'core/contacts.html', {'contacts': contacts})
+        
+        
+        def textbooks_view(request):
+            return render(request, 'core/textbooks.html')
+        
+        
+        def faq_view(request):
+            faq_items = [
+                {
+                    "question": "Что такое финансовая грамотность?",
+                    "answer": "Финансовая грамотность — это способность человека эффективно управлять своими финансами: планировать бюджет, сберегать, инвестировать, выбирать финансовые продукты и защищаться от мошенников."
+                },
+                {
+                    "question": "Кто может воспользоваться материалами портала?",
+                    "answer": "Наши материалы предназначены для всех: школьников, студентов, работающих граждан, пенсионеров и представителей малого бизнеса."
+                },
+                {
+                    "question": "Нужно ли платить за курсы?",
+                    "answer": "Нет, все материалы и курсы на портале предоставляются бесплатно в рамках государственной программы повышения финансовой грамотности."
+                },
+                {
+                    "question": "Как задать свой вопрос?",
+                    "answer": "Вы можете воспользоваться встроенным чат-ботом в правом нижнем углу сайта или связаться с нами через раздел «Контакты»."
+                },
+                {
+                    "question": "Где проходят очные мероприятия?",
+                    "answer": "Мы проводим встречи в школах, библиотеках, центрах социальной поддержки и других учреждениях Удмуртии. Актуальные события смотрите в разделе «События»."
+                },
+            ]
+            return render(request, 'core/faq.html', {'faq_items': faq_items})
+        
+        
+        def events_view(request):
+            events = Event.objects.all()
+        
+            # Получаем параметры из GET-запроса
+            audience = request.GET.get('audience')
+            date_from = request.GET.get('date_from')
+            date_to = request.GET.get('date_to')
+        
+            # Фильтр по аудитории
+            if audience and audience != '':
+                events = events.filter(audience=audience)
+        
+            # Фильтр по дате "с"
+            if date_from:
+                try:
+                    date_from = datetime.strptime(date_from, '%Y-%m-%d').date()
+                    events = events.filter(date__gte=date_from)
+                except ValueError:
+                    pass  # Игнорируем некорректные даты
+        
+            # Фильтр по дате "по"
+            if date_to:
+                try:
+                    date_to = datetime.strptime(date_to, '%Y-%m-%d').date()
+                    events = events.filter(date__lte=date_to)
+                except ValueError:
+                    pass
+        
+            # Сортируем по дате
+            events = events.order_by('date')
+        
+            # Передаём в шаблон
+            return render(request, 'core/events.html', {
+                'events': events,
+                'audience_choices': AUDIENCE_CHOICES,
+                'current_filters': {
+                    'audience': audience or '',
+                    'date_from': date_from or '',
+                    'date_to': date_to or '',
+                }
+            })
+        
+        
+        @csrf_exempt
+        def chat_ask(request):
+            if request.method != 'POST':
+                return JsonResponse({'error': 'Метод не поддерживается'}, status=405)
+        
+            try:
+                data = json.loads(request.body)
+                question = data.get('question', '').strip()
+        
+                if not question:
+                    return JsonResponse({'error': 'Вопрос не может быть пустым'}, status=400)
+        
+                answer = generate_answer(question)
+        
+                return JsonResponse({'answer': answer})
+        
+            except Exception as e:
+                return JsonResponse({'error': f'Ошибка сервера: {str(e)}'}, status=500)
+        
+        
+        def register_view(request):
+            if request.method == 'POST':
+                form = UserRegistrationForm(request.POST)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, "Регистрация прошла успешно! Проверьте email для подтверждения.")
+                    return redirect('core:login')
+            else:
+                form = UserRegistrationForm()
+            return render(request, 'core/register.html', {'form': form})
+        
+        def login_view(request):
+            if request.method == 'POST':
+                email = request.POST.get('email')
+                password = request.POST.get('password')
+                user = authenticate(request, username=email, password=password)
+                if user is not None:
+                    if not user.is_active:
+                        messages.error(request, "Пожалуйста, подтвердите ваш email, чтобы войти.")
+                    else:
+                        login(request, user)
+                        messages.success(request, f"Добро пожаловать, {user.email}!")
+                        return redirect('core:profile')
+                else:
+                    messages.error(request, "Неверный email или пароль.")
+            return render(request, 'core/login.html')
+        
+        def confirm_email_view(request, uidb64, token):
+            try:
+                uid = urlsafe_base64_decode(uidb64).decode()
+                user = User.objects.get(pk=uid)
+            except (TypeError, ValueError, OverflowError, User.DoesNotExist):
+                user = None
+        
+            if user is not None and default_token_generator.check_token(user, token):
+                user.is_active = True
+                user.email_verified = True
+                user.save()
+                messages.success(request, "Ваш email подтверждён! Теперь вы можете войти.")
+            else:
+                messages.error(request, "Ссылка недействительна или устарела.")
+            return redirect('core:login')
+        
+        @login_required
+        def profile_view(request):
+            if request.method == 'POST':
+                form = UserProfileForm(request.POST, instance=request.user)
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, "Данные обновлены!")
+                    return redirect('core:profile')
+            else:
+                form = UserProfileForm(instance=request.user)
+        
+            # Статистика пользователя
+            test_results = TestResult.objects.filter(user=request.user)
+            total_tests = test_results.count()
+            avg_percent = test_results.aggregate(Avg('percent'))['percent__avg']
+            avg_percent = round(avg_percent, 1) if avg_percent is not None else 0
+        
+            return render(request, 'core/profile.html', {
+                'form': form,
+                'total_tests': total_tests,
+                'avg_percent': avg_percent,
+            })
+        
+        def logout_view(request):
+            logout(request)
+            messages.info(request, "Вы вышли из аккаунта.")
+            return redirect('core:home')
+        
+        
+        def events_api_view(request):
+            events = Event.objects.all()
+            event_list = []
+            for event in events:
+                event_list.append({
+                    'title': event.title,
+                    'start': event.date.isoformat(),  # FullCalendar ожидает ISO-формат даты
+                    'url': None,
+                    'extendedProps': {
+                        'description': event.description,
+                        'location': event.location,
+                        'audience': event.audience,
+                    }
+                })
+            return JsonResponse(event_list, safe=False)
+        
+        def calendar_view(request):
+            return render(request, 'core/calendar.html')
+        
+        def news_list_view(request):
+            news_list = News.objects.filter(is_published=True).order_by('-created_at')
+            return render(request, 'core/news_list.html', {'news_list': news_list})
+        
+        def news_detail_view(request, news_id):
+            news_item = get_object_or_404(News, id=news_id, is_published=True)
+            return render(request, 'core/news_detail.html', {'news': news_item})
+        
+        from django.shortcuts import render, get_object_or_404, redirect
+        from django.contrib.auth.decorators import user_passes_test
+        from .forms import NewsForm
+        from .models import News
+        
+        @user_passes_test(is_moderator, login_url='/login/')
+        def news_moderator_list(request):
+            news_items = News.objects.all().order_by('-created_at')
+            return render(request, 'core/news_moderator_list.html', {'news_list': news_items})
+        
+        @user_passes_test(is_moderator, login_url='/login/')
+        def news_create(request):
+            if request.method == 'POST':
+                form = NewsForm(request.POST, request.FILES)  # ← request.FILES
+                if form.is_valid():
+                    news = form.save(commit=False)
+                    news.author = request.user
+                    news.save()
+                    messages.success(request, "Новость успешно создана!")
+                    return redirect('core:news_moderator_list')
+            else:
+                form = NewsForm()
+            return render(request, 'core/news_form.html', {'form': form, 'title': 'Создать новость'})
+        
+        @user_passes_test(is_moderator, login_url='/login/')
+        def news_edit(request, news_id):
+            news = get_object_or_404(News, id=news_id)
+            if request.method == 'POST':
+                form = NewsForm(request.POST, request.FILES, instance=news)  # ← request.FILES
+                if form.is_valid():
+                    form.save()
+                    messages.success(request, "Новость успешно обновлена!")
+                    return redirect('core:news_moderator_list')
+            else:
+                form = NewsForm(instance=news)
+            return render(request, 'core/news_form.html', {'form': form, 'title': 'Редактировать новость'})
+        
+        @user_passes_test(is_moderator, login_url='/login/')
+        def news_delete(request, news_id):
+            news = get_object_or_404(News, id=news_id)
+            if request.method == 'POST':
+                news.delete()
+                messages.success(request, "Новость удалена.")
+                return redirect('core:news_moderator_list')
+            return render(request, 'core/news_confirm_delete.html', {'news': news})
+        
+        @user_passes_test(is_moderator, login_url='/login/')
+        def moderator_dashboard(request):
+            return render(request, 'core/moderator_dashboard.html')
+        --- КОНЕЦ ---
+
+  📁 courses/
+    📄 __init__.py
+        --- СОДЕРЖИМОЕ ---
+        --- КОНЕЦ ---
+
+    📁 __pycache__/
+      📄 __init__.cpython-313.pyc (бинарный, пропущен)
+      📄 admin.cpython-313.pyc (бинарный, пропущен)
+      📄 admin_views.cpython-313.pyc (бинарный, пропущен)
+      📄 apps.cpython-313.pyc (бинарный, пропущен)
+      📄 models.cpython-313.pyc (бинарный, пропущен)
+      📄 urls.cpython-313.pyc (бинарный, пропущен)
+      📄 views.cpython-313.pyc (бинарный, пропущен)
+    📄 admin.py
+        --- СОДЕРЖИМОЕ ---
+        from django.contrib import admin
+        from .models import Course, Lesson, Question, TestResult
+        
+        class LessonInline(admin.TabularInline):
+            model = Lesson
+            extra = 1
+        
+        class QuestionInline(admin.TabularInline):
+            model = Question
+            extra = 1
+        
+        @admin.register(Course)
+        class CourseAdmin(admin.ModelAdmin):
+            list_display = ['title', 'audience', 'format_type', 'created_at']
+            list_filter = ['audience', 'format_type']
+            search_fields = ['title', 'description']
+            inlines = [LessonInline]  # Показывает уроки прямо внутри курса
+        
+        @admin.register(Lesson)
+        class LessonAdmin(admin.ModelAdmin):
+            list_display = ['title', 'course', 'order']
+            list_filter = ['course']
+            search_fields = ['title', 'content']
+            inlines = [QuestionInline]  # Вопросы внутри урока
+        
+        @admin.register(Question)
+        class QuestionAdmin(admin.ModelAdmin):
+            list_display = ['text', 'lesson', 'correct_answer']
+            list_filter = ['lesson__course']
+            search_fields = ['text']
+        --- КОНЕЦ ---
+
+    📄 admin_views.py
+        --- СОДЕРЖИМОЕ ---
+        from django.contrib.admin.views.decorators import staff_member_required
+        from django.shortcuts import render
+        from django.db.models import Avg, Count
+        from .models import TestResult, Course
+        
+        @staff_member_required
+        def test_analytics_view(request):
+            # Средний балл по курсам
+            course_stats = (
+                TestResult.objects
+                .select_related('lesson__course')
+                .values('lesson__course__title')
+                .annotate(avg_percent=Avg('percent'))
+                .order_by('-avg_percent')
+            )
+        
+            # Динамика прохождений за последние 30 дней
+            daily_stats = (
+                TestResult.objects
+                .extra(select={'date': "date(completed_at)"})
+                .values('date')
+                .annotate(count=Count('id'))
+                .order_by('date')
+            )
+        
+            context = {
+                'course_labels': [item['lesson__course__title'] for item in course_stats],
+                'course_data': [float(item['avg_percent']) for item in course_stats],
+                'daily_labels': [str(item['date']) for item in daily_stats],
+                'daily_data': [item['count'] for item in daily_stats],
+            }
+            return render(request, 'admin/test_analytics.html', context)
+        --- КОНЕЦ ---
+
+    📄 apps.py
+        --- СОДЕРЖИМОЕ ---
+        from django.apps import AppConfig
+        
+        
+        class CoursesConfig(AppConfig):
+            default_auto_field = 'django.db.models.BigAutoField'
+            name = 'courses'
+        --- КОНЕЦ ---
+
+    📁 migrations/
+      📄 0001_initial.py
+          --- СОДЕРЖИМОЕ ---
+          # Generated by Django 5.2.6 on 2025-10-02 11:33
+          
+          import django.db.models.deletion
+          from django.conf import settings
+          from django.db import migrations, models
+          
+          
+          class Migration(migrations.Migration):
+          
+              initial = True
+          
+              dependencies = [
+                  migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+              ]
+          
+              operations = [
+                  migrations.CreateModel(
+                      name='Course',
+                      fields=[
+                          ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                          ('title', models.CharField(max_length=200)),
+                          ('description', models.TextField()),
+                          ('audience', models.CharField(choices=[('все', 'Все'), ('школьник', 'Школьники'), ('пенсионер', 'Пенсионеры'), ('МСП', 'МСП')], default='все', max_length=50)),
+                          ('format_type', models.CharField(choices=[('текст', 'Текст'), ('видео', 'Видео'), ('тест', 'Тест')], default='текст', max_length=50)),
+                          ('created_at', models.DateTimeField(auto_now_add=True)),
+                      ],
+                  ),
+                  migrations.CreateModel(
+                      name='Lesson',
+                      fields=[
+                          ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                          ('title', models.CharField(max_length=200)),
+                          ('content', models.TextField()),
+                          ('video_url', models.URLField(blank=True, null=True)),
+                          ('order', models.IntegerField(default=1)),
+                          ('course', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='lessons', to='courses.course')),
+                      ],
+                  ),
+                  migrations.CreateModel(
+                      name='Question',
+                      fields=[
+                          ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                          ('text', models.CharField(max_length=300)),
+                          ('option_a', models.CharField(max_length=200)),
+                          ('option_b', models.CharField(max_length=200)),
+                          ('option_c', models.CharField(blank=True, max_length=200)),
+                          ('option_d', models.CharField(blank=True, max_length=200)),
+                          ('correct_answer', models.CharField(max_length=1)),
+                          ('lesson', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='questions', to='courses.lesson')),
+                      ],
+                  ),
+                  migrations.CreateModel(
+                      name='TestResult',
+                      fields=[
+                          ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                          ('score', models.PositiveSmallIntegerField()),
+                          ('total', models.PositiveSmallIntegerField()),
+                          ('percent', models.PositiveSmallIntegerField()),
+                          ('completed_at', models.DateTimeField(auto_now_add=True)),
+                          ('lesson', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='test_results', to='courses.lesson')),
+                          ('user', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                      ],
+                  ),
+              ]
+          --- КОНЕЦ ---
+
+      📄 __init__.py
+          --- СОДЕРЖИМОЕ ---
+          --- КОНЕЦ ---
+
+      📁 __pycache__/
+        📄 0001_initial.cpython-313.pyc (бинарный, пропущен)
+        📄 __init__.cpython-313.pyc (бинарный, пропущен)
+    📄 models.py
+        --- СОДЕРЖИМОЕ ---
+        from django.db import models
+        from django.contrib.auth import get_user_model
+        
+        User = get_user_model()
+        
+        AUDIENCE_CHOICES = [
+            ('все', 'Все'),
+            ('школьник', 'Школьники'),
+            ('пенсионер', 'Пенсионеры'),
+            ('МСП', 'МСП'),
+        ]
+        
+        FORMAT_CHOICES = [
+            ('текст', 'Текст'),
+            ('видео', 'Видео'),
+            ('тест', 'Тест'),
+        ]
+        
+        class Course(models.Model):
+            title = models.CharField(max_length=200)
+            description = models.TextField()
+            audience = models.CharField(max_length=50, choices=AUDIENCE_CHOICES, default='все')
+            format_type = models.CharField(max_length=50, choices=FORMAT_CHOICES, default='текст')
+            created_at = models.DateTimeField(auto_now_add=True)
+        
+            def __str__(self):
+                return self.title
+        
+        
+        class Lesson(models.Model):
+            course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='lessons')
+            title = models.CharField(max_length=200)
+            content = models.TextField()
+            video_url = models.URLField(blank=True, null=True)  # YouTube
+            order = models.IntegerField(default=1)
+        
+            def __str__(self):
+                return f"{self.course.title} - {self.title}"
+        
+        
+        class Question(models.Model):
+            lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='questions')
+            text = models.CharField(max_length=300)
+            option_a = models.CharField(max_length=200)
+            option_b = models.CharField(max_length=200)
+            option_c = models.CharField(max_length=200, blank=True)
+            option_d = models.CharField(max_length=200, blank=True)
+            correct_answer = models.CharField(max_length=1)  # A, B, C, D
+        
+            def __str__(self):
+                return self.text
+        
+        
+        class TestResult(models.Model):
+            lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='test_results')
+            user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
+            score = models.PositiveSmallIntegerField()
+            total = models.PositiveSmallIntegerField()
+            percent = models.PositiveSmallIntegerField()
+            completed_at = models.DateTimeField(auto_now_add=True)
+        
+            def __str__(self):
+                return f"{self.lesson} — {self.percent}%"
+        --- КОНЕЦ ---
+
+    📄 tests.py
+        --- СОДЕРЖИМОЕ ---
+        from django.test import TestCase
+        
+        # Create your tests here.
+        --- КОНЕЦ ---
+
+    📄 urls.py
+        --- СОДЕРЖИМОЕ ---
+        from django.urls import path
+        from . import views, admin_views
+        
+        app_name = 'courses'
+        
+        urlpatterns = [
+            path('', views.course_list_view, name='list'),
+            path('<int:course_id>/', views.course_detail_view, name='detail'),
+            path('lesson/<int:lesson_id>/', views.lesson_view, name='lesson'),
+            path('lesson/<int:lesson_id>/test/', views.submit_test_view, name='test'),
+            path('admin/analytics/', admin_views.test_analytics_view, name='test_analytics'),
+        ]
+        --- КОНЕЦ ---
+
+    📄 views.py
+        --- СОДЕРЖИМОЕ ---
+        from django.shortcuts import render, get_object_or_404, redirect
+        from .models import Course, Lesson, Question, TestResult
+        
+        
+        def course_list_view(request):
+            courses = Course.objects.all()
+        
+            # Получаем параметры фильтрации
+            audience = request.GET.get('audience')
+            format_type = request.GET.get('format')
+        
+            if audience:
+                courses = courses.filter(audience=audience)
+            if format_type:
+                courses = courses.filter(format_type=format_type)
+        
+            return render(request, 'courses/list.html', {'courses': courses})
+        
+        
+        def course_detail_view(request, course_id):
+            course = get_object_or_404(Course, id=course_id)
+            return render(request, 'courses/detail.html', {'course': course})
+        
+        
+        def lesson_view(request, lesson_id):
+            lesson = get_object_or_404(Lesson, id=lesson_id)
+            questions = lesson.questions.all()
+            return render(request, 'courses/lesson.html', {
+                'lesson': lesson,
+                'questions': questions,
+            })
+        
+        
+        def submit_test_view(request, lesson_id):
+            lesson = get_object_or_404(Lesson, id=lesson_id)
+            questions = lesson.questions.all()
+            total = questions.count()
+            correct = 0
+            if request.method == "POST":
+                for q in questions:
+                    user_answer = request.POST.get(f'q{q.id}')
+                    if user_answer == q.correct_answer:
+                        correct += 1
+                score_percent = int((correct / total) * 100) if total > 0 else 0
+        
+                # Сохраняем результат
+                TestResult.objects.create(
+                    lesson=lesson,
+                    user=request.user if request.user.is_authenticated else None,
+                    score=correct,
+                    total=total,
+                    percent=score_percent
+                )
+        
+                return render(request, 'courses/result.html', {
+                    'score': correct,
+                    'total': total,
+                    'percent': score_percent,
+                    'lesson': lesson,
+                })
+            return redirect('courses:lesson', lesson_id=lesson_id)
+        --- КОНЕЦ ---
+
+  📁 cyberforum/
+    📄 __init__.py
+        --- СОДЕРЖИМОЕ ---
+        --- КОНЕЦ ---
+
+    📁 __pycache__/
+      📄 __init__.cpython-313.pyc (бинарный, пропущен)
+      📄 settings.cpython-313.pyc (бинарный, пропущен)
+      📄 urls.cpython-313.pyc (бинарный, пропущен)
+      📄 wsgi.cpython-313.pyc (бинарный, пропущен)
+    📄 admin.py
+        --- СОДЕРЖИМОЕ ---
+        from django.contrib import admin
+        from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+        from django.contrib.auth.models import User, Group
+        
+        admin.site.register(User, BaseUserAdmin)
+        admin.site.register(Group)
+        --- КОНЕЦ ---
+
+    📄 asgi.py
+        --- СОДЕРЖИМОЕ ---
+        """
+        ASGI config for cyberforum project.
+        
+        It exposes the ASGI callable as a module-level variable named ``application``.
+        
+        For more information on this file, see
+        https://docs.djangoproject.com/en/5.2/howto/deployment/asgi/
+        """
+        
+        import os
+        
+        from django.core.asgi import get_asgi_application
+        
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'cyberforum.settings')
+        
+        application = get_asgi_application()
+        --- КОНЕЦ ---
+
+    📄 settings.py
+        --- СОДЕРЖИМОЕ ---
+        """
+        Django settings for cyberforum project.
+        
+        Generated by 'django-admin startproject' using Django 5.2.6.
+        
+        For more information on this file, see
+        https://docs.djangoproject.com/en/5.2/topics/settings/
+        
+        For the full list of settings and their values, see
+        https://docs.djangoproject.com/en/5.2/ref/settings/
+        """
+        
+        from pathlib import Path
+        
+        # Build paths inside the project like this: BASE_DIR / 'subdir'.
+        BASE_DIR = Path(__file__).resolve().parent.parent
+        
+        
+        # Quick-start development settings - unsuitable for production
+        # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
+        
+        # SECURITY WARNING: keep the secret key used in production secret!
+        SECRET_KEY = 'django-insecure-l#=@!evoxr(qh0c#lbm==+7=1q*^youjnqlb1h@$4)iz3bw@$r'
+        
+        # SECURITY WARNING: don't run with debug turned on in production!
+        DEBUG = True
+        
+        ALLOWED_HOSTS = []
+        
+        
+        # Application definition
+        
+        INSTALLED_APPS = [
+            'django.contrib.admin',
+            'django.contrib.auth',
+            'django.contrib.contenttypes',
+            'django.contrib.sessions',
+            'django.contrib.messages',
+            'django.contrib.staticfiles',
+            'core',
+            'courses',
+            'search',
+            'crispy_forms',
+            'widget_tweaks',
+        ]
+        
+        MIDDLEWARE = [
+            'django.middleware.security.SecurityMiddleware',
+            'django.contrib.sessions.middleware.SessionMiddleware',
+            'django.middleware.common.CommonMiddleware',
+            'django.middleware.csrf.CsrfViewMiddleware',
+            'django.contrib.auth.middleware.AuthenticationMiddleware',
+            'django.contrib.messages.middleware.MessageMiddleware',
+            'django.middleware.clickjacking.XFrameOptionsMiddleware',
+        ]
+        
+        ROOT_URLCONF = 'cyberforum.urls'
+        
+        TEMPLATES = [
+            {
+                'BACKEND': 'django.template.backends.django.DjangoTemplates',
+                'DIRS': ['templates'],
+                'APP_DIRS': True,
+                'OPTIONS': {
+                    'context_processors': [
+                        'django.template.context_processors.request',
+                        'django.contrib.auth.context_processors.auth',
+                        'django.contrib.messages.context_processors.messages',
+                    ],
+                },
+            },
+        ]
+        
+        WSGI_APPLICATION = 'cyberforum.wsgi.application'
+        
+        
+        # Database
+        # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
+        
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': BASE_DIR / 'db.sqlite3',
+            }
+        }
+        
+        
+        # Password validation
+        # https://docs.djangoproject.com/en/5.2/ref/settings/#auth-password-validators
+        
+        AUTH_PASSWORD_VALIDATORS = [
+            {
+                'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
+            },
+            {
+                'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+            },
+            {
+                'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
+            },
+            {
+                'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
+            },
+        ]
+        
+        
+        # Internationalization
+        # https://docs.djangoproject.com/en/5.2/topics/i18n/
+        
+        LANGUAGE_CODE = 'ru-ru'
+        TIME_ZONE = 'Europe/Samara'
+        USE_I18N = True
+        USE_TZ = True
+        
+        
+        STATIC_URL = '/static/'
+        STATICFILES_DIRS = [BASE_DIR / "static"]
+        STATIC_ROOT = BASE_DIR / "staticfiles"
+        
+        MEDIA_URL = '/media/'
+        MEDIA_ROOT = BASE_DIR / 'media'
+        
+        CRISPY_TEMPLATE_PACK = 'bootstrap4'
+        
+        DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+        
+        AUTH_USER_MODEL = 'core.User'
+        
+        EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+        EMAIL_HOST = 'smtp.yandex.ru'           # Для Yandex Mail
+        EMAIL_PORT = 587
+        EMAIL_USE_TLS = True
+        EMAIL_HOST_USER = 'ilya.grishk@yandex.ru'    # Замените на реальный email
+        EMAIL_HOST_PASSWORD = 'rfyolaerqnjbzhbt'   # Пароль приложения, не пароль от аккаунта!
+        DEFAULT_FROM_EMAIL = 'ilya.grishk@yandex.ru'
+        YANDEX_GEOCODER_API_KEY = '315adbb6-0466-4fd1-9580-bef99d765a5c'
+        --- КОНЕЦ ---
+
+    📄 urls.py
+        --- СОДЕРЖИМОЕ ---
+        from django.contrib import admin
+        from django.urls import path, include
+        from django.conf import settings
+        from django.conf.urls.static import static
+        
+        urlpatterns = [
+            path('admin/', admin.site.urls),
+            path('', include('core.urls')),
+            path('courses/', include('courses.urls')),
+            path('search/', include('search.urls')),
+        ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+        --- КОНЕЦ ---
+
+    📄 wsgi.py
+        --- СОДЕРЖИМОЕ ---
+        """
+        WSGI config for cyberforum project.
+        
+        It exposes the WSGI callable as a module-level variable named ``application``.
+        
+        For more information on this file, see
+        https://docs.djangoproject.com/en/5.2/howto/deployment/wsgi/
+        """
+        
+        import os
+        
+        from django.core.wsgi import get_wsgi_application
+        
+        os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'cyberforum.settings')
+        
+        application = get_wsgi_application()
+        --- КОНЕЦ ---
+
+  📄 db.sqlite3 (бинарный, пропущен)
+  📁 faiss_index/
+    📄 index.faiss (бинарный, пропущен)
+    📄 index.pkl (бинарный, пропущен)
+  📄 manage.py
+      --- СОДЕРЖИМОЕ ---
+      #!/usr/bin/env python
+      """Django's command-line utility for administrative tasks."""
+      import os
+      import sys
+      
+      
+      def main():
+          """Run administrative tasks."""
+          os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'cyberforum.settings')
+          try:
+              from django.core.management import execute_from_command_line
+          except ImportError as exc:
+              raise ImportError(
+                  "Couldn't import Django. Are you sure it's installed and "
+                  "available on your PYTHONPATH environment variable? Did you "
+                  "forget to activate a virtual environment?"
+              ) from exc
+          execute_from_command_line(sys.argv)
+      
+      
+      if __name__ == '__main__':
+          main()
+      --- КОНЕЦ ---
+
+  📁 media/
+    📁 news_images/
+      📄 cat2.jpg (бинарный, пропущен)
+      📄 cat3.jpg (бинарный, пропущен)
+      📄 cat5.jpg (бинарный, пропущен)
+      📄 cat5_oT94aSk.jpg (бинарный, пропущен)
+  📁 search/
+    📄 __init__.py
+        --- СОДЕРЖИМОЕ ---
+        --- КОНЕЦ ---
+
+    📁 __pycache__/
+      📄 __init__.cpython-313.pyc (бинарный, пропущен)
+      📄 admin.cpython-313.pyc (бинарный, пропущен)
+      📄 apps.cpython-313.pyc (бинарный, пропущен)
+      📄 models.cpython-313.pyc (бинарный, пропущен)
+      📄 urls.cpython-313.pyc (бинарный, пропущен)
+      📄 views.cpython-313.pyc (бинарный, пропущен)
+    📄 admin.py
+        --- СОДЕРЖИМОЕ ---
+        from django.contrib import admin
+        
+        # Register your models here.
+        --- КОНЕЦ ---
+
+    📄 apps.py
+        --- СОДЕРЖИМОЕ ---
+        from django.apps import AppConfig
+        
+        
+        class SearchConfig(AppConfig):
+            default_auto_field = 'django.db.models.BigAutoField'
+            name = 'search'
+        --- КОНЕЦ ---
+
+    📁 migrations/
+      📄 __init__.py
+          --- СОДЕРЖИМОЕ ---
+          --- КОНЕЦ ---
+
+      📁 __pycache__/
+        📄 __init__.cpython-313.pyc (бинарный, пропущен)
+    📄 models.py
+        --- СОДЕРЖИМОЕ ---
+        from django.db import models
+        
+        # Create your models here.
+        --- КОНЕЦ ---
+
+    📄 tests.py
+        --- СОДЕРЖИМОЕ ---
+        from django.test import TestCase
+        
+        # Create your tests here.
+        --- КОНЕЦ ---
+
+    📄 urls.py
+        --- СОДЕРЖИМОЕ ---
+        from django.urls import path
+        from . import views
+        
+        app_name = 'search'
+        
+        urlpatterns = [
+            path('', views.search_view, name='results'),
+        ]
+        --- КОНЕЦ ---
+
+    📄 views.py
+        --- СОДЕРЖИМОЕ ---
+        from django.shortcuts import render
+        from courses.models import Course
+        from core.models import Contact, Event
+        
+        def search_view(request):
+            query = request.GET.get('q', '').strip()
+            audience = request.GET.get('audience', '')
+            format_type = request.GET.get('format', '')
+        
+            courses = Course.objects.all()
+            contacts = Contact.objects.all()
+            events = Event.objects.all()
+        
+            if query:
+                courses = courses.filter(title__icontains=query) | courses.filter(description__icontains=query)
+                contacts = contacts.filter(name__icontains=query) | contacts.filter(address__icontains=query)
+                events = events.filter(title__icontains=query) | events.filter(description__icontains=query)
+        
+            if audience:
+                courses = courses.filter(audience=audience)
+                contacts = contacts.filter(audience=audience)
+                events = events.filter(audience=audience)
+        
+            if format_type:
+                courses = courses.filter(format_type=format_type)
+        
+            context = {
+                'query': query,
+                'courses': courses,
+                'contacts': contacts,
+                'events': events,
+                'audience_filter': audience,
+                'format_filter': format_type,
+            }
+            return render(request, 'search/results.html', context)
+        --- КОНЕЦ ---
+
+  📁 static/
+    📁 css/
+      📄 style.css
+          --- СОДЕРЖИМОЕ ---
+          body {
+              font-size: 1rem;
+              line-height: 1.6;
+          }
+          
+          .card {
+              box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+              transition: transform 0.2s;
+          }
+          
+          .card:hover {
+              transform: translateY(-3px);
+          }
+          
+          footer {
+              font-size: 0.9rem;
+          }
+          --- КОНЕЦ ---
+
+  📁 templates/
+    📁 admin/
+      📄 test_analytics.html
+          --- СОДЕРЖИМОЕ ---
+          <!-- templates/admin/test_analytics.html -->
+          {% extends "admin/base_site.html" %}
+          {% load static %}
+          
+          {% block title %}Аналитика тестов{% endblock %}
+          
+          {% block extrahead %}
+          <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+          {% endblock %}
+          
+          {% block content %}
+          <div class="container-fluid">
+              <h1>📊 Аналитика результатов тестов</h1>
+          
+              <div class="row mt-4">
+                  <div class="col-md-6">
+                      <h3>Средний балл по курсам</h3>
+                      <canvas id="courseChart" height="100"></canvas>
+                  </div>
+                  <div class="col-md-6">
+                      <h3>Динамика прохождений (последние дни)</h3>
+                      <canvas id="dailyChart" height="100"></canvas>
+                  </div>
+              </div>
+          </div>
+          
+          <script>
+          const courseCtx = document.getElementById('courseChart').getContext('2d');
+          new Chart(courseCtx, {
+              type: 'bar',
+              data: {
+                  labels: {{ course_labels|safe }},
+                  datasets: [{
+                      label: 'Средний %',
+                      data: {{ course_data|safe }},
+                      backgroundColor: '#6a7d5d'
+                  }]
+              },
+              options: {
+                  responsive: true,
+                  scales: {
+                      y: { beginAtZero: true, max: 100 }
+                  }
+              }
+          });
+          
+          const dailyCtx = document.getElementById('dailyChart').getContext('2d');
+          new Chart(dailyCtx, {
+              type: 'line',
+              data: {
+                  labels: {{ daily_labels|safe }},
+                  datasets: [{
+                      label: 'Количество прохождений',
+                      data: {{ daily_data|safe }},
+                      borderColor: '#d4c8b7',
+                      backgroundColor: 'rgba(212, 200, 183, 0.2)',
+                      fill: true
+                  }]
+              },
+              options: {
+                  responsive: true,
+                  scales: {
+                      y: { beginAtZero: true }
+                  }
+              }
+          });
+          </script>
+          {% endblock %}
+          --- КОНЕЦ ---
+
+    📄 base.html
+        --- СОДЕРЖИМОЕ ---
+        {% load static %}
+        <!DOCTYPE html>
+        <html lang="ru">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <title>Финансовая грамотность Удмуртии</title>
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+            <link href="{% static 'css/style.css' %}" rel="stylesheet">
+            <style>
+                /* Обязательно: min-height: 100vh для body */
+                body {
+                    display: flex;
+                    flex-direction: column;
+                    min-height: 100vh;
+                    font-size: 1rem;
+                    line-height: 1.6;
+                }
+                .content-wrapper {
+                    flex: 1 0 auto;
+                }
+                footer {
+                    flex-shrink: 0;
+                    font-size: 0.9rem;
+                }
+            </style>
+        </head>
+        <body>
+             <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+              <div class="container">
+                <a class="navbar-brand" href="{% url 'core:home' %}">ФинГрамота Удмуртии</a>
+        
+                <!-- Бургер-меню для мобильных -->
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+                        aria-controls="mainNavbar" aria-expanded="false" aria-label="Переключить навигацию">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+        
+                <div class="collapse navbar-collapse" id="mainNavbar">
+                  <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <li class="nav-item"><a class="nav-link" href="{% url 'core:home' %}">Главная</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'courses:list' %}">Курсы</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'core:textbooks' %}">Учебники</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'core:contacts' %}">Контакты</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'core:events' %}">События</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{% url 'core:calendar' %}">Календарь</a></li>
+        
+                    <li class="nav-item"><a class="nav-link" href="{% url 'core:news_list' %}">Новости</a></li>
+                      {% if user.is_moderator %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'core:moderator_dashboard' %}">Модератор</a></li>
+                      {% endif %}
+                    {% if user.is_authenticated %}
+                      <li class="nav-item"><a class="nav-link" href="{% url 'core:profile' %}">Кабинет</a></li>
+                    {% else %}
+                      <li class="nav-item"><a class="nav-link" href="{% url 'core:login' %}">Войти</a></li>
+                      <li class="nav-item"><a class="nav-link" href="{% url 'core:register' %}">Регистрация</a></li>
+                    {% endif %}
+                    <li class="nav-item"><a class="nav-link" href="{% url 'core:faq' %}">FAQ</a></li>
+                  </ul>
+        
+                  <!-- Форма поиска — только на средних и больших экранах в навбаре -->
+                  <form class="d-none d-lg-flex" action="{% url 'search:results' %}" method="get">
+                    <input class="form-control me-2" type="search" name="q" placeholder="Поиск..." aria-label="Поиск">
+                    <button class="btn btn-outline-light" type="submit">Найти</button>
+                  </form>
+                </div>
+              </div>
+            </nav>
+        
+        <!-- На мобильных — отдельная строка с поиском под навбаром -->
+            <div class="container d-lg-none mt-2 mb-3">
+          <form action="{% url 'search:results' %}" method="get">
+            <div class="input-group">
+              <input type="search" name="q" class="form-control" placeholder="Поиск по сайту..." aria-label="Поиск">
+              <button class="btn btn-outline-primary" type="submit">Найти</button>
+            </div>
+          </form>
+        </div>
+        
+        
+            <div class="container mt-4">
+                {% block content %}{% endblock %}
+            </div>
+        
+            <div id="chatbot-widget" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; width: 320px; height: 450px; display: flex; flex-direction: column; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 16px; background-color: white; overflow: hidden;">
+        
+            <div style="background-color: #d4c8b7; color: white; padding: 12px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
+                💰💼 Гений финансов
+                <button onclick="toggleChat()" style="background: none; border: none; color: #333; cursor: pointer; font-size: 16px;">×</button>
+            </div>
+        
+            <div id="chat-messages" style="flex-grow: 1; padding: 12px; overflow-y: auto; background-color: #f8f6f0; max-height: 320px;"></div>
+        
+            <div style="display: flex; padding: 10px; border-top: 1px solid #e0e0e0;">
+                <input type="text" id="chat-input" placeholder="Ваш вопрос"
+                       style="flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 20px; outline: none;"
+                       onkeydown="if(event.key==='Enter') sendQuestion()">
+                <button onclick="sendQuestion()"
+                        style="margin-left: 8px; padding: 8px 16px; background-color: #6a7d5d; color: white; border: none; border-radius: 20px; cursor: pointer; font-size: 14px;">
+                    Отправить
+                </button>
+            </div>
+        </div>
+        
+        <div id="chat-open-btn" style="position: fixed; bottom: 20px; right: 20px; z-index: 9998; width: 50px; height: 50px; border-radius: 50%; background-color: #6a7d5d; color: white; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer; display: none;">💬</div>
+        
+        <script>
+            function toggleChat() {
+            const widget = document.getElementById('chatbot-widget');
+            const openBtn = document.getElementById('chat-open-btn');
+        
+            if (widget.style.display === 'none' || !widget.style.display) {
+                widget.style.display = 'flex';
+                openBtn.style.display = 'none';
+                // ✅ Отправляем приветствие при открытии чата
+                sendGreeting();
+            } else {
+                widget.style.display = 'none';
+                openBtn.style.display = 'flex';
+            }
+        }
+        
+            // ✅ Флаг для проверки, было ли приветствие отправлено
+            let greetingSent = false;
+        
+        // ✅ Функция отправки приветствия при открытии чата
+            function sendGreeting() {
+                if (greetingSent) return; // Уже отправлено — не повторяем
+        
+                const messageArea = document.getElementById('chat-messages');
+        
+                const greeting = "Здравствуйте! Я — Финансовый Помощник. Задайте вопрос — помогу!";
+        
+                appendMessage(greeting, 'bot');
+        
+                greetingSent = true; // Помечаем, что приветствие отправлено
+        }
+        
+            window.onload = function() {
+                // При загрузке — чат открыт по умолчанию? Нет — скрываем его
+                document.getElementById('chatbot-widget').style.display = 'none';
+                document.getElementById('chat-open-btn').style.display = 'flex';
+            };
+        
+            async function sendQuestion() {
+                const input = document.getElementById('chat-input');
+                const messageArea = document.getElementById('chat-messages');
+                const question = input.value.trim();
+        
+                if (!question) return;
+        
+                appendMessage(question, 'user');
+                input.value = '';
+        
+                appendMessage("🔍 Ищу информацию...", 'bot');
+        
+                try {
+                    const response = await fetch('/chat-ask/', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRFToken': getCookie('csrftoken')
+                        },
+                        body: JSON.stringify({ question: question })
+                    });
+        
+                    const data = await response.json();
+        
+                    const lastMsg = messageArea.lastElementChild;
+                    if (lastMsg && lastMsg.classList.contains('bot')) {
+                        messageArea.removeChild(lastMsg);
+                    }
+        
+                    if (data.error) {
+                        appendMessage(`❌ ${data.error}`, 'bot');
+                    } else {
+                        appendMessage(data.answer, 'bot');
+                    }
+        
+                } catch (error) {
+                    const lastMsg = messageArea.lastElementChild;
+                    if (lastMsg && lastMsg.classList.contains('bot')) {
+                        messageArea.removeChild(lastMsg);
+                    }
+                    appendMessage("❌ Ошибка соединения с сервером.", 'bot');
+                }
+            }
+        
+            function appendMessage(text, sender) {
+                const messageArea = document.getElementById('chat-messages');
+                const msgDiv = document.createElement('div');
+                msgDiv.style.marginBottom = '12px';
+                msgDiv.style.maxWidth = '80%';
+                msgDiv.style.padding = '10px 14px';
+                msgDiv.style.borderRadius = sender === 'user' ? '18px 18px 0 18px' : '18px 18px 18px 0';
+                msgDiv.style.backgroundColor = sender === 'user' ? '#6a7d5d' : '#f0f0f0';
+                msgDiv.style.color = sender === 'user' ? 'white' : '#333';
+                msgDiv.style.wordWrap = 'break-word';
+                msgDiv.style.fontSize = '14px';
+                msgDiv.style.alignSelf = sender === 'user' ? 'flex-end' : 'flex-start';
+                msgDiv.textContent = text;
+                msgDiv.className = sender;
+                messageArea.appendChild(msgDiv);
+                messageArea.scrollTop = messageArea.scrollHeight;
+            }
+        
+            function getCookie(name) {
+                let cookieValue = null;
+                if (document.cookie && document.cookie !== '') {
+                    const cookies = document.cookie.split(';');
+                    for (let i = 0; i < cookies.length; i++) {
+                        const cookie = cookies[i].trim();
+                        if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                            break;
+                        }
+                    }
+                }
+                return cookieValue;
+            }
+        
+            document.getElementById('chat-input').addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') sendQuestion();
+            });
+        
+            // Фикс: Показывать кнопку только если чат закрыт
+            function updateChatButtonVisibility() {
+                const widget = document.getElementById('chatbot-widget');
+                const openBtn = document.getElementById('chat-open-btn');
+        
+                if (widget.style.display === 'none' || !widget.style.display) {
+                    openBtn.style.display = 'flex';
+                } else {
+                    openBtn.style.display = 'none';
+                }
+            }
+        
+            // Обновляем состояние кнопки при каждом скролле и при открытии/закрытии
+            window.addEventListener('scroll', updateChatButtonVisibility);
+            window.addEventListener('load', updateChatButtonVisibility);
+        
+            // Добавляем обработчик на кнопку открытия
+            document.getElementById('chat-open-btn').addEventListener('click', function() {
+                toggleChat();
+                // После открытия — скрываем кнопку
+                updateChatButtonVisibility();
+            });
+        
+            // Также обновляем при изменении размера окна (для мобильных)
+            window.addEventListener('resize', updateChatButtonVisibility);
+        
+        </script>
+        <style>
+            #chatbot-widget {
+                animation: slideIn 0.3s ease-out;
+            }
+            @media (max-width: 576px) {
+            #chatbot-widget {
+              width: calc(100vw - 40px);
+              max-width: 320px;
+              right: 20px;
+              bottom: 20px;
+            }
+            #chat-open-btn {
+              width: 44px;
+              height: 44px;
+              font-size: 20px;
+            }
+          }
+        
+          /* Гарантируем, что контент не уезжает под фиксированный чат */
+          body {
+            padding-bottom: 70px; /* компенсация под фиксированный чат на мобилках */
+          }
+          @media (min-width: 577px) {
+            body {
+              padding-bottom: 0;
+            }
+          }
+            @keyframes slideIn {
+                from { transform: translateX(300px); opacity: 0; }
+                to { transform: translateX(0); opacity: 1; }
+            }
+        </style>
+        
+        
+            <footer class="bg-light text-center py-3 mt-auto">
+                <p class="mb-0">© 2025 Портал финансовой грамотности Удмуртии</p>
+            </footer>
+        
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        </body>
+        </html>
+        --- КОНЕЦ ---
+
+    📁 core/
+      📄 calendar.html
+          --- СОДЕРЖИМОЕ ---
+          <!-- templates/core/calendar.html -->
+          {% extends 'base.html' %}
+          {% load static %}
+          
+          {% block content %}
+          <style>
+            /* Стили в стиле Google Calendar */
+            #calendar {
+              font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
+              background-color: #f8f9fa;
+              border-radius: 8px;
+              overflow: hidden;
+              box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            }
+          
+            /* Заголовок календаря */
+            .fc-header-toolbar {
+              padding: 16px 24px;
+              background: white;
+              border-bottom: 1px solid #e0e0e0;
+            }
+          
+            .fc-toolbar-title {
+              font-size: 22px;
+              font-weight: 500;
+              color: #202124;
+            }
+          
+            /* Кнопки навигации */
+            .fc-button {
+              background: white;
+              border: 1px solid #dadce0;
+              color: #3c4043;
+              border-radius: 4px;
+              padding: 6px 12px;
+              font-size: 14px;
+              font-weight: 500;
+              height: auto;
+              min-height: auto;
+            }
+          
+            .fc-button:hover {
+              background: #f8f9fa;
+              box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+            }
+          
+            .fc-button:active,
+            .fc-button.fc-button-active {
+              background: #e8eaed;
+            }
+          
+            /* Сетка календаря */
+            .fc-daygrid-day-frame {
+              padding: 4px;
+            }
+          
+            .fc-daygrid-day-top {
+              justify-content: flex-start;
+              padding: 4px 0;
+            }
+          
+            .fc-daygrid-day-number {
+              font-size: 14px;
+              font-weight: 500;
+              color: #202124;
+            }
+          
+            .fc-day-today .fc-daygrid-day-number {
+              background: #d2e3fc;
+              border-radius: 50%;
+              width: 28px;
+              height: 28px;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+              margin: 0 auto;
+            }
+          
+            /* События (точки) */
+            .fc-daygrid-event {
+              font-size: 12px;
+              padding: 2px 4px;
+              border-radius: 2px;
+              background: #d2e3fc;
+              color: #1a73e8;
+              border: none;
+              cursor: pointer;
+            }
+          
+            /* Дни без событий */
+            .fc-daygrid-day {
+              background: white;
+            }
+          
+            .fc-day-other .fc-daygrid-day-number {
+              color: #9aa0a6;
+            }
+          
+            /* Адаптация под вашу тему */
+            body {
+              background-color: #fff;
+            }
+          </style>
+          
+          <h1 class="mb-4">Календарь мероприятий</h1>
+          <div id="calendar" style="height: 600px;"></div>
+          
+          <!-- Модальное окно -->
+          <div class="modal fade" id="dayEventsModal" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="modalDateTitle">Мероприятия на ...</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+                </div>
+                <div class="modal-body" id="modalEventsList"></div>
+                <div class="modal-footer" id="modalFooter">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- FullCalendar -->
+          <!-- FullCalendar -->
+          <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
+          <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+          <script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.15/locales/ru.global.min.js"></script>
+          <script>
+          document.addEventListener('DOMContentLoaded', function () {
+              if (typeof FullCalendar === 'undefined') {
+                  document.getElementById('calendar').innerHTML = `<div class="alert alert-danger">❌ FullCalendar не загружен.</div>`;
+                  return;
+              }
+          
+              const calendarEl = document.getElementById('calendar');
+              const calendar = new FullCalendar.Calendar(calendarEl, {
+                  locale: 'ru',
+                  initialView: 'dayGridMonth',
+                  headerToolbar: {
+                      left: 'prev,next today',
+                      center: 'title',
+                      right: 'dayGridMonth,listMonth'
+                  },
+                  events: '{% url "core:events_api" %}',
+                  dateClick: function (info) {
+                      fetchEventsForDate(info.dateStr);
+                  }
+              });
+          
+              calendar.render();
+          
+              function fetchEventsForDate(dateStr) {
+                  fetch('{% url "core:events_api" %}')
+                      .then(res => res.ok ? res.json() : Promise.reject())
+                      .then(events => {
+                          const dayEvents = events.filter(e => e.start === dateStr);
+                          showDayEventsModal(dateStr, dayEvents);
+                      })
+                      .catch(() => {
+                          document.getElementById('modalEventsList').innerHTML = '<p class="text-danger">Не удалось загрузить мероприятия.</p>';
+                          new bootstrap.Modal(document.getElementById('dayEventsModal')).show();
+                      });
+              }
+          
+              function showDayEventsModal(dateStr, events) {
+                  const titleEl = document.getElementById('modalDateTitle');
+                  const bodyEl = document.getElementById('modalEventsList');
+                  const footerEl = document.getElementById('modalFooter');
+          
+                  const date = new Date(dateStr);
+                  const opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                  titleEl.textContent = 'Мероприятия на ' + date.toLocaleDateString('ru-RU', opts);
+          
+                  let html = '';
+                  if (events.length === 0) {
+                      html = '<p>На эту дату мероприятий не запланировано.</p>';
+                      footerEl.innerHTML = '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>';
+                  } else {
+                      html = '<ul class="list-group list-group-flush">';
+                      events.forEach(e => {
+                          html += `
+                              <li class="list-group-item">
+                                  <strong>${e.title}</strong><br>
+                                  📍 ${e.extendedProps.location}<br>
+                                  👥 Аудитория: ${e.extendedProps.audience}<br>
+                                  ${e.extendedProps.description}
+                              </li>`;
+                      });
+                      html += '</ul>';
+          
+                      footerEl.innerHTML = `
+                          <a href="/events/?date_from=${encodeURIComponent(dateStr)}&date_to=${encodeURIComponent(dateStr)}" class="btn btn-primary">Подробнее</a>
+                          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                      `;
+                  }
+          
+                  bodyEl.innerHTML = html;
+                  new bootstrap.Modal(document.getElementById('dayEventsModal')).show();
+              }
+          });
+          </script>
+          {% endblock %}
+          --- КОНЕЦ ---
+
+      📄 contacts.html
+          --- СОДЕРЖИМОЕ ---
+          {% extends 'base.html' %}
+          {% block content %}
+          <h1>Контакты</h1>
+          
+          {% if contacts %}
+          <div id="map-contacts" style="width: 100%; height: 400px; margin-bottom: 30px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+          {% endif %}
+          
+          <div class="row">
+              {% for contact in contacts %}
+                  <div class="col-12 col-md-6 col-lg-4 mb-4">
+                      <div class="card">
+                          <div class="card-body">
+                              <h5 class="card-title">{{ contact.name }}</h5>
+                              <p><strong>Адрес:</strong> {{ contact.address }}</p>
+                              <p><strong>Телефон:</strong> {{ contact.phone }}</p>
+                              {% if contact.email %}
+                                  <p><strong>Email:</strong> {{ contact.email }}</p>
+                              {% endif %}
+                              <p class="text-muted">Аудитория: {{ contact.audience }}</p>
+                          </div>
+                      </div>
+                  </div>
+              {% endfor %}
+          </div>
+          
+          <!-- Подключение Яндекс.Карт -->
+          <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+          <script type="text/javascript">
+              ymaps.ready(initContactsMap);
+              function initContactsMap() {
+                  const map = new ymaps.Map("map-contacts", {
+                      center: [56.8498, 53.2045],
+                      zoom: 10,
+                      controls: ['zoomControl', 'fullscreenControl']
+                  });
+          
+                  const contacts = [
+                      {% for contact in contacts %}
+                          {
+                              name: "{{ contact.name|escapejs }}",
+                              address: "{{ contact.address|escapejs }}",
+                              coords: [{{ contact.latitude }}, {{ contact.longitude }}]
+                          },
+                      {% endfor %}
+                  ];
+          
+                  contacts.forEach(contact => {
+                      const placemark = new ymaps.Placemark(
+                          contact.coords,
+                          {
+                              balloonContentHeader: contact.name,
+                              balloonContentBody: contact.address,
+                              hintContent: contact.name
+                          },
+                          {
+                              preset: 'islands#icon',
+                              iconColor: '#6a7d5d'
+                          }
+                      );
+                      map.geoObjects.add(placemark);
+                  });
+          
+                  if (contacts.length > 0) {
+                      const bounds = ymaps.util.bounds.fromPoints(contacts.map(c => c.coords));
+                      map.setBounds(bounds, { checkZoomRange: true });
+                  }
+              }
+          </script>
+          {% endblock %}
+          --- КОНЕЦ ---
+
+      📄 events.html
+          --- СОДЕРЖИМОЕ ---
+          <!-- templates/core/events.html -->
+          {% extends 'base.html' %}
+          {% block content %}
+          <h1>События</h1>
+          
+          <!-- Форма фильтрации -->
+          <form method="get" class="mb-4">
+            <div class="row g-2">
+              <div class="col-12 col-md-4">
+                <label for="audience" class="form-label">Аудитория</label>
+                <select name="audience" id="audience" class="form-select">
+                  <option value="">Все</option>
+                  {% for value, label in audience_choices %}
+                    <option value="{{ value }}" {% if current_filters.audience == value %}selected{% endif %}>
+                      {{ label }}
+                    </option>
+                  {% endfor %}
+                </select>
+              </div>
+              <div class="col-12 col-md-3">
+            <label for="date_from" class="form-label">Дата от</label>
+            <input type="date" name="date_from" id="date_from" class="form-control"
+                   value="{{ current_filters.date_from|date:'Y-m-d' }}">
+          </div>
+          <div class="col-12 col-md-3">
+            <label for="date_to" class="form-label">Дата до</label>
+            <input type="date" name="date_to" id="date_to" class="form-control"
+                   value="{{ current_filters.date_to|date:'Y-m-d' }}">
+          </div>
+              <div class="col-12 col-md-2 d-flex align-items-end">
+                <button type="submit" class="btn btn-primary w-100">Применить</button>
+              </div>
+            </div>
+          </form>
+          
+          <!-- Список событий -->
+          {% if events %}
+            <div class="row">
+              {% for event in events %}
+                <div class="col-12 col-md-6 col-lg-4 mb-4">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title">{{ event.title }}</h5>
+                      <p><strong>Дата:</strong> {{ event.date|date:"d.m.Y" }}</p>
+                      <p><strong>Место:</strong> {{ event.location }}</p>
+                        <a href="{% url 'core:events' %}" class="btn btn-secondary mb-3">Сбросить фильтры</a>
+                      <p>{{ event.description|truncatewords:20 }}</p>
+                      <p class="text-muted">Для: {{ event.get_audience_display }}</p>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="alert alert-info">События не найдены.</div>
+          {% endif %}
+          
+          {% endblock %}
+          --- КОНЕЦ ---
+
+      📄 faq.html
+          --- СОДЕРЖИМОЕ ---
+          {% extends 'base.html' %}
+          {% block content %}
+          
+          <h1>Часто задаваемые вопросы (FAQ)</h1>
+          
+          <div class="accordion mt-4" id="faqAccordion">
+            {% for item in faq_items %}
+              <div class="accordion-item mb-2">
+                <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="collapse{{ forloop.counter }}">
+                    {{ item.question }}
+                  </button>
+                </h2>
+                <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#faqAccordion">
+                  <div class="accordion-body">
+                    <div class="answer-text">
+                      {{ item.answer|linebreaks }}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          
+          <div class="mt-4 p-3 bg-light rounded">
+            <p class="mb-0">
+              Не нашли ответ на свой вопрос?
+              <a href="{% url 'core:contacts' %}" class="text-primary">Свяжитесь с нами</a> или воспользуйтесь чат-ботом в правом нижнем углу.
+            </p>
+          </div>
+          
+          <style>
+            .accordion-button {
+              font-weight: 600;
+              color: #333;
+            }
+            .accordion-body {
+              padding: 1rem 1.25rem;
+            }
+            .answer-text {
+              line-height: 1.7;
+              color: #555;
+            }
+          </style>
+          
+          {% endblock %}
+          --- КОНЕЦ ---
+
+      📄 home.html
+          --- СОДЕРЖИМОЕ ---
+          {% extends 'base.html' %}
+          {% block content %}
+          <h1 class="mb-4">Добро пожаловать на портал финансовой грамотности Удмуртии!</h1>
+          <div class="row mb-5">
+            <div class="col-lg-8 mb-4 mb-lg-0">
+              <p>Здесь вы найдете полезные материалы, курсы и контакты для повышения вашей финансовой грамотности.</p>
+              <a href="{% url 'courses:list' %}" class="btn btn-primary">Начать обучение</a>
+            </div>
+            <div class="col-lg-4">
+              <div class="card h-100">
+                <div class="card-header">
+                  <h5 class="mb-0">Ближайшие события</h5>
+                </div>
+                <div class="card-body">
+                  {% for event in events %}
+                    <p class="card-text"><strong>{{ event.title }}</strong><br>{{ event.date|date:"d.m.Y" }} в {{ event.location }}</p>
+                  {% empty %}
+                    <p class="text-muted">События пока не запланированы.</p>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Общие сведения -->
+          <div class="card mb-5">
+            <div class="card-body">
+              <h4 class="card-title">Общие сведения</h4>
+              <p>
+                Наша стратегическая задача — создание постоянно развивающейся системы и инфраструктуры для непрерывного образования и просвещения в вопросах финансовой грамотности, системы, которая бы оперативно реагировала на новые вызовы, «ловила» запросы людей и помогала бы им быстро находить ответы на вопросы, которые возникают при принятии финансовых решений.
+              </p>
+              <p>
+                С 2008 года наша команда делится знаниями и опытом по повышению финансовой грамотности с населением Удмуртии!
+              </p>
+              <p><strong>Мы расскажем:</strong></p>
+              <ul>
+                <li>Как сохранять, накапливать и приумножать свои деньги, используя различные инвестиционные инструменты.</li>
+                <li>О возможностях финансового рынка, механизмах, позволяющих улучшить своё материальное положение.</li>
+                <li>Как не попадаться на уловки финансовых мошенников.</li>
+              </ul>
+            </div>
+          </div>
+          
+          <!-- О коллективе -->
+          <div class="card mb-5">
+            <div class="card-body">
+              <h4 class="card-title">О коллективе</h4>
+              <p>
+                Наша команда — это профессионалы в области финансов, образования и цифровых технологий.
+                В неё входят сертифицированные финансовые консультанты, преподаватели, методисты,
+                разработчики и аналитики, объединённые общей миссией — сделать финансовую грамотность
+                доступной каждому жителю Удмуртии.
+              </p>
+              <p>
+                Мы сотрудничаем с Министерством образования и науки Удмуртской Республики,
+                финансовыми организациями, школами, колледжами и центрами социальной поддержки,
+                чтобы наши материалы были актуальными, проверенными и ориентированными на реальные
+                потребности людей.
+              </p>
+              <p>
+                За годы работы мы провели сотни мероприятий, обучили тысячи человек и помогли
+                многим семьям принять взвешенные финансовые решения.
+              </p>
+            </div>
+          </div>
+          
+          <div class="row mb-5">
+          
+          <h3 class="mb-3">Популярные курсы</h3>
+          <div class="row g-4">
+            {% for course in courses %}
+              <div class="col-md-6 col-lg-4">
+                <div class="card h-100">
+                  <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">{{ course.title }}</h5>
+                    <p class="card-text flex-grow-1">{{ course.description|truncatewords:15 }}</p>
+                    <a href="{% url 'courses:detail' course.id %}" class="btn btn-outline-primary mt-auto">Подробнее</a>
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+          
+          {% if contacts %}
+          <div class="mt-5">
+              <h3 class="mb-3">Наши офисы</h3>
+              <div id="map-main" style="width: 100%; height: 300px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+          </div>
+          {% endif %}
+          
+          <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+          <script type="text/javascript">
+              ymaps.ready(initMainMap);
+              function initMainMap() {
+                  const map = new ymaps.Map("map-main", {
+                      center: [56.8498, 53.2045],
+                      zoom: 10,
+                      controls: []
+                  });
+          
+                  const contacts = [
+                      {% for contact in contacts %}
+                          {
+                              name: "{{ contact.name|escapejs }}",
+                              address: "{{ contact.address|escapejs }}",
+                              coords: [{{ contact.latitude }}, {{ contact.longitude }}]
+                          },
+                      {% endfor %}
+                  ];
+          
+                  contacts.forEach(contact => {
+                      const placemark = new ymaps.Placemark(
+                          contact.coords,
+                          {
+                              balloonContentHeader: contact.name,
+                              balloonContentBody: contact.address,
+                              hintContent: contact.name
+                          },
+                          {
+                              preset: 'islands#icon',
+                              iconColor: '#6a7d5d'
+                          }
+                      );
+                      map.geoObjects.add(placemark);
+                  });
+          
+                  if (contacts.length > 0) {
+                      const bounds = ymaps.util.bounds.fromPoints(contacts.map(c => c.coords));
+                      map.setBounds(bounds, { checkZoomRange: true });
+                  }
+              }
+          </script>
+          {% endblock %}
+          --- КОНЕЦ ---
+
+      📄 login.html
+          --- СОДЕРЖИМОЕ ---
+          {% extends 'base.html' %}
+          {% block content %}
+          <div class="row justify-content-center">
+              <div class="col-md-6">
+                  <div class="card">
+                      <div class="card-header"><h3>Вход</h3></div>
+                      <div class="card-body">
+                          <form method="post">
+                              {% csrf_token %}
+                              <div class="mb-3">
+                                  <label>Email</label>
+                                  <input type="email" name="email" class="form-control" required>
+                              </div>
+                              <div class="mb-3">
+                                  <label>Пароль</label>
+                                  <input type="password" name="password" class="form-control" required>
+                              </div>
+                              <button type="submit" class="btn btn-primary w-100">Войти</button>
+                          </form>
+                          <div class="text-center mt-3">
+                              Нет аккаунта? <a href="{% url 'core:register' %}">Зарегистрироваться</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          {% endblock %}
+          --- КОНЕЦ ---
+
+      📄 moderator_dashboard.html
+          --- СОДЕРЖИМОЕ ---
+          {% extends 'base.html' %}
+          
+          {% block content %}
+          <div class="container py-5">
+              <h2 class="mb-4">Панель модератора</h2>
+              <p>Выберите, что вы хотите редактировать:</p>
+          
+              <div class="row g-4">
+                  <!-- Новости -->
+                  <div class="col-md-6">
+                      <div class="card h-100 shadow-sm">
+                          <div class="card-body d-flex flex-column">
+                              <h5 class="card-title">📰 Новости</h5>
+                              <p class="card-text flex-grow-1">
+                                  Добавляйте, редактируйте и удаляйте новости портала.
+                              </p>
+                              <a href="{% url 'core:news_moderator_list' %}" class="btn btn-primary mt-auto">
+                                  Управление новостями
+                              </a>
+                          </div>
+                      </div>
+                  </div>
+          
+                  <!-- События -->
+                  <div class="col-md-6">
+                      <div class="card h-100 shadow-sm">
+                          <div class="card-body d-flex flex-column">
+                              <h5 class="card-title">📅 События</h5>
+                              <p class="card-text flex-grow-1">
+                                  Управляйте мероприятиями: даты, локации, аудитория.
+                              </p>
+                              <a href="{% url 'admin:core_event_changelist' %}" class="btn btn-success mt-auto">
+                                  Управление событиями
+                              </a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          
+              <div class="mt-4">
+                  <a href="{% url 'core:home' %}" class="btn btn-outline-secondary">← Вернуться на главную</a>
+              </div>
+          </div>
+          {% endblock %}
+          --- КОНЕЦ ---
+
+      📄 news_confirm_delete.html
+          --- СОДЕРЖИМОЕ ---
+          {% extends 'base.html' %}
+          
+          {% block content %}
+          <h2>Подтверждение удаления</h2>
+          <p>Вы уверены, что хотите удалить новость «<strong>{{ news.title }}</strong>»?</p>
+          
+          <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Удалить</button>
+            <a href="{% url 'core:news_moderator_list' %}" class="btn btn-secondary">Отмена</a>
+          </form>
+          {% endblock %}
+          --- КОНЕЦ ---
+
+      📄 news_detail.html
+          --- СОДЕРЖИМОЕ ---
+          {% extends 'base.html' %}
+          
+          {% block content %}
+          <div class="row justify-content-center">
+            <div class="col-lg-8">
+              {% if news.image %}
+                <img src="{{ news.image.url }}" class="img-fluid rounded mb-4" alt="{{ news.title }}">
+              {% endif %}
+              <h1>{{ news.title }}</h1>
+              <p class="text-muted">
+                Автор: {{ news.author.username|default:"Администрация" }} • {{ news.created_at|date:"d.m.Y H:i" }}
+              </p>
+              <div class="mt-4">
+                {{ news.content|linebreaks }}
+              </div>
+              <a href="{% url 'core:news_list' %}" class="btn btn-secondary mt-3">← К списку новостей</a>
+            </div>
+          </div>
+          {% endblock %}
+          --- КОНЕЦ ---
+
+      📄 news_form.html
+          --- СОДЕРЖИМОЕ ---
+          {% extends 'base.html' %}
+          
+          {% block content %}
+          <h2>{{ title }}</h2>
+          
+          <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-3">
+              {{ form.title.label_tag }}
+              {{ form.title }}
+            </div>
+            <div class="mb-3">
+              {{ form.content.label_tag }}
+              {{ form.content }}
+            </div>
+            <div class="mb-3">
+              {{ form.image.label_tag }}
+              {{ form.image }}
+              {% if form.instance.image %}
+                <div class="mt-2">
+                  <img src="{{ form.instance.image.url }}" alt="Текущее изображение" style="max-height: 200px;">
+                </div>
+              {% endif %}
+            </div>
+            <div class="form-check mb-3">
+              {{ form.is_published }}
+              {{ form.is_published.label_tag }}
+            </div>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+            <a href="{% url 'core:news_moderator_list' %}" class="btn btn-secondary">Отмена</a>
+          </form>
+          {% endblock %}
+          --- КОНЕЦ ---
+
+      📄 news_list.html
+          --- СОДЕРЖИМОЕ ---
+          {% extends 'base.html' %}
+          
+          {% block content %}
+          <h1>Новости</h1>
+          <div class="row">
+              {% for item in news_list %}
+              <div class="col-12 mb-4">
+                <div class="card">
+                  {% if item.image %}
+                    <img src="{{ item.image.url }}" class="card-img-top" style="height: 200px; object-fit: cover;" alt="{{ item.title }}">
+                  {% endif %}
+                  <div class="card-body">
+                    <h5 class="card-title">{{ item.title }}</h5>
+                    <p class="text-muted">
+                      <small>Автор: {{ item.author.email|default:"Администрация" }} • {{ item.created_at|date:"d.m.Y" }}</small>
+                    </p>
+                    <p>{{ item.content|truncatewords:30 }}</p>
+                    <a href="{% url 'core:news_detail' item.id %}" class="btn btn-outline-primary">Читать далее</a>
+                  </div>
+                </div>
+              </div>
+              {% empty %}
+                  <p>Новостей пока нет.</p>
+              {% endfor %}
+          </div>
+          {% endblock %}
+          --- КОНЕЦ ---
+
+      📄 news_moderator_list.html
+          --- СОДЕРЖИМОЕ ---
+          {% extends 'base.html' %}
+          {% load static %}
+          
+          {% block content %}
+          <h2>Управление новостями</h2>
+          <a href="{% url 'core:news_create' %}" class="btn btn-success mb-3">+ Добавить новость</a>
+          
+          <div class="table-responsive">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th>Заголовок</th>
+                  <th>Автор</th>
+                  <th>Дата</th>
+                  <th>Опубликовано</th>
+                  <th>Действия</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for item in news_list %}
+                  <tr>
+                    <td>{{ item.title }}</td>
+                    <td>{{ item.author.email }}</td>
+                    <td>{{ item.created_at|date:"d.m.Y H:i" }}</td>
+                    <td>{% if item.is_published %}✅{% else %}❌{% endif %}</td>
+                    <td>
+                      <a href="{% url 'core:news_edit' item.id %}" class="btn btn-sm btn-outline-primary">Редактировать</a>
+                      <a href="{% url 'core:news_delete' item.id %}" class="btn btn-sm btn-outline-danger">Удалить</a>
+                    </td>
+                  </tr>
+                {% empty %}
+                  <tr><td colspan="5" class="text-center">Новостей нет</td></tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          {% endblock %}
+          --- КОНЕЦ ---
+
+      📄 profile.html
+          --- СОДЕРЖИМОЕ ---
+          {% extends 'base.html' %}
+          {% load widget_tweaks %}
+          {% block content %}
+          <h2>Личный кабинет</h2>
+          <div class="alert alert-info">
+              Привет, <strong>{{ user.email }}</strong>!
+          </div>
+          
+          <!-- Статистика -->
+          <div class="card mb-4">
+              <div class="card-header bg-success text-white">
+                  <h5 class="mb-0">Ваша статистика</h5>
+              </div>
+              <div class="card-body">
+                  <p><strong>Пройдено тестов:</strong> {{ total_tests }}</p>
+                  <p><strong>Средний результат:</strong> {{ avg_percent }}%</p>
+              </div>
+          </div>
+          
+          <!-- Форма редактирования профиля -->
+          <div class="row">
+            <div class="col-lg-6">
+              <form method="post">
+              {% csrf_token %}
+              {% for field in form %}
+                  <div class="mb-3">
+                      {{ field.label_tag }}
+                      {{ field }}
+                      {% if field.help_text %}
+                          <small class="form-text text-muted">{{ field.help_text }}</small>
+                      {% endif %}
+                  </div>
+              {% endfor %}
+              <button type="submit" class="btn btn-success">Сохранить изменения</button>
+          </form>
+            </div>
+          </div>
+          <hr>
+          <a href="{% url 'core:logout' %}" class="btn btn-outline-danger">Выйти</a>
+          {% endblock %}
+          --- КОНЕЦ ---
+
+      📄 register.html
+          --- СОДЕРЖИМОЕ ---
+          {% extends 'base.html' %}
+          {% load widget_tweaks %}
+          {% block content %}
+          <div class="row justify-content-center">
+              <div class="col-md-6">
+                  <div class="card">
+                      <div class="card-header"><h3>Регистрация</h3></div>
+                      <div class="card-body">
+                          {% if messages %}
+                              {% for message in messages %}
+                                  <div class="alert alert-{{ message.tags }}">{{ message }}</div>
+                              {% endfor %}
+                          {% endif %}
+                          <form method="post">
+                              {% csrf_token %}
+                              <div class="mb-3">
+                                  {{ form.email.label_tag }}
+                                  {{ form.email|add_class:"form-control" }}
+                                  {% if form.email.errors %}<div class="text-danger">{{ form.email.errors }}</div>{% endif %}
+                              </div>
+                              <div class="mb-3">
+                                  {{ form.password1.label_tag }}
+                                  {{ form.password1|add_class:"form-control" }}
+                                  {% if form.password1.errors %}<div class="text-danger">{{ form.password1.errors }}</div>{% endif %}
+                              </div>
+                              <div class="mb-3">
+                                  {{ form.password2.label_tag }}
+                                  {{ form.password2|add_class:"form-control" }}
+                                  {% if form.password2.errors %}<div class="text-danger">{{ form.password2.errors }}</div>{% endif %}
+                              </div>
+                              <button type="submit" class="btn btn-primary w-100">Зарегистрироваться</button>
+                          </form>
+                          <div class="text-center mt-3">
+                              Уже есть аккаунт? <a href="{% url 'core:login' %}">Войти</a>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          {% endblock %}
+          --- КОНЕЦ ---
+
+      📄 textbooks.html
+          --- СОДЕРЖИМОЕ ---
+          {% extends 'base.html' %}
+          {% block content %}
+          
+          <div class="container mt-4">
+            <h1>Учебные комплекты по финансовой грамотности</h1>
+          
+            <!-- Табы по классам -->
+            <ul class="nav nav-tabs mb-4" id="classTabs" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="tab-2-3-tab" data-bs-toggle="tab" data-bs-target="#tab-2-3" type="button" role="tab" aria-controls="tab-2-3" aria-selected="true">Для 2–3 классов</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-4-tab" data-bs-toggle="tab" data-bs-target="#tab-4" type="button" role="tab" aria-controls="tab-4" aria-selected="false">Для 4 класса</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-5-7-tab" data-bs-toggle="tab" data-bs-target="#tab-5-7" type="button" role="tab" aria-controls="tab-5-7" aria-selected="false">Для 5–7 классов</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-8-9-tab" data-bs-toggle="tab" data-bs-target="#tab-8-9" type="button" role="tab" aria-controls="tab-8-9" aria-selected="false">Для 8-9 класса</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="tab-10-11-tab" data-bs-toggle="tab" data-bs-target="#tab-10-11" type="button" role="tab" aria-controls="tab-10-11" aria-selected="false">Для 10–11 классов</button>
+              </li>
+            </ul>
+          
+            <!-- Контент табов -->
+            <div class="tab-content" id="classTabContent">
+          
+              <!-- Для 2–3 классов -->
+              <div class="tab-pane fade show active" id="tab-2-3" role="tabpanel" aria-labelledby="tab-2-3-tab">
+                <div class="row g-4">
+                  <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                      <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Учебная программа</h5>
+                        <p class="text-muted">Основы финансовой грамотности для младших школьников.</p>
+                        <a href="#" class="btn btn-outline-primary mt-auto">Скачать</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                      <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Методические рекомендации для учителя</h5>
+                        <p class="text-muted">Как преподавать финансовую грамотность в начальной школе.</p>
+                        <a href="#" class="btn btn-outline-primary mt-auto">Скачать</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                      <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Материалы для родителей</h5>
+                        <p class="text-muted">Как помочь ребёнку разобраться в финансах.</p>
+                        <a href="#" class="btn btn-outline-primary mt-auto">Скачать</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                      <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Материалы для учащихся.</h5>
+                        <p class="text-muted">Работа с деньгами, бюджет семьи, сбережения.</p>
+                        <a href="#" class="btn btn-outline-primary mt-auto">Скачать</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          
+              <!-- Для 4 класса -->
+              <div class="tab-pane fade" id="tab-4" role="tabpanel" aria-labelledby="tab-4-tab">
+                <div class="row g-4">
+                  <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                      <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Материалы для учащихся. Часть 1</h5>
+                        <p class="text-muted">Работа с деньгами, бюджет семьи, сбережения.</p>
+                        <a href="#" class="btn btn-outline-primary mt-auto">Скачать</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                      <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Рабочая тетрадь</h5>
+                        <p class="text-muted">Упражнения и задания для закрепления знаний.</p>
+                        <a href="#" class="btn btn-outline-primary mt-auto">Скачать</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          
+              <!-- Для 5–7 классов -->
+              <div class="tab-pane fade" id="tab-5-7" role="tabpanel" aria-labelledby="tab-5-7-tab">
+                <div class="row g-4">
+                  <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                      <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Материалы для учащихся. Часть 2</h5>
+                        <p class="text-muted">Кредиты, инвестиции, налоги, финансовые риски.</p>
+                        <a href="#" class="btn btn-outline-primary mt-auto">Скачать</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                      <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Методические рекомендации для учителя</h5>
+                        <p class="text-muted">Поддержка при обучении финансовой грамотности в средней школе.</p>
+                        <a href="#" class="btn btn-outline-primary mt-auto">Скачать</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                      <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Материалы для родителей</h5>
+                        <p class="text-muted">Как обсуждать с подростком деньги, кредиты и ответственность.</p>
+                        <a href="#" class="btn btn-outline-primary mt-auto">Скачать</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          
+              <!-- Для 4 класса -->
+              <div class="tab-pane fade" id="tab-8-9" role="tabpanel" aria-labelledby="tab-8-9-tab">
+                <div class="row g-4">
+                  <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                      <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Материалы для учащихся. Часть 1</h5>
+                        <p class="text-muted">Работа с деньгами, бюджет семьи, сбережения.</p>
+                        <a href="#" class="btn btn-outline-primary mt-auto">Скачать</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                      <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Рабочая тетрадь</h5>
+                        <p class="text-muted">Упражнения и задания для закрепления знаний.</p>
+                        <a href="#" class="btn btn-outline-primary mt-auto">Скачать</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          
+              <!-- Для 10–11 классов -->
+              <div class="tab-pane fade" id="tab-10-11" role="tabpanel" aria-labelledby="tab-10-11-tab">
+                <div class="row g-4">
+                  <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                      <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Материалы для учащихся. Часть 3</h5>
+                        <p class="text-muted">Финансовое планирование, страхование, пенсионные накопления.</p>
+                        <a href="#" class="btn btn-outline-primary mt-auto">Скачать</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                      <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Методические рекомендации для учителя</h5>
+                        <p class="text-muted">Преподавание сложных тем: инвестирование, налоги, права потребителя.</p>
+                        <a href="#" class="btn btn-outline-primary mt-auto">Скачать</a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-lg-4">
+                    <div class="card h-100">
+                      <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">Материалы для родителей</h5>
+                        <p class="text-muted">Как подготовить подростка к самостоятельной жизни и финансовой независимости.</p>
+                        <a href="#" class="btn btn-outline-primary mt-auto">Скачать</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+          
+            </div>
+          
+            <!-- Информационный блок -->
+            <div class="mt-5 p-4 bg-light rounded">
+              <h5>Все материалы подготовлены в соответствии с федеральным государственным образовательным стандартом</h5>
+              <p class="mb-0">
+                Материалы разработаны при участии Министерства финансов РФ, Банка России и ведущих экспертов в области финансового образования.
+              </p>
+            </div>
+          
+          </div>
+          
+          {% endblock %}
+          --- КОНЕЦ ---
+
+    📁 courses/
+      📄 detail.html
+          --- СОДЕРЖИМОЕ ---
+          {% extends 'base.html' %}
+          
+          {% block content %}
+          <h1>{{ course.title }}</h1>
+          <p>{{ course.description }}</p>
+          
+          <h3>Уроки</h3>
+          <div class="list-group">
+              {% for lesson in course.lessons.all %}
+                  <a href="{% url 'courses:lesson' lesson.id %}" class="list-group-item list-group-item-action">
+                      {{ lesson.title }}
+                  </a>
+              {% empty %}
+                  <p>Уроки пока не добавлены.</p>
+              {% endfor %}
+          </div>
+          {% endblock %}
+          --- КОНЕЦ ---
+
+      📄 lesson.html
+          --- СОДЕРЖИМОЕ ---
+          {% extends 'base.html' %}
+          
+          {% block content %}
+          <h1>{{ lesson.title }}</h1>
+          <div class="mb-4">{{ lesson.content|safe }}</div>
+          
+          {% if lesson.video_url %}
+          <div class="ratio ratio-16x9 mb-4">
+              <iframe src="{{ lesson.video_url }}" title="Видеоурок">
+              </iframe>
+          </div>
+          {% endif %}
+          
+          {% if lesson.questions.exists %}
+          <h3>Тест</h3>
+          <form method="post" action="{% url 'courses:test' lesson.id %}">
+              {% csrf_token %}
+              {% for q in questions %}
+              <div class="card mb-3">
+                  <div class="card-body">
+                      <p><strong>{{ forloop.counter }}. {{ q.text }}</strong></p>
+                      <div class="form-check">
+                          <input class="form-check-input" type="radio" name="q{{ q.id }}" value="A" id="q{{ q.id }}a" required>
+                          <label class="form-check-label" for="q{{ q.id }}a">{{ q.option_a }}</label>
+                      </div>
+                      <div class="form-check">
+                          <input class="form-check-input" type="radio" name="q{{ q.id }}" value="B" id="q{{ q.id }}b">
+                          <label class="form-check-label" for="q{{ q.id }}b">{{ q.option_b }}</label>
+                      </div>
+                      {% if q.option_c %}
+                      <div class="form-check">
+                          <input class="form-check-input" type="radio" name="q{{ q.id }}" value="C" id="q{{ q.id }}c">
+                          <label class="form-check-label" for="q{{ q.id }}c">{{ q.option_c }}</label>
+                      </div>
+                      {% endif %}
+                      {% if q.option_d %}
+                      <div class="form-check">
+                          <input class="form-check-input" type="radio" name="q{{ q.id }}" value="D" id="q{{ q.id }}d">
+                          <label class="form-check-label" for="q{{ q.id }}d">{{ q.option_d }}</label>
+                      </div>
+                      {% endif %}
+                  </div>
+              </div>
+              {% endfor %}
+              <button type="submit" class="btn btn-success">Проверить результаты</button>
+          </form>
+          {% endif %}
+          {% endblock %}
+          --- КОНЕЦ ---
+
+      📄 list.html
+          --- СОДЕРЖИМОЕ ---
+          {% extends 'base.html' %}
+          
+          {% block content %}
+          <h1>Курсы</h1>
+          
+          <form method="get" class="mb-4">
+            <div class="row g-2">
+              <div class="col-12 col-md-4">
+                <select name="audience" class="form-select">
+                  <option value="">Все аудитории</option>
+                  <option value="школьник" {% if request.GET.audience == 'школьник' %}selected{% endif %}>Школьники</option>
+                  <option value="пенсионер" {% if request.GET.audience == 'пенсионер' %}selected{% endif %}>Пенсионеры</option>
+                  <option value="МСП" {% if request.GET.audience == 'МСП' %}selected{% endif %}>МСП</option>
+                </select>
+              </div>
+              <div class="col-12 col-md-4">
+                <select name="format" class="form-select">
+                  <option value="">Все форматы</option>
+                  <option value="текст" {% if request.GET.format == 'текст' %}selected{% endif %}>Текст</option>
+                  <option value="видео" {% if request.GET.format == 'видео' %}selected{% endif %}>Видео</option>
+                  <option value="тест" {% if request.GET.format == 'тест' %}selected{% endif %}>Тест</option>
+                </select>
+              </div>
+              <div class="col-12 col-md-4 d-grid">
+                <button type="submit" class="btn btn-primary">Применить фильтры</button>
+              </div>
+            </div>
+          </form>
+          
+          <div class="row">
+              {% for course in courses %}
+                  <div class="col-12 col-md-6 col-lg-4 mb-4">
+                      <div class="card">
+                          <div class="card-body">
+                              <h5 class="card-title">{{ course.title }}</h5>
+                              <p class="text-muted">Для: {{ course.audience }} | Формат: {{ course.format_type }}</p>
+                              <p>{{ course.description|truncatewords:10 }}</p>
+                              <a href="{% url 'courses:detail' course.id %}" class="btn btn-primary">Открыть</a>
+                          </div>
+                      </div>
+                  </div>
+              {% empty %}
+                  <p>Курсы не найдены.</p>
+              {% endfor %}
+          </div>
+          {% endblock %}
+          --- КОНЕЦ ---
+
+      📄 result.html
+          --- СОДЕРЖИМОЕ ---
+          {% extends 'base.html' %}
+          
+          {% block content %}
+          <div class="text-center">
+              <h1>Результаты теста</h1>
+              <div class="display-1 text-success">{{ score }} / {{ total }}</div>
+              <p class="lead">Процент правильных ответов: <strong>{{ percent }}%</strong></p>
+              <a href="{% url 'courses:lesson' lesson.id %}" class="btn btn-primary">Повторить урок</a>
+              <a href="{% url 'courses:list' %}" class="btn btn-outline-secondary">К курсам</a>
+          </div>
+          {% endblock %}
+          --- КОНЕЦ ---
+
+    📁 search/
+      📄 results.html
+          --- СОДЕРЖИМОЕ ---
+          {% extends 'base.html' %}
+          
+          {% block content %}
+          <h1>Результаты поиска для: "{{ query }}"</h1>
+          
+          <h3>Курсы</h3>
+          <div class="row">
+              {% for course in courses %}
+                  <div class="col-12 col-md-6 col-lg-4">
+                      <div class="card">
+                          <div class="card-body">
+                              <h5>{{ course.title }}</h5>
+                              <p class="text-muted">{{ course.audience }} | {{ course.format_type }}</p>
+                              <a href="{% url 'courses:detail' course.id %}" class="btn btn-sm btn-outline-primary">Открыть</a>
+                          </div>
+                      </div>
+                  </div>
+              {% empty %}
+                  <p>Курсы не найдены.</p>
+              {% endfor %}
+          </div>
+          
+          <h3>Контакты</h3>
+          <div class="row">
+              {% for contact in contacts %}
+                   <div class="col-12 col-md-6">
+                      <div class="card">
+                          <div class="card-body">
+                              <h5>{{ contact.name }}</h5>
+                              <p>{{ contact.address }}</p>
+                              <p>{{ contact.phone }}</p>
+                          </div>
+                      </div>
+                  </div>
+              {% empty %}
+                  <p>Контакты не найдены.</p>
+              {% endfor %}
+          </div>
+          
+          <h3>События</h3>
+          <div class="row">
+              {% for event in events %}
+                   <div class="col-12 col-md-6">
+                      <div class="card">
+                          <div class="card-body">
+                              <h5>{{ event.title }}</h5>
+                              <p>{{ event.date|date:"d.m.Y" }} — {{ event.location }}</p>
+                          </div>
+                      </div>
+                  </div>
+              {% empty %}
+                  <p>События не найдены.</p>
+              {% endfor %}
+          </div>
+          {% endblock %}
+          --- КОНЕЦ ---
+
+📄 project_structure.txt (бинарный, пропущен)
+📄 requirements.txt
+    ❗ Не удалось прочитать (неподдерживаемая кодировка)
+
+📄 vibe_maker.py (бинарный, пропущен)
