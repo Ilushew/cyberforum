@@ -2,15 +2,18 @@
 
 {% block content %}
 <div class="row justify-content-center">
-    <div class="col-lg-8">
-        <h1>{{ news.title }}</h1>
-        <p class="text-muted">
-            Автор: {{ news.author.email|default:"Администрация" }} • {{ news.created_at|date:"d.m.Y H:i" }}
-        </p>
-        <div class="mt-4">
-            {{ news.content|linebreaks }}
-        </div>
-        <a href="{% url 'core:news_list' %}" class="btn btn-secondary mt-3">← К списку новостей</a>
+  <div class="col-lg-8">
+    {% if news.image %}
+      <img src="{{ news.image.url }}" class="img-fluid rounded mb-4" alt="{{ news.title }}">
+    {% endif %}
+    <h1>{{ news.title }}</h1>
+    <p class="text-muted">
+      Автор: {{ news.author.username|default:"Администрация" }} • {{ news.created_at|date:"d.m.Y H:i" }}
+    </p>
+    <div class="mt-4">
+      {{ news.content|linebreaks }}
     </div>
+    <a href="{% url 'core:news_list' %}" class="btn btn-secondary mt-3">← К списку новостей</a>
+  </div>
 </div>
 {% endblock %}

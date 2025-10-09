@@ -158,7 +158,7 @@ def news_moderator_list(request):
 @user_passes_test(is_moderator, login_url='/login/')
 def news_create(request):
     if request.method == 'POST':
-        form = NewsForm(request.POST)
+        form = NewsForm(request.POST, request.FILES)  # ← request.FILES
         if form.is_valid():
             news = form.save(commit=False)
             news.author = request.user
@@ -173,7 +173,7 @@ def news_create(request):
 def news_edit(request, news_id):
     news = get_object_or_404(News, id=news_id)
     if request.method == 'POST':
-        form = NewsForm(request.POST, instance=news)
+        form = NewsForm(request.POST, request.FILES, instance=news)  # ← request.FILES
         if form.is_valid():
             form.save()
             messages.success(request, "Новость успешно обновлена!")

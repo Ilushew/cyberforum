@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 app_name = 'core'
 urlpatterns = [
@@ -19,4 +21,4 @@ urlpatterns = [
     path('moderator/news/create/', views.news_create, name='news_create'),
     path('moderator/news/<int:news_id>/edit/', views.news_edit, name='news_edit'),
     path('moderator/news/<int:news_id>/delete/', views.news_delete, name='news_delete'),
-]
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -39,7 +39,7 @@ class NewsAdmin(admin.ModelAdmin):
     list_filter = ['is_published', 'created_at', 'author']
     search_fields = ['title', 'content']
     date_hierarchy = 'created_at'
-    fields = ['title', 'content', 'author', 'is_published']
+    fields = ['title', 'content', 'author', 'is_published', 'image']
 
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
