@@ -1,0 +1,203 @@
+<!-- templates/core/calendar.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<style>
+  /* Стили в стиле Google Calendar */
+  #calendar {
+    font-family: 'Google Sans', 'Roboto', Arial, sans-serif;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  }
+
+  /* Заголовок календаря */
+  .fc-header-toolbar {
+    padding: 16px 24px;
+    background: white;
+    border-bottom: 1px solid #e0e0e0;
+  }
+
+  .fc-toolbar-title {
+    font-size: 22px;
+    font-weight: 500;
+    color: #202124;
+  }
+
+  /* Кнопки навигации */
+  .fc-button {
+    background: white;
+    border: 1px solid #dadce0;
+    color: #3c4043;
+    border-radius: 4px;
+    padding: 6px 12px;
+    font-size: 14px;
+    font-weight: 500;
+    height: auto;
+    min-height: auto;
+  }
+
+  .fc-button:hover {
+    background: #f8f9fa;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+  }
+
+  .fc-button:active,
+  .fc-button.fc-button-active {
+    background: #e8eaed;
+  }
+
+  /* Сетка календаря */
+  .fc-daygrid-day-frame {
+    padding: 4px;
+  }
+
+  .fc-daygrid-day-top {
+    justify-content: flex-start;
+    padding: 4px 0;
+  }
+
+  .fc-daygrid-day-number {
+    font-size: 14px;
+    font-weight: 500;
+    color: #202124;
+  }
+
+  .fc-day-today .fc-daygrid-day-number {
+    background: #d2e3fc;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+  }
+
+  /* События (точки) */
+  .fc-daygrid-event {
+    font-size: 12px;
+    padding: 2px 4px;
+    border-radius: 2px;
+    background: #d2e3fc;
+    color: #1a73e8;
+    border: none;
+    cursor: pointer;
+  }
+
+  /* Дни без событий */
+  .fc-daygrid-day {
+    background: white;
+  }
+
+  .fc-day-other .fc-daygrid-day-number {
+    color: #9aa0a6;
+  }
+
+  /* Адаптация под вашу тему */
+  body {
+    background-color: #fff;
+  }
+</style>
+
+<h1 class="mb-4">Календарь мероприятий</h1>
+<div id="calendar" style="height: 600px;"></div>
+
+<!-- Модальное окно -->
+<div class="modal fade" id="dayEventsModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalDateTitle">Мероприятия на ...</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Закрыть"></button>
+      </div>
+      <div class="modal-body" id="modalEventsList"></div>
+      <div class="modal-footer" id="modalFooter">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FullCalendar -->
+<!-- FullCalendar -->
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.15/locales/ru.global.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    if (typeof FullCalendar === 'undefined') {
+        document.getElementById('calendar').innerHTML = `<div class="alert alert-danger">❌ FullCalendar не загружен.</div>`;
+        return;
+    }
+
+    const calendarEl = document.getElementById('calendar');
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+        locale: 'ru',
+        initialView: 'dayGridMonth',
+        headerToolbar: {
+            left: 'prev,next today',
+            center: 'title',
+            right: 'dayGridMonth,listMonth'
+        },
+        events: '{% url "core:events_api" %}',
+        dateClick: function (info) {
+            fetchEventsForDate(info.dateStr);
+        }
+    });
+
+    calendar.render();
+
+    function fetchEventsForDate(dateStr) {
+        fetch('{% url "core:events_api" %}')
+            .then(res => res.ok ? res.json() : Promise.reject())
+            .then(events => {
+                const dayEvents = events.filter(e => e.start === dateStr);
+                showDayEventsModal(dateStr, dayEvents);
+            })
+            .catch(() => {
+                document.getElementById('modalEventsList').innerHTML = '<p class="text-danger">Не удалось загрузить мероприятия.</p>';
+                new bootstrap.Modal(document.getElementById('dayEventsModal')).show();
+            });
+    }
+
+    function showDayEventsModal(dateStr, events) {
+        const titleEl = document.getElementById('modalDateTitle');
+        const bodyEl = document.getElementById('modalEventsList');
+        const footerEl = document.getElementById('modalFooter');
+
+        const date = new Date(dateStr);
+        const opts = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        titleEl.textContent = 'Мероприятия на ' + date.toLocaleDateString('ru-RU', opts);
+
+        let html = '';
+        if (events.length === 0) {
+            html = '<p>На эту дату мероприятий не запланировано.</p>';
+            footerEl.innerHTML = '<button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>';
+        } else {
+            html = '<ul class="list-group list-group-flush">';
+            events.forEach(e => {
+                html += `
+                    <li class="list-group-item">
+                        <strong>${e.title}</strong><br>
+                        📍 ${e.extendedProps.location}<br>
+                        👥 Аудитория: ${e.extendedProps.audience}<br>
+                        ${e.extendedProps.description}
+                    </li>`;
+            });
+            html += '</ul>';
+
+            footerEl.innerHTML = `
+                <a href="/events/?date_from=${encodeURIComponent(dateStr)}&date_to=${encodeURIComponent(dateStr)}" class="btn btn-primary">Подробнее</a>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+            `;
+        }
+
+        bodyEl.innerHTML = html;
+        new bootstrap.Modal(document.getElementById('dayEventsModal')).show();
+    }
+});
+</script>
+{% endblock %}

@@ -12,4 +12,6 @@ urlpatterns = [
     path('logout/', views.logout_view, name='logout'),
     path('profile/', views.profile_view, name='profile'),
     path('confirm-email/<uidb64>/<token>/', views.confirm_email_view, name='confirm_email'),
+    path('api/events/', views.events_api_view, name='events_api'),
+    path('calendar/', views.calendar_view, name='calendar'),
 ]
