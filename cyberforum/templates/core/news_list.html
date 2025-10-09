@@ -12,7 +12,7 @@
         <div class="card-body">
           <h5 class="card-title">{{ item.title }}</h5>
           <p class="text-muted">
-            <small>Автор: {{ item.author.email|default:"Администрация" }} • {{ item.created_at|date:"d.m.Y" }}</small>
+            <small>Автор: {{ item.author.username|default:"Администрация" }} • {{ item.created_at|date:"d.m.Y" }}</small>
           </p>
           <p>{{ item.content|truncatewords:30 }}</p>
           <a href="{% url 'core:news_detail' item.id %}" class="btn btn-outline-primary">Читать далее</a>

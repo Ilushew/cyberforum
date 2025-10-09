@@ -4,7 +4,9 @@
 {% block content %}
 <h2>Управление новостями</h2>
 <a href="{% url 'core:news_create' %}" class="btn btn-success mb-3">+ Добавить новость</a>
-
+<div>
+  <a href="{% url 'core:moderator_dashboard' %}" class="btn btn-sm btn-outline-primary">Назад</a>
+</div>
 <div class="table-responsive">
   <table class="table table-striped">
     <thead>
