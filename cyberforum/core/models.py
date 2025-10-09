@@ -51,6 +51,7 @@ class Event(models.Model):
     def __str__(self):
         return self.title
 
+
 class News(models.Model):
     title = models.CharField(max_length=200, verbose_name="Заголовок")
     content = models.TextField(verbose_name="Содержание")
@@ -74,6 +75,20 @@ class News(models.Model):
         verbose_name = "Новость"
         verbose_name_plural = "Новости"
         ordering = ['-created_at']
+
+    def __str__(self):
+        return self.title
+
+
+class DocumentationFile(models.Model):
+    title = models.CharField("Название документа", max_length=255)
+    file = models.FileField("Файл", upload_to='documentation/')
+    uploaded_at = models.DateTimeField("Дата загрузки", auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Документ"
+        verbose_name_plural = "Документы"
+        ordering = ['-uploaded_at']
 
     def __str__(self):
         return self.title

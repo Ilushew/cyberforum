@@ -2,6 +2,8 @@ import json
 from datetime import datetime
 
 from django.db.models import Avg
+from django.http import JsonResponse
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -210,13 +212,14 @@ def events_api_view(request):
     for event in events:
         event_list.append({
             'title': event.title,
-            'start': event.date.isoformat(),  # FullCalendar ожидает ISO-формат даты
-            'url': None,
+            'start': event.date.isoformat(),
             'extendedProps': {
                 'description': event.description,
                 'location': event.location,
                 'audience': event.audience,
-            }
+            },
+            # Добавляем CSS-класс или data-атрибут через eventClassNames
+            'eventClassNames': [f'audience-{event.audience}'],
         })
     return JsonResponse(event_list, safe=False)
 
@@ -324,3 +327,16 @@ def event_delete(request, event_id):
         messages.success(request, "Событие удалено.")
         return redirect('core:event_moderator_list')
     return render(request, 'core/event_confirm_delete.html', {'event': event})
+
+def event_detail_view(request, event_id):
+    event = get_object_or_404(Event, id=event_id)
+    return render(request, 'core/event_detail.html', {'event': event})
+
+
+
+
+from .models import DocumentationFile
+
+def documentation_view(request):
+    docs = DocumentationFile.objects.all()
+    return render(request, 'core/documentation.html', {'docs': docs})
