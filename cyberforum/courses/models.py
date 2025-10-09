@@ -1,3 +1,5 @@
+import uuid
+
 from django.db import models
 from django.contrib.auth import get_user_model
 
@@ -15,6 +17,7 @@ FORMAT_CHOICES = [
     ('видео', 'Видео'),
     ('тест', 'Тест'),
 ]
+
 
 class Course(models.Model):
     title = models.CharField(max_length=200)
@@ -61,3 +64,23 @@ class TestResult(models.Model):
 
     def __str__(self):
         return f"{self.lesson} — {self.percent}%"
+
+
+class CourseCompletion(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    course = models.ForeignKey(Course, on_delete=models.CASCADE)
+    completed_at = models.DateTimeField(auto_now_add=True)
+    certificate_id = models.CharField(max_length=36, unique=True, blank=True)
+
+    class Meta:
+        unique_together = ('user', 'course')
+        verbose_name = "Пройденный курс"
+        verbose_name_plural = "Пройденные курсы"
+
+    def save(self, *args, **kwargs):
+        if not self.certificate_id:
+            self.certificate_id = str(uuid.uuid4())
+        super().save(*args, **kwargs)
+
+    def __str__(self):
+        return f"{self.user.email} — {self.course.title}"

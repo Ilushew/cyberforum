@@ -5,16 +5,49 @@
 <div class="alert alert-info">
     Привет, <strong>{{ user.email }}</strong>!
 </div>
+{% if not user.first_name or not user.last_name %}
+  <div class="alert alert-warning">
+    <strong>Внимание!</strong> Укажите имя и фамилию, чтобы иметь возможность получать сертификаты о прохождении курсов.
+  </div>
+{% endif %}
 
 <!-- Статистика -->
 <div class="card mb-4">
-    <div class="card-header bg-success text-white">
-        <h5 class="mb-0">Ваша статистика</h5>
+    <!-- Статистика -->
+    <div class="card mb-4">
+        <div class="card-header bg-success text-white">
+            <h5 class="mb-0">Ваша статистика</h5>
+        </div>
+        <div class="card-body">
+            <p><strong>Пройдено курсов:</strong> {{ completed_courses_count }}</p>
+            <p><strong>Пройдено тестов:</strong> {{ total_tests }}</p>
+            <p><strong>Средний результат:</strong> {{ avg_percent }}%</p>
+        </div>
+    </div>
+    <div class="card mb-4">
+    <div class="card-header bg-info text-white">
+        <h5 class="mb-0">Пройденные курсы</h5>
     </div>
     <div class="card-body">
-        <p><strong>Пройдено тестов:</strong> {{ total_tests }}</p>
-        <p><strong>Средний результат:</strong> {{ avg_percent }}%</p>
+         <!-- В блоке "Пройденные курсы" -->
+    {% if completed_courses %}
+    <ul class="list-group list-group-flush">
+       {% for cc in completed_courses %}
+          <li class="list-group-item">
+            {{ cc.course.title }} — {{ cc.completed_at|date:"d.m.Y" }}
+            {% if user.first_name and user.last_name %}
+              <a href="{% url 'courses:download_certificate' cc.course.id %}" class="btn btn-sm btn-outline-success float-end">
+                📄 Сертификат
+              </a>
+            {% else %}
+              <span class="text-muted float-end">📄 Сертификат (требуется заполнить профиль)</span>
+            {% endif %}
+          </li>
+        {% endfor %}
+    </ul>
+{% endif %}
     </div>
+</div>
 </div>
 
 <!-- Форма редактирования профиля -->

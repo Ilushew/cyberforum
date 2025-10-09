@@ -18,12 +18,14 @@ from courses.models import Course
 from courses.models import TestResult
 from django.http import JsonResponse
 from .models import Event
-
+from courses.models import CourseCompletion
 
 User = get_user_model()
 
+
 def is_moderator(user):
     return user.is_authenticated and user.is_moderator
+
 
 def home_view(request):
     courses = Course.objects.all()[:6]
@@ -145,6 +147,7 @@ def register_view(request):
         form = UserRegistrationForm()
     return render(request, 'core/register.html', {'form': form})
 
+
 def login_view(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -160,6 +163,7 @@ def login_view(request):
         else:
             messages.error(request, "Неверный email или пароль.")
     return render(request, 'core/login.html')
+
 
 def confirm_email_view(request, uidb64, token):
     try:
@@ -177,6 +181,7 @@ def confirm_email_view(request, uidb64, token):
         messages.error(request, "Ссылка недействительна или устарела.")
     return redirect('core:login')
 
+
 @login_required
 def profile_view(request):
     if request.method == 'POST':
@@ -188,17 +193,24 @@ def profile_view(request):
     else:
         form = UserProfileForm(instance=request.user)
 
-    # Статистика пользователя
+    # Статистика
     test_results = TestResult.objects.filter(user=request.user)
     total_tests = test_results.count()
     avg_percent = test_results.aggregate(Avg('percent'))['percent__avg']
     avg_percent = round(avg_percent, 1) if avg_percent is not None else 0
 
+    # Пройденные курсы
+    completed_courses = CourseCompletion.objects.filter(user=request.user).select_related('course')
+    completed_courses_count = completed_courses.count()
+
     return render(request, 'core/profile.html', {
         'form': form,
         'total_tests': total_tests,
         'avg_percent': avg_percent,
+        'completed_courses': completed_courses,
+        'completed_courses_count': completed_courses_count,  # ← добавлено
     })
+
 
 def logout_view(request):
     logout(request)
@@ -223,26 +235,32 @@ def events_api_view(request):
         })
     return JsonResponse(event_list, safe=False)
 
+
 def calendar_view(request):
     return render(request, 'core/calendar.html')
+
 
 def news_list_view(request):
     news_list = News.objects.filter(is_published=True).order_by('-created_at')
     return render(request, 'core/news_list.html', {'news_list': news_list})
 
+
 def news_detail_view(request, news_id):
     news_item = get_object_or_404(News, id=news_id, is_published=True)
     return render(request, 'core/news_detail.html', {'news': news_item})
+
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import user_passes_test
 from .forms import NewsForm
 from .models import News
 
+
 @user_passes_test(is_moderator, login_url='/login/')
 def news_moderator_list(request):
     news_items = News.objects.all().order_by('-created_at')
     return render(request, 'core/news_moderator_list.html', {'news_list': news_items})
+
 
 @user_passes_test(is_moderator, login_url='/login/')
 def news_create(request):
@@ -258,6 +276,7 @@ def news_create(request):
         form = NewsForm()
     return render(request, 'core/news_form.html', {'form': form, 'title': 'Создать новость'})
 
+
 @user_passes_test(is_moderator, login_url='/login/')
 def news_edit(request, news_id):
     news = get_object_or_404(News, id=news_id)
@@ -271,6 +290,7 @@ def news_edit(request, news_id):
         form = NewsForm(instance=news)
     return render(request, 'core/news_form.html', {'form': form, 'title': 'Редактировать новость'})
 
+
 @user_passes_test(is_moderator, login_url='/login/')
 def news_delete(request, news_id):
     """Удаление новости"""
@@ -281,7 +301,7 @@ def news_delete(request, news_id):
         return redirect('core:news_moderator_list')
     return render(request, 'core/news_confirm_delete.html', {'news': news})
 
+
 def event_detail_view(request, event_id):
     event = get_object_or_404(Event, id=event_id)
     return render(request, 'core/event_detail.html', {'event': event})
-
