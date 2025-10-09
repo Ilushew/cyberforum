@@ -1,4 +1,5 @@
 import json
+from datetime import datetime
 
 from django.db.models import Avg
 from django.http import JsonResponse
@@ -12,9 +13,12 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .forms import UserRegistrationForm, UserProfileForm
 from .llm_assistant.rag import generate_answer
-from .models import Contact, Event
+from .models import Contact, Event, AUDIENCE_CHOICES
 from courses.models import Course
 from courses.models import TestResult
+from django.http import JsonResponse
+from .models import Event
+
 
 User = get_user_model()
 
@@ -40,8 +44,46 @@ def textbooks_view(request):
 
 
 def events_view(request):
-    events = Event.objects.order_by('date')
-    return render(request, 'core/events.html', {'events': events})
+    events = Event.objects.all()
+
+    # Получаем параметры из GET-запроса
+    audience = request.GET.get('audience')
+    date_from = request.GET.get('date_from')
+    date_to = request.GET.get('date_to')
+
+    # Фильтр по аудитории
+    if audience and audience != '':
+        events = events.filter(audience=audience)
+
+    # Фильтр по дате "с"
+    if date_from:
+        try:
+            date_from = datetime.strptime(date_from, '%Y-%m-%d').date()
+            events = events.filter(date__gte=date_from)
+        except ValueError:
+            pass  # Игнорируем некорректные даты
+
+    # Фильтр по дате "по"
+    if date_to:
+        try:
+            date_to = datetime.strptime(date_to, '%Y-%m-%d').date()
+            events = events.filter(date__lte=date_to)
+        except ValueError:
+            pass
+
+    # Сортируем по дате
+    events = events.order_by('date')
+
+    # Передаём в шаблон
+    return render(request, 'core/events.html', {
+        'events': events,
+        'audience_choices': AUDIENCE_CHOICES,
+        'current_filters': {
+            'audience': audience or '',
+            'date_from': date_from or '',
+            'date_to': date_to or '',
+        }
+    })
 
 
 @csrf_exempt
@@ -134,3 +176,23 @@ def logout_view(request):
     logout(request)
     messages.info(request, "Вы вышли из аккаунта.")
     return redirect('core:home')
+
+
+def events_api_view(request):
+    events = Event.objects.all()
+    event_list = []
+    for event in events:
+        event_list.append({
+            'title': event.title,
+            'start': event.date.isoformat(),  # FullCalendar ожидает ISO-формат даты
+            'url': None,
+            'extendedProps': {
+                'description': event.description,
+                'location': event.location,
+                'audience': event.audience,
+            }
+        })
+    return JsonResponse(event_list, safe=False)
+
+def calendar_view(request):
+    return render(request, 'core/calendar.html')
