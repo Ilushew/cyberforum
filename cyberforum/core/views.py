@@ -285,3 +285,11 @@ def event_detail_view(request, event_id):
     event = get_object_or_404(Event, id=event_id)
     return render(request, 'core/event_detail.html', {'event': event})
 
+
+
+
+from .models import DocumentationFile
+
+def documentation_view(request):
+    docs = DocumentationFile.objects.all()
+    return render(request, 'core/documentation.html', {'docs': docs})

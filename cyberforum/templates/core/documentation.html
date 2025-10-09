@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Документация</h1>
+
+{% if docs %}
+  <div class="row g-3 mt-2">
+    {% for doc in docs %}
+      <div class="col-12">
+        <div class="card">
+          <div class="card-body d-flex justify-content-between align-items-center">
+            <div>
+              <h5 class="card-title mb-1">{{ doc.title }}</h5>
+              <small class="text-muted">Загружен: {{ doc.uploaded_at|date:"d.m.Y H:i" }}</small>
+            </div>
+            <a href="{{ doc.file.url }}" class="btn btn-outline-primary" download>Скачать</a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="text-muted">Документы пока не загружены.</p>
+{% endif %}
+
+{% endblock %}
