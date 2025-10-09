@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Часто задаваемые вопросы (FAQ)</h1>
+
+<div class="accordion mt-4" id="faqAccordion">
+  {% for item in faq_items %}
+    <div class="accordion-item mb-2">
+      <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse{{ forloop.counter }}" aria-expanded="false" aria-controls="collapse{{ forloop.counter }}">
+          {{ item.question }}
+        </button>
+      </h2>
+      <div id="collapse{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="heading{{ forloop.counter }}" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          <div class="answer-text">
+            {{ item.answer|linebreaks }}
+          </div>
+        </div>
+      </div>
+    </div>
+  {% endfor %}
+</div>
+
+<div class="mt-4 p-3 bg-light rounded">
+  <p class="mb-0">
+    Не нашли ответ на свой вопрос?
+    <a href="{% url 'core:contacts' %}" class="text-primary">Свяжитесь с нами</a> или воспользуйтесь чат-ботом в правом нижнем углу.
+  </p>
+</div>
+
+<style>
+  .accordion-button {
+    font-weight: 600;
+    color: #333;
+  }
+  .accordion-body {
+    padding: 1rem 1.25rem;
+  }
+  .answer-text {
+    line-height: 1.7;
+    color: #555;
+  }
+</style>
+
+{% endblock %}
