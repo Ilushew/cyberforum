@@ -25,6 +25,10 @@
             <li class="nav-item"><a class="nav-link" href="{% url 'courses:list' %}">Курсы</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'core:contacts' %}">Контакты</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'core:events' %}">События</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'core:news_list' %}">Новости</a></li>
+            {% if user.is_moderator %}
+              <li class="nav-item"><a class="nav-link" href="{% url 'core:news_moderator_list' %}">Новости (модератор)</a></li>
+            {% endif %}
 
             {% if user.is_authenticated %}
               <li class="nav-item"><a class="nav-link" href="{% url 'core:profile' %}">Кабинет</a></li>
