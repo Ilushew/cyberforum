@@ -10,6 +10,7 @@ urlpatterns = [
     path('textbooks/', views.textbooks_view, name='textbooks'),
     path('faq/', views.faq_view, name='faq'),
     path('events/', views.events_view, name='events'),
+    path('events/<int:event_id>/', views.event_detail_view, name='event_detail'),
     path('documentation/', views.documentation_view, name='documentation'),
     path('chat-ask/', views.chat_ask, name='chat_ask'),
     path('register/', views.register_view, name='register'),
@@ -30,7 +31,9 @@ urlpatterns = [
     path('moderator/events/create/', views.event_create, name='event_create'),
     path('moderator/events/<int:event_id>/edit/', views.event_edit, name='event_edit'),
     path('moderator/events/<int:event_id>/delete/', views.event_delete, name='event_delete'),
-    path('events/<int:event_id>/', views.event_detail_view, name='event_detail'),
+    path('moderator/documentation/', views.documentation_moderator_list, name='documentation_moderator_list'),
+    path('moderator/documentation/create/', views.documentation_create, name='documentation_create'),
+    path('moderator/documentation/<int:doc_id>/delete/', views.documentation_delete, name='documentation_delete'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

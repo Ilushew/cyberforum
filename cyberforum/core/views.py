@@ -2,8 +2,6 @@ import json
 from datetime import datetime
 
 from django.db.models import Avg
-from django.http import JsonResponse
-from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -17,13 +15,15 @@ from .models import Contact, Event, AUDIENCE_CHOICES
 from courses.models import Course
 from courses.models import TestResult
 from django.http import JsonResponse
-from .models import Event
-
+from .models import DocumentationFile
+from .forms import DocumentationFileForm
 
 User = get_user_model()
 
+
 def is_moderator(user):
     return user.is_authenticated and user.is_moderator
+
 
 def home_view(request):
     courses = Course.objects.all()[:6]
@@ -145,6 +145,7 @@ def register_view(request):
         form = UserRegistrationForm()
     return render(request, 'core/register.html', {'form': form})
 
+
 def login_view(request):
     if request.method == 'POST':
         email = request.POST.get('email')
@@ -161,6 +162,7 @@ def login_view(request):
             messages.error(request, "Неверный email или пароль.")
     return render(request, 'core/login.html')
 
+
 def confirm_email_view(request, uidb64, token):
     try:
         uid = urlsafe_base64_decode(uidb64).decode()
@@ -176,6 +178,7 @@ def confirm_email_view(request, uidb64, token):
     else:
         messages.error(request, "Ссылка недействительна или устарела.")
     return redirect('core:login')
+
 
 @login_required
 def profile_view(request):
@@ -200,6 +203,7 @@ def profile_view(request):
         'avg_percent': avg_percent,
     })
 
+
 def logout_view(request):
     logout(request)
     messages.info(request, "Вы вышли из аккаунта.")
@@ -223,26 +227,32 @@ def events_api_view(request):
         })
     return JsonResponse(event_list, safe=False)
 
+
 def calendar_view(request):
     return render(request, 'core/calendar.html')
+
 
 def news_list_view(request):
     news_list = News.objects.filter(is_published=True).order_by('-created_at')
     return render(request, 'core/news_list.html', {'news_list': news_list})
 
+
 def news_detail_view(request, news_id):
     news_item = get_object_or_404(News, id=news_id, is_published=True)
     return render(request, 'core/news_detail.html', {'news': news_item})
+
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import user_passes_test
 from .forms import NewsForm
 from .models import News
 
+
 @user_passes_test(is_moderator, login_url='/login/')
 def news_moderator_list(request):
     news_items = News.objects.all().order_by('-created_at')
     return render(request, 'core/news_moderator_list.html', {'news_list': news_items})
+
 
 @user_passes_test(is_moderator, login_url='/login/')
 def news_create(request):
@@ -258,6 +268,7 @@ def news_create(request):
         form = NewsForm()
     return render(request, 'core/news_form.html', {'form': form, 'title': 'Создать новость'})
 
+
 @user_passes_test(is_moderator, login_url='/login/')
 def news_edit(request, news_id):
     news = get_object_or_404(News, id=news_id)
@@ -271,6 +282,7 @@ def news_edit(request, news_id):
         form = NewsForm(instance=news)
     return render(request, 'core/news_form.html', {'form': form, 'title': 'Редактировать новость'})
 
+
 @user_passes_test(is_moderator, login_url='/login/')
 def news_delete(request, news_id):
     news = get_object_or_404(News, id=news_id)
@@ -280,19 +292,23 @@ def news_delete(request, news_id):
         return redirect('core:news_moderator_list')
     return render(request, 'core/news_confirm_delete.html', {'news': news})
 
+
 @user_passes_test(is_moderator, login_url='/login/')
 def moderator_dashboard(request):
     return render(request, 'core/moderator_dashboard.html')
+
 
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import user_passes_test
 from .forms import EventForm
 from .models import Event
 
+
 @user_passes_test(is_moderator, login_url='/login/')
 def event_moderator_list(request):
     events = Event.objects.all().order_by('date')
     return render(request, 'core/event_moderator_list.html', {'event_list': events})
+
 
 @user_passes_test(is_moderator, login_url='/login/')
 def event_create(request):
@@ -305,6 +321,7 @@ def event_create(request):
     else:
         form = EventForm()
     return render(request, 'core/event_form.html', {'form': form, 'title': 'Создать событие'})
+
 
 @user_passes_test(is_moderator, login_url='/login/')
 def event_edit(request, event_id):
@@ -319,6 +336,7 @@ def event_edit(request, event_id):
         form = EventForm(instance=event)
     return render(request, 'core/event_form.html', {'form': form, 'title': 'Редактировать событие'})
 
+
 @user_passes_test(is_moderator, login_url='/login/')
 def event_delete(request, event_id):
     event = get_object_or_404(Event, id=event_id)
@@ -328,15 +346,41 @@ def event_delete(request, event_id):
         return redirect('core:event_moderator_list')
     return render(request, 'core/event_confirm_delete.html', {'event': event})
 
+
 def event_detail_view(request, event_id):
     event = get_object_or_404(Event, id=event_id)
     return render(request, 'core/event_detail.html', {'event': event})
 
 
-
-
-from .models import DocumentationFile
-
 def documentation_view(request):
     docs = DocumentationFile.objects.all()
     return render(request, 'core/documentation.html', {'docs': docs})
+
+
+@user_passes_test(is_moderator, login_url='/login/')
+def documentation_moderator_list(request):
+    docs = DocumentationFile.objects.all().order_by('-uploaded_at')
+    return render(request, 'core/documentation_moderator_list.html', {'docs': docs})
+
+
+@user_passes_test(is_moderator, login_url='/login/')
+def documentation_create(request):
+    if request.method == 'POST':
+        form = DocumentationFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Документ успешно загружен!")
+            return redirect('core:documentation_moderator_list')
+    else:
+        form = DocumentationFileForm()
+    return render(request, 'core/documentation_form.html', {'form': form, 'title': 'Загрузить документ'})
+
+
+@user_passes_test(is_moderator, login_url='/login/')
+def documentation_delete(request, doc_id):
+    doc = get_object_or_404(DocumentationFile, id=doc_id)
+    if request.method == 'POST':
+        doc.delete()
+        messages.success(request, "Документ удалён.")
+        return redirect('core:documentation_moderator_list')
+    return render(request, 'core/documentation_confirm_delete.html', {'doc': doc})
