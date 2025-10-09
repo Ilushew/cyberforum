@@ -2,7 +2,7 @@ import json
 
 from django.db.models import Avg
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -12,9 +12,13 @@ from django.views.decorators.csrf import csrf_exempt
 
 from .forms import UserRegistrationForm, UserProfileForm
 from .llm_assistant.rag import generate_answer
-from .models import Contact, Event
+from .models import Contact, Event, News
 from courses.models import Course
 from courses.models import TestResult
+from django.contrib.auth.decorators import user_passes_test
+from .forms import NewsForm
+from .models import News
+
 
 User = get_user_model()
 
@@ -130,3 +134,55 @@ def logout_view(request):
     logout(request)
     messages.info(request, "Вы вышли из аккаунта.")
     return redirect('core:home')
+
+def is_moderator(user):
+    return user.is_authenticated and user.is_moderator
+
+def news_list_view(request):
+    news_list = News.objects.filter(is_published=True).order_by('-created_at')
+    return render(request, 'core/news_list.html', {'news_list': news_list})
+
+def news_detail_view(request, news_id):
+    news_item = get_object_or_404(News, id=news_id, is_published=True)
+    return render(request, 'core/news_detail.html', {'news': news_item})
+
+@user_passes_test(is_moderator, login_url='/login/')
+def news_moderator_list(request):
+    news_items = News.objects.all().order_by('-created_at')
+    return render(request, 'core/news_moderator_list.html', {'news_list': news_items})
+
+@user_passes_test(is_moderator, login_url='/login/')
+def news_create(request):
+    if request.method == 'POST':
+        form = NewsForm(request.POST)
+        if form.is_valid():
+            news = form.save(commit=False)
+            news.author = request.user
+            news.save()
+            messages.success(request, "Новость успешно создана!")
+            return redirect('core:news_moderator_list')
+    else:
+        form = NewsForm()
+    return render(request, 'core/news_form.html', {'form': form, 'title': 'Создать новость'})
+
+@user_passes_test(is_moderator, login_url='/login/')
+def news_edit(request, news_id):
+    news = get_object_or_404(News, id=news_id)
+    if request.method == 'POST':
+        form = NewsForm(request.POST, instance=news)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Новость успешно обновлена!")
+            return redirect('core:news_moderator_list')
+    else:
+        form = NewsForm(instance=news)
+    return render(request, 'core/news_form.html', {'form': form, 'title': 'Редактировать новость'})
+
+@user_passes_test(is_moderator, login_url='/login/')
+def news_delete(request, news_id):
+    news = get_object_or_404(News, id=news_id)
+    if request.method == 'POST':
+        news.delete()
+        messages.success(request, "Новость удалена.")
+        return redirect('core:news_moderator_list')
+    return render(request, 'core/news_confirm_delete.html', {'news': news})
