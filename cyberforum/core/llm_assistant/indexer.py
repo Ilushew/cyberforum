@@ -12,6 +12,7 @@ INDEX_DIR = "faiss_index"
 CURRENT_DIR = Path(__file__).parent
 DOCS_DIR = CURRENT_DIR / "docs"
 
+
 def create_or_load_vectorstore():
     """
     Создаёт или загружает векторную базу.
@@ -24,9 +25,7 @@ def create_or_load_vectorstore():
     if os.path.exists(INDEX_DIR):
         print("🔄 Загрузка существующего индекса...")
         vectorstore = FAISS.load_local(
-            INDEX_DIR,
-            embedding_model,
-            allow_dangerous_deserialization=True
+            INDEX_DIR, embedding_model, allow_dangerous_deserialization=True
         )
         print("✅ Индекс загружен.")
     else:

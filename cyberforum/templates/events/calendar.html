@@ -235,7 +235,7 @@
         // Отключаем автоматическую адаптацию панели (чтобы не скрывались кнопки)
         stickyHeaderDates: false,
         // События
-        events: '{% url "core:events_api" %}',
+        events: '{% url "events:events_api" %}',
         dateClick: function (info) {
             fetchEventsForDate(info.dateStr);
         }
@@ -244,7 +244,7 @@
     calendar.render();
 
     function fetchEventsForDate(dateStr) {
-        fetch('{% url "core:events_api" %}')
+        fetch('{% url "events:events_api" %}')
             .then(res => res.ok ? res.json() : Promise.reject())
             .then(events => {
                 const dayEvents = events.filter(e => e.start === dateStr);

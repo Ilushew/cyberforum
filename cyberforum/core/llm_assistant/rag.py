@@ -22,6 +22,7 @@ PROMPT_TEMPLATE = """
 prompt = ChatPromptTemplate.from_template(PROMPT_TEMPLATE)
 chain = prompt | llm | StrOutputParser()
 
+
 def generate_answer(question: str, top_k: int = 3) -> str:
     """
     Генерирует ответ на вопрос с использованием RAG.
@@ -33,14 +34,13 @@ def generate_answer(question: str, top_k: int = 3) -> str:
 
     relevant_docs = vectorstore.similarity_search(question, k=top_k)
 
-    context = "\n\n".join([
-        f"Источник: {doc.metadata['source']} (тип: {doc.metadata['file_type']})\n{doc.page_content}"
-        for doc in relevant_docs
-    ])
+    context = "\n\n".join(
+        [
+            f"Источник: {doc.metadata['source']} (тип: {doc.metadata['file_type']})\n{doc.page_content}"
+            for doc in relevant_docs
+        ]
+    )
 
-    response = chain.invoke({
-        "context": context,
-        "question": question
-    })
+    response = chain.invoke({"context": context, "question": question})
 
     return response

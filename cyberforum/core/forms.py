@@ -7,13 +7,13 @@ from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.core.mail import send_mail
 from django.conf import settings
-from .models import User, Event, News, DocumentationFile
+from .models import User
 
 
 class UserRegistrationForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ('email', 'password1', 'password2')
+        fields = ("email", "password1", "password2")
 
     def save(self, commit=True):
         user = super().save(commit=False)
@@ -45,56 +45,24 @@ class UserRegistrationForm(UserCreationForm):
         """
         send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, [user.email])
 
+
 class UserUpdateForm(UserChangeForm):
     password = None  # Скрыть поле пароля
 
     class Meta:
         model = User
-        fields = ('username', 'first_name', 'last_name', 'email', 'phone')
+        fields = ("username", "first_name", "last_name", "email", "phone")
         widgets = {
-            'username': forms.TextInput(attrs={'readonly': 'readonly'}),
+            "username": forms.TextInput(attrs={"readonly": "readonly"}),
         }
+
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
         model = User
-        fields = ('first_name', 'last_name', 'phone')
+        fields = ("first_name", "last_name", "phone")
         widgets = {
-            'first_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'last_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'phone': forms.TextInput(attrs={'class': 'form-control'}),
-        }
-
-class NewsForm(forms.ModelForm):
-    class Meta:
-        model = News
-        fields = ['title', 'content', 'image', 'is_published']
-        widgets = {
-            'title': forms.TextInput(attrs={'class': 'form-control'}),
-            'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 10}),
-            'image': forms.FileInput(attrs={'class': 'form-control'}),
-            'is_published': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
-        }
-        from .models import Event
-
-class EventForm(forms.ModelForm):
-    class Meta:
-        model = Event
-        fields = ['title', 'description', 'date', 'location', 'audience']
-        widgets = {
-            'title': forms.TextInput(attrs={'class': 'form-control'}),
-            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
-            'date': forms.DateInput(attrs={'class': 'form-control', 'type': 'date'}),
-            'location': forms.TextInput(attrs={'class': 'form-control'}),
-            'audience': forms.Select(attrs={'class': 'form-select'}),
-        }
-
-
-class DocumentationFileForm(forms.ModelForm):
-    class Meta:
-        model = DocumentationFile
-        fields = ['title', 'file']
-        widgets = {
-            'title': forms.TextInput(attrs={'class': 'form-control'}),
-            'file': forms.FileInput(attrs={'class': 'form-control'}),
+            "first_name": forms.TextInput(attrs={"class": "form-control"}),
+            "last_name": forms.TextInput(attrs={"class": "form-control"}),
+            "phone": forms.TextInput(attrs={"class": "form-control"}),
         }

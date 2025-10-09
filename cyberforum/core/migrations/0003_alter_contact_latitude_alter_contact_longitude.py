@@ -6,18 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0002_contact_latitude_contact_longitude'),
+        ("core", "0002_contact_latitude_contact_longitude"),
     ]
 
     operations = [
         migrations.AlterField(
-            model_name='contact',
-            name='latitude',
+            model_name="contact",
+            name="latitude",
             field=models.CharField(blank=True, max_length=20, null=True),
         ),
         migrations.AlterField(
-            model_name='contact',
-            name='longitude',
+            model_name="contact",
+            name="longitude",
             field=models.CharField(blank=True, max_length=20, null=True),
         ),
     ]

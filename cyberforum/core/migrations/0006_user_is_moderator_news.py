@@ -8,29 +8,54 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0005_alter_contact_latitude_alter_contact_longitude'),
+        ("core", "0005_alter_contact_latitude_alter_contact_longitude"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='user',
-            name='is_moderator',
-            field=models.BooleanField(default=False, verbose_name='Модератор'),
+            model_name="user",
+            name="is_moderator",
+            field=models.BooleanField(default=False, verbose_name="Модератор"),
         ),
         migrations.CreateModel(
-            name='News',
+            name="News",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=200, verbose_name='Заголовок')),
-                ('content', models.TextField(verbose_name='Содержание')),
-                ('created_at', models.DateTimeField(auto_now_add=True, verbose_name='Дата публикации')),
-                ('is_published', models.BooleanField(default=True, verbose_name='Опубликовано')),
-                ('author', models.ForeignKey(limit_choices_to={'is_moderator': True}, null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL, verbose_name='Автор')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=200, verbose_name="Заголовок")),
+                ("content", models.TextField(verbose_name="Содержание")),
+                (
+                    "created_at",
+                    models.DateTimeField(
+                        auto_now_add=True, verbose_name="Дата публикации"
+                    ),
+                ),
+                (
+                    "is_published",
+                    models.BooleanField(default=True, verbose_name="Опубликовано"),
+                ),
+                (
+                    "author",
+                    models.ForeignKey(
+                        limit_choices_to={"is_moderator": True},
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Автор",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Новость',
-                'verbose_name_plural': 'Новости',
-                'ordering': ['-created_at'],
+                "verbose_name": "Новость",
+                "verbose_name_plural": "Новости",
+                "ordering": ["-created_at"],
             },
         ),
     ]

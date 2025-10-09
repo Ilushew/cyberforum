@@ -15,50 +15,134 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Course',
+            name="Course",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=200)),
-                ('description', models.TextField()),
-                ('audience', models.CharField(choices=[('все', 'Все'), ('школьник', 'Школьники'), ('пенсионер', 'Пенсионеры'), ('МСП', 'МСП')], default='все', max_length=50)),
-                ('format_type', models.CharField(choices=[('текст', 'Текст'), ('видео', 'Видео'), ('тест', 'Тест')], default='текст', max_length=50)),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=200)),
+                ("description", models.TextField()),
+                (
+                    "audience",
+                    models.CharField(
+                        choices=[
+                            ("все", "Все"),
+                            ("школьник", "Школьники"),
+                            ("пенсионер", "Пенсионеры"),
+                            ("МСП", "МСП"),
+                        ],
+                        default="все",
+                        max_length=50,
+                    ),
+                ),
+                (
+                    "format_type",
+                    models.CharField(
+                        choices=[
+                            ("текст", "Текст"),
+                            ("видео", "Видео"),
+                            ("тест", "Тест"),
+                        ],
+                        default="текст",
+                        max_length=50,
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
             ],
         ),
         migrations.CreateModel(
-            name='Lesson',
+            name="Lesson",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=200)),
-                ('content', models.TextField()),
-                ('video_url', models.URLField(blank=True, null=True)),
-                ('order', models.IntegerField(default=1)),
-                ('course', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='lessons', to='courses.course')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=200)),
+                ("content", models.TextField()),
+                ("video_url", models.URLField(blank=True, null=True)),
+                ("order", models.IntegerField(default=1)),
+                (
+                    "course",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="lessons",
+                        to="courses.course",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='Question',
+            name="Question",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('text', models.CharField(max_length=300)),
-                ('option_a', models.CharField(max_length=200)),
-                ('option_b', models.CharField(max_length=200)),
-                ('option_c', models.CharField(blank=True, max_length=200)),
-                ('option_d', models.CharField(blank=True, max_length=200)),
-                ('correct_answer', models.CharField(max_length=1)),
-                ('lesson', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='questions', to='courses.lesson')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("text", models.CharField(max_length=300)),
+                ("option_a", models.CharField(max_length=200)),
+                ("option_b", models.CharField(max_length=200)),
+                ("option_c", models.CharField(blank=True, max_length=200)),
+                ("option_d", models.CharField(blank=True, max_length=200)),
+                ("correct_answer", models.CharField(max_length=1)),
+                (
+                    "lesson",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="questions",
+                        to="courses.lesson",
+                    ),
+                ),
             ],
         ),
         migrations.CreateModel(
-            name='TestResult',
+            name="TestResult",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('score', models.PositiveSmallIntegerField()),
-                ('total', models.PositiveSmallIntegerField()),
-                ('percent', models.PositiveSmallIntegerField()),
-                ('completed_at', models.DateTimeField(auto_now_add=True)),
-                ('lesson', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='test_results', to='courses.lesson')),
-                ('user', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, to=settings.AUTH_USER_MODEL)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("score", models.PositiveSmallIntegerField()),
+                ("total", models.PositiveSmallIntegerField()),
+                ("percent", models.PositiveSmallIntegerField()),
+                ("completed_at", models.DateTimeField(auto_now_add=True)),
+                (
+                    "lesson",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="test_results",
+                        to="courses.lesson",
+                    ),
+                ),
+                (
+                    "user",
+                    models.ForeignKey(
+                        blank=True,
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
             ],
         ),
     ]
