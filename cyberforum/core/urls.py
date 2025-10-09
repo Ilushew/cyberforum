@@ -5,6 +5,7 @@ app_name = 'core'
 urlpatterns = [
     path('', views.home_view, name='home'),
     path('contacts/', views.contacts_view, name='contacts'),
+    path('textbooks/', views.textbooks_view, name='textbooks'),  # ← добавлено
     path('events/', views.events_view, name='events'),
     path('chat-ask/', views.chat_ask, name='chat_ask'),
     path('register/', views.register_view, name='register'),

@@ -35,6 +35,10 @@ def contacts_view(request):
     return render(request, 'core/contacts.html', {'contacts': contacts})
 
 
+def textbooks_view(request):
+    return render(request, 'core/textbooks.html')
+
+
 def events_view(request):
     events = Event.objects.order_by('date')
     return render(request, 'core/events.html', {'events': events})
