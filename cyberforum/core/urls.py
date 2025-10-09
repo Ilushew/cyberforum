@@ -18,6 +18,7 @@ urlpatterns = [
     path('confirm-email/<uidb64>/<token>/', views.confirm_email_view, name='confirm_email'),
     path('api/events/', views.events_api_view, name='events_api'),
     path('calendar/', views.calendar_view, name='calendar'),
+<<<<<<< HEAD
     path('news/', views.news_list_view, name='news_list'),
     path('news/<int:news_id>/', views.news_detail_view, name='news_detail'),
     path('moderator/news/', views.news_moderator_list, name='news_moderator_list'),
@@ -25,3 +26,7 @@ urlpatterns = [
     path('moderator/news/<int:news_id>/edit/', views.news_edit, name='news_edit'),
     path('moderator/news/<int:news_id>/delete/', views.news_delete, name='news_delete'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+=======
+    path('events/<int:event_id>/', views.event_detail_view, name='event_detail'),
+]
+>>>>>>> calendar_fix
