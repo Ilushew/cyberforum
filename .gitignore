@@ -8,3 +8,4 @@ env/
 venv/
 .venv/
 db.sqlite3
+project_structure.txt
