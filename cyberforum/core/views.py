@@ -9,9 +9,9 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_decode
 from django.views.decorators.csrf import csrf_exempt
 
-from .forms import UserRegistrationForm, UserProfileForm
+from .forms import UserRegistrationForm, UserProfileForm, EventReportForm
 from .llm_assistant.rag import generate_answer
-from .models import Contact, Event, AUDIENCE_CHOICES
+from .models import Contact, Event, AUDIENCE_CHOICES, EventReport, REPORT_AUDIENCE_CHOICES
 from courses.models import Course
 from courses.models import TestResult
 from django.http import JsonResponse
@@ -444,3 +444,72 @@ def textbook_delete(request, textbook_id):
 def event_detail_view(request, event_id):
     event = get_object_or_404(Event, id=event_id)
     return render(request, 'core/event_detail.html', {'event': event})
+
+
+@user_passes_test(is_moderator, login_url='/login/')
+def event_report_list(request):
+    reports = EventReport.objects.all().order_by('-date')
+
+    # Получаем параметры из GET
+    title_query = request.GET.get('title', '').strip()
+    audience = request.GET.get('audience', '')
+    moderator_id = request.GET.get('moderator', '')
+    date_from = request.GET.get('date_from', '')
+    date_to = request.GET.get('date_to', '')
+
+    # Фильтр по теме (поиск по частичному совпадению)
+    if title_query:
+        reports = reports.filter(title__icontains=title_query)
+
+    # Фильтр по аудитории
+    if audience:
+        reports = reports.filter(audience=audience)
+
+    # Фильтр по модератору
+    if moderator_id and moderator_id.isdigit():
+        reports = reports.filter(moderator_id=moderator_id)
+
+    # Фильтр по дате "с"
+    if date_from:
+        try:
+            date_from = datetime.strptime(date_from, '%Y-%m-%d').date()
+            reports = reports.filter(date__gte=date_from)
+        except ValueError:
+            pass
+
+    # Фильтр по дате "по"
+    if date_to:
+        try:
+            date_to = datetime.strptime(date_to, '%Y-%m-%d').date()
+            reports = reports.filter(date__lte=date_to)
+        except ValueError:
+            pass
+
+    # Получаем список модераторов для выпадающего списка
+    moderators = User.objects.filter(is_moderator=True).only('id', 'email')
+
+    context = {
+        'reports': reports,
+        'audience_choices': REPORT_AUDIENCE_CHOICES,
+        'moderators': moderators,
+        'current_filters': {
+            'title': title_query,
+            'audience': audience,
+            'moderator': moderator_id,
+            'date_from': date_from,
+            'date_to': date_to,
+        }
+    }
+    return render(request, 'core/event_report_list.html', context)
+
+@user_passes_test(is_moderator, login_url='/login/')
+def event_report_create(request):
+    if request.method == 'POST':
+        form = EventReportForm(request.POST)
+        if form.is_valid():
+            form.save(moderator=request.user)
+            messages.success(request, "Отчёт успешно создан!")
+            return redirect('core:event_report_list')
+    else:
+        form = EventReportForm()
+    return render(request, 'core/event_report_form.html', {'form': form, 'title': 'Создать отчёт о мероприятии'})

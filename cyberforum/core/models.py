@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from .utils import geocode_address
 
+
 class User(AbstractUser):
     email = models.EmailField(unique=True, verbose_name="Email")
     phone = models.CharField(max_length=20, blank=True, verbose_name="Телефон")
@@ -10,7 +11,7 @@ class User(AbstractUser):
     is_moderator = models.BooleanField(default=False, verbose_name="Модератор")
 
     USERNAME_FIELD = 'email'  # Используем email для входа
-    REQUIRED_FIELDS = ['username']      # Не требуем другие поля при создании через createsuperuser
+    REQUIRED_FIELDS = ['username']  # Не требуем другие поля при создании через createsuperuser
 
     def __str__(self):
         return self.email
@@ -22,6 +23,7 @@ AUDIENCE_CHOICES = [
     ('пенсионер', 'Пенсионеры'),
     ('МСП', 'МСП'),
 ]
+
 
 class Contact(models.Model):
     name = models.CharField(max_length=200)
@@ -40,6 +42,7 @@ class Contact(models.Model):
         self.latitude = lat
         self.longitude = lon
         super().save(*args, **kwargs)
+
 
 class Event(models.Model):
     title = models.CharField(max_length=200)
@@ -115,3 +118,32 @@ class Textbook(models.Model):
 
     def __str__(self):
         return self.title
+
+
+REPORT_AUDIENCE_CHOICES = AUDIENCE_CHOICES + [('другое', 'Другое')]
+
+
+# core/models.py
+
+class EventReport(models.Model):
+    title = models.CharField("Тема", max_length=200)
+    audience = models.CharField("Целевая аудитория", max_length=50, choices=REPORT_AUDIENCE_CHOICES)
+    custom_audience = models.CharField("Своя аудитория", max_length=100, blank=True)
+    listener_count = models.PositiveIntegerField("Количество слушателей")
+    date = models.DateField("Дата проведения")
+    comments = models.TextField("Комментарии", blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    moderator = models.ForeignKey('User', on_delete=models.CASCADE, verbose_name="Модератор")
+
+    class Meta:
+        verbose_name = "Отчёт о мероприятии"
+        verbose_name_plural = "Отчёты о мероприятиях"
+        ordering = ['-date']
+
+    def __str__(self):
+        return self.title
+
+    def get_audience_display(self):
+        if self.audience == 'другое':
+            return self.custom_audience or 'Другое'
+        return dict(REPORT_AUDIENCE_CHOICES).get(self.audience, self.audience)

@@ -1,0 +1,67 @@
+<!-- templates/core/event_report_form.html -->
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ title }}</h2>
+<form method="post">
+    {% csrf_token %}
+
+    <!-- Тема -->
+    <div class="mb-3">
+        <label class="form-label">Тема мероприятия</label>
+        {{ form.existing_event }}
+        {{ form.manual_title }}
+        {% if form.existing_event.errors or form.manual_title.errors %}
+            <div class="text-danger">{{ form.existing_event.errors }} {{ form.manual_title.errors }}</div>
+        {% endif %}
+    </div>
+
+    <!-- Аудитория -->
+    <div class="mb-3">
+        {{ form.audience.label_tag }}
+        {{ form.audience }}
+        <div id="custom-audience-field" style="display:none; margin-top: 10px;">
+            {{ form.custom_audience.label_tag }}
+            {{ form.custom_audience }}
+        </div>
+        {% if form.audience.errors or form.custom_audience.errors %}
+            <div class="text-danger">{{ form.audience.errors }} {{ form.custom_audience.errors }}</div>
+        {% endif %}
+    </div>
+
+    <!-- Основные поля -->
+    <div class="row">
+        <div class="col-md-6 mb-3">
+            {{ form.date.label_tag }}
+            {{ form.date }}
+        </div>
+        <div class="col-md-6 mb-3">
+            {{ form.listener_count.label_tag }}
+            {{ form.listener_count }}
+        </div>
+    </div>
+
+    <!-- Комментарии -->
+    <div class="mb-3">
+        {{ form.comments.label_tag }}
+        {{ form.comments }}
+    </div>
+
+    <button type="submit" class="btn btn-primary">Сохранить отчёт</button>
+    <a href="{% url 'core:event_report_list' %}" class="btn btn-secondary">Отмена</a>
+</form>
+
+<script>
+// Показ/скрытие поля "Своя аудитория"
+document.getElementById('id_audience').addEventListener('change', function() {
+    const customField = document.getElementById('custom-audience-field');
+    customField.style.display = this.value === 'другое' ? 'block' : 'none';
+});
+
+// Скрыть при загрузке, если не "другое"
+document.addEventListener('DOMContentLoaded', () => {
+    const select = document.getElementById('id_audience');
+    const field = document.getElementById('custom-audience-field');
+    if (select.value !== 'другое') field.style.display = 'none';
+});
+</script>
+{% endblock %}

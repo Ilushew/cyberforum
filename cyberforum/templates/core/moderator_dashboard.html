@@ -62,7 +62,19 @@
                 </div>
             </div>
         </div>
-
+        <div class="col-md-6">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body d-flex flex-column">
+                    <h5 class="card-title">📊 Отчёты о мероприятиях</h5>
+                    <p class="card-text flex-grow-1">
+                        Форма для отправки статистики по прошедшим мероприятиям.
+                    </p>
+                    <a href="{% url 'core:event_report_list' %}" class="btn btn-primary mt-auto">
+                        Управление отчётами
+                    </a>
+                </div>
+            </div>
+        </div>
         <div class="col-md-6">
             <div class="card h-100 shadow-sm">
                 <div class="card-body d-flex flex-column">

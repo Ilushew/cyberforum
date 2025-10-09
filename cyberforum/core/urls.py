@@ -37,6 +37,8 @@ urlpatterns = [
     path('moderator/documentation/', views.documentation_moderator_list, name='documentation_moderator_list'),
     path('moderator/documentation/create/', views.documentation_create, name='documentation_create'),
     path('moderator/documentation/<int:doc_id>/delete/', views.documentation_delete, name='documentation_delete'),
+    path('moderator/reports/', views.event_report_list, name='event_report_list'),
+    path('moderator/reports/create/', views.event_report_create, name='event_report_create'),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 
