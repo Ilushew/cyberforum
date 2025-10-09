@@ -52,6 +52,7 @@ class Event(models.Model):
         return self.title
 
 
+
 class News(models.Model):
     title = models.CharField(max_length=200, verbose_name="Заголовок")
     content = models.TextField(verbose_name="Содержание")
@@ -115,3 +116,16 @@ class Textbook(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class TelegramSubscriber(models.Model):
+    telegram_id = models.BigIntegerField("ID чата в Telegram", unique=True)
+    username = models.CharField("Username", max_length=100, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Подписчик Telegram"
+        verbose_name_plural = "Подписчики Telegram"
+
+    def __str__(self):
+        return f"@{self.username}" if self.username else f"ID {self.telegram_id}"

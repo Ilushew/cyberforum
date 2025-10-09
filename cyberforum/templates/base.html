@@ -42,7 +42,6 @@
             <li class="nav-item"><a class="nav-link" href="{% url 'courses:list' %}">Курсы</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'core:textbooks' %}">Учебники</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'core:contacts' %}">Контакты</a></li>
-            <li class="nav-item"><a class="nav-link" href="{% url 'core:events' %}">События</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'core:calendar' %}">Календарь</a></li>
 
             <li class="nav-item"><a class="nav-link" href="{% url 'core:news_list' %}">Новости</a></li>
@@ -55,7 +54,6 @@
               <li class="nav-item"><a class="nav-link" href="{% url 'core:login' %}">Войти</a></li>
               <li class="nav-item"><a class="nav-link" href="{% url 'core:register' %}">Регистрация</a></li>
             {% endif %}
-            <li class="nav-item"><a class="nav-link" href="{% url 'core:faq' %}">FAQ</a></li>
             <li class="nav-item"><a class="nav-link" href="{% url 'core:documentation' %}">Документация</a></li>
           </ul>
 
@@ -285,8 +283,35 @@
 </style>
 
 
-    <footer class="bg-light text-center py-3 mt-auto">
-        <p class="mb-0">© 2025 Портал финансовой грамотности Удмуртии</p>
+    <footer class="bg-light text-dark py-4 mt-auto">
+        <p class="mb-0 text-center text-muted">
+          © 2025 Портал финансовой грамотности Удмуртии
+        </p>
+      <div class="container">
+        <!-- FAQ в подвале -->
+        <div class="mb-4">
+          <h5 class="mb-3">Часто задаваемые вопросы</h5>
+          <div class="accordion" id="footerFaqAccordion">
+            {% for item in faq_items_footer %}
+              <div class="accordion-item mb-1">
+                <h6 class="accordion-header" id="faqHeading{{ forloop.counter }}">
+                  <button class="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse{{ forloop.counter }}" aria-expanded="false" aria-controls="faqCollapse{{ forloop.counter }}" style="font-size: 0.95rem;">
+                    {{ item.question }}
+                  </button>
+                </h6>
+                <div id="faqCollapse{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="faqHeading{{ forloop.counter }}" data-bs-parent="#footerFaqAccordion">
+                  <div class="accordion-body p-2" style="font-size: 0.9rem; color: #555;">
+                    {{ item.answer|linebreaks }}
+                  </div>
+                </div>
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+
+        <!-- Копирайт -->
+        <hr class="my-3">
+      </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

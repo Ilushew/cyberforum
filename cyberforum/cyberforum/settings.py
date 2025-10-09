@@ -66,6 +66,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'core.context_processors.faq_context'
             ],
         },
     },
@@ -134,3 +135,6 @@ EMAIL_HOST_USER = 'ilya.grishk@yandex.ru'    # Замените на реаль�
 EMAIL_HOST_PASSWORD = 'rfyolaerqnjbzhbt'   # Пароль приложения, не пароль от аккаунта!
 DEFAULT_FROM_EMAIL = 'ilya.grishk@yandex.ru'
 YANDEX_GEOCODER_API_KEY = '315adbb6-0466-4fd1-9580-bef99d765a5c'
+
+TELEGRAM_BOT_TOKEN = '8309970719:AAHmlYimP8xwiV7Yrv-sgGECeGlG9inYJJQ'
+TELEGRAM_CHANNEL_ID = '-1003157421034'
