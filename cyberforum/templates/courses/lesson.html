@@ -4,11 +4,13 @@
 <h1>{{ lesson.title }}</h1>
 <div class="mb-4">{{ lesson.content|safe }}</div>
 
-{% if lesson.video_url %}
-<div class="ratio ratio-16x9 mb-4">
-    <iframe src="{{ lesson.video_url }}" title="Видеоурок">
-    </iframe>
-</div>
+{% if lesson.video_file %}
+    <div class="mb-4">
+        <video controls class="w-100" style="max-height: 500px; object-fit: contain;">
+            <source src="{{ lesson.video_file.url }}" type="video/mp4">
+            Ваш браузер не поддерживает видео.
+        </video>
+    </div>
 {% endif %}
 
 {% if lesson.questions.exists %}
