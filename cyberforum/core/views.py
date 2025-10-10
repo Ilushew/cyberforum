@@ -12,7 +12,7 @@ from django.views.decorators.csrf import csrf_exempt
 from events.forms import EventForm, EventReportForm
 from .forms import UserRegistrationForm, UserProfileForm
 from .llm_assistant.rag import generate_answer
-from .models import Contact, EventReport, REPORT_AUDIENCE_CHOICES, TelegramSubscriber
+from .models import Contact, EventReport, REPORT_AUDIENCE_CHOICES
 from courses.models import Course
 from courses.models import TestResult
 from django.http import JsonResponse, HttpResponse
@@ -192,40 +192,6 @@ def logout_view(request):
     logout(request)
     messages.info(request, "Вы вышли из аккаунта.")
     return redirect("core:home")
-
-
-from .telegram_utils import send_telegram_message
-
-from .telegram_utils import send_telegram_message
-
-from .telegram_utils import send_telegram_message
-
-
-@user_passes_test(is_moderator, login_url="/login/")
-def event_create(request):
-    if request.method == "POST":
-        form = EventForm(request.POST)
-        if form.is_valid():
-            event = form.save()
-            messages.success(request, "Событие успешно создано!")
-
-            # === Отправка уведомления в Telegram ===
-            msg = (
-                f"📢 <b>Новое событие!</b>\n\n"
-                f"<b>{event.title}</b>\n\n"
-                f"📅 Дата: {event.date.strftime('%d.%m.%Y')}\n"
-                f"📍 Место: {event.location}\n"
-                f"👥 Аудитория: {event.get_audience_display()}\n\n"
-                f"{event.description[:200]}{'...' if len(event.description) > 200 else ''}"
-            )
-            send_telegram_message(msg)
-
-            return redirect("core:event_moderator_list")
-    else:
-        form = EventForm()
-    return render(
-        request, "core/event_form.html", {"form": form, "title": "Создать событие"}
-    )
 
 
 from .models import Textbook

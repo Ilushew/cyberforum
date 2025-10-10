@@ -60,20 +60,33 @@ def event_moderator_list(request):
     )
 
 
+from core.telegram_utils import send_telegram_message
+
+
 @user_passes_test(is_moderator, login_url="/login/")
 def event_create(request):
     if request.method == "POST":
         form = EventForm(request.POST)
         if form.is_valid():
-            form.save()
+            event = form.save()
             messages.success(request, "Событие успешно создано!")
+
+            # === Отправка уведомления в Telegram ===
+            msg = (
+                f"📢 <b>Новое событие!</b>\n\n"
+                f"<b>{event.title}</b>\n\n"
+                f"📅 Дата: {event.date.strftime('%d.%m.%Y')}\n\n"
+                f"📍 Место: {event.location}\n"
+                f"👥 Аудитория: {event.get_audience_display()}\n\n"
+                f"{event.description[:200]}{'...' if len(event.description) > 200 else ''}"
+            )
+            send_telegram_message(msg)
+
             return redirect("moderation:event_list")
     else:
         form = EventForm()
     return render(
-        request,
-        "moderation/event_form.html",
-        {"form": form, "title": "Создать событие"},
+        request, "moderation/event_form.html", {"form": form, "title": "Создать событие"}
     )
 
 

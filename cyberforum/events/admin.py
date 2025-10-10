@@ -6,9 +6,9 @@ from events.models import Event
 
 @admin.register(Event)
 class EventAdmin(admin.ModelAdmin):
-    list_display = ["title", "date", "location", "audience"]
-    list_filter = ["audience", "date"]
-    date_hierarchy = "date"
+    list_display = ['title', 'date', 'location', 'audience']
+    list_filter = ['audience', 'date']
+    date_hierarchy = 'date'
 
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
