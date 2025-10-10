@@ -10,7 +10,6 @@ def geocode_address(address: str):
     """
     api_key = getattr(settings, "YANDEX_GEOCODER_API_KEY", None)
     if not api_key:
-        # Без ключа работает с ограничениями (до 25k запросов/день с одного IP)
         url = "https://geocode-maps.yandex.ru/1.x/"
     else:
         url = f"https://geocode-maps.yandex.ru/1.x/?apikey={api_key}"

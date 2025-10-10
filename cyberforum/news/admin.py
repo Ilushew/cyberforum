@@ -12,6 +12,5 @@ class NewsAdmin(admin.ModelAdmin):
 
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
-        # Ограничиваем выбор автора только модераторами
         form.base_fields["author"].queryset = User.objects.filter(is_moderator=True)
         return form

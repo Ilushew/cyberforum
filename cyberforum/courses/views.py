@@ -20,7 +20,6 @@ from cyberforum import settings
 def course_list_view(request):
     courses = Course.objects.all()
 
-    # Получаем параметры фильтрации
     audience = request.GET.get("audience")
     format_type = request.GET.get("format")
 
@@ -41,7 +40,7 @@ def lesson_view(request, lesson_id):
     lesson = get_object_or_404(Lesson, id=lesson_id)
     questions = lesson.questions.all()
 
-    # 🔥 Если урока нет теста — всё равно проверяем, можно ли засчитать курс
+
     if request.user.is_authenticated and not questions.exists():
         mark_course_as_completed(request.user, lesson.course)
 
@@ -72,7 +71,6 @@ def submit_test_view(request, lesson_id):
             percent=score_percent,
         )
 
-        # 🔥 Помечаем курс как пройденный (если условия выполнены)
         if request.user.is_authenticated:
             mark_course_as_completed(request.user, course)
 
@@ -156,7 +154,6 @@ def download_certificate(request, course_id):
     p.drawCentredString(width / 2, y, "Настоящим подтверждается, что")
     y -= 50
 
-    # Имя пользователя
     user_name = completion.user.get_full_name() or completion.user.email
     p.setFont(font_name, 22)
     name_lines = simpleSplit(user_name, font_name, 22, content_width - 40)
@@ -169,7 +166,6 @@ def download_certificate(request, course_id):
     p.drawCentredString(width / 2, y, "успешно завершил(а) курс")
     y -= 50
 
-    # Название курса
     course_title = f"«{completion.course.title}»"
     p.setFont(font_name, 20)
     course_lines = simpleSplit(course_title, font_name, 20, content_width - 40)

@@ -131,11 +131,11 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 AUTH_USER_MODEL = "core.User"
 
 EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-EMAIL_HOST = "smtp.yandex.ru"  # Для Yandex Mail
+EMAIL_HOST = "smtp.yandex.ru"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'ilya.grishk@yandex.ru'    # Замените на реальный email
-EMAIL_HOST_PASSWORD = 'rfyolaerqnjbzhbt'   # Пароль приложения, не пароль от аккаунта!
+EMAIL_HOST_USER = 'ilya.grishk@yandex.ru'
+EMAIL_HOST_PASSWORD = 'rfyolaerqnjbzhbt'   # Пароль приложения
 DEFAULT_FROM_EMAIL = 'ilya.grishk@yandex.ru'
 YANDEX_GEOCODER_API_KEY = '315adbb6-0466-4fd1-9580-bef99d765a5c'
 

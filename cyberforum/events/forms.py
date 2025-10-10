@@ -17,7 +17,6 @@ class EventForm(forms.ModelForm):
         }
 
 class EventReportForm(forms.ModelForm):
-    # Поле для выбора существующего мероприятия (опционально)
     existing_event = forms.ModelChoiceField(
         queryset=Event.objects.all(),
         label="Выбрать тему из существующих мероприятий",
@@ -25,7 +24,6 @@ class EventReportForm(forms.ModelForm):
         empty_label="— Не выбрано —",
         widget=forms.Select(attrs={'class': 'form-select', 'id': 'id_existing_event'})
     )
-    # Поле для ручного ввода темы
     manual_title = forms.CharField(
         label="Или введите новую тему",
         max_length=200,
@@ -51,19 +49,16 @@ class EventReportForm(forms.ModelForm):
         audience = cleaned_data.get('audience')
         custom_audience = cleaned_data.get('custom_audience')
 
-        # Валидация темы
         if not existing_event and not manual_title:
             raise forms.ValidationError("Укажите тему: выберите из списка или введите вручную.")
         if existing_event and manual_title:
             raise forms.ValidationError("Выберите ТОЛЬКО один способ указания темы.")
 
-        # Валидация аудитории
         if audience == 'другое' and not custom_audience:
             raise forms.ValidationError("Пожалуйста, укажите свою целевую аудиторию.")
         if audience != 'другое' and custom_audience:
             raise forms.ValidationError("Поле «Своя аудитория» нужно заполнять только при выборе «Другое».")
 
-        # Установка title
         if existing_event:
             cleaned_data['title'] = existing_event.title
         else:

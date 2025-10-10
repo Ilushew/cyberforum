@@ -19,10 +19,9 @@ class UserRegistrationForm(UserCreationForm):
         user = super().save(commit=False)
         user.is_active = False
 
-        # Генерируем уникальный username из email или UUID
         if not user.username:
 
-            user.username = str(uuid.uuid4())  # гарантирует уникальность
+            user.username = str(uuid.uuid4())
 
         if commit:
             user.save()
@@ -47,7 +46,7 @@ class UserRegistrationForm(UserCreationForm):
 
 
 class UserUpdateForm(UserChangeForm):
-    password = None  # Скрыть поле пароля
+    password = None
 
     class Meta:
         model = User

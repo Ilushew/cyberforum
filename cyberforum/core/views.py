@@ -324,7 +324,7 @@ def event_report_list(request):
     if moderator_id and moderator_id.isdigit():
         reports = reports.filter(moderator_id=moderator_id)
 
-    # Фильтр по дате "с"
+    # Фильтр по дате
     if date_from:
         try:
             date_from = datetime.strptime(date_from, '%Y-%m-%d').date()
@@ -332,7 +332,6 @@ def event_report_list(request):
         except ValueError:
             pass
 
-    # Фильтр по дате "по"
     if date_to:
         try:
             date_to = datetime.strptime(date_to, '%Y-%m-%d').date()
