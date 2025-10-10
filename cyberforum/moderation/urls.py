@@ -15,6 +15,7 @@ urlpatterns = [
     path("events/<int:event_id>/edit/", views.event_edit, name="event_edit"),
     path("events/<int:event_id>/delete/", views.event_delete, name="event_delete"),
     # Документы
+
     path(
         "documentation/", views.documentation_moderator_list, name="documentation_list"
     ),
@@ -26,4 +27,15 @@ urlpatterns = [
         views.documentation_delete,
         name="documentation_delete",
     ),
+
+    path('courses/', views.course_moderator_list, name='course_moderator_list'),
+    path('courses/create/', views.course_create, name='course_create'),
+    path('courses/<int:course_id>/edit/', views.course_edit, name='course_edit'),
+    path('courses/<int:course_id>/delete/', views.course_delete, name='course_delete'),
+
+    path('courses/<int:course_id>/lessons/', views.lesson_list, name='lesson_list'),
+    path('courses/<int:course_id>/lessons/create/', views.lesson_create, name='lesson_create'),
+    path('lessons/<int:lesson_id>/edit/', views.lesson_edit, name='lesson_edit'),
+    path('lessons/<int:lesson_id>/delete/', views.lesson_delete, name='lesson_delete'),
+
 ]

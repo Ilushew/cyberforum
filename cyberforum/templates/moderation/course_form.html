@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ title }}</h2>
+<form method="post">
+  {% csrf_token %}
+  <div class="mb-3">
+    {{ form.title.label_tag }}
+    {{ form.title }}
+  </div>
+  <div class="mb-3">
+    {{ form.description.label_tag }}
+    {{ form.description }}
+  </div>
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      {{ form.audience.label_tag }}
+      {{ form.audience }}
+    </div>
+    <div class="col-md-6 mb-3">
+      {{ form.format_type.label_tag }}
+      {{ form.format_type }}
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary">Сохранить</button>
+  <a href="{% url 'moderation:course_moderator_list' %}" class="btn btn-secondary">Отмена</a>
+</form>
+{% endblock %}
