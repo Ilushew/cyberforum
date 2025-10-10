@@ -6,24 +6,26 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 AUDIENCE_CHOICES = [
-    ('все', 'Все'),
-    ('школьник', 'Школьники'),
-    ('пенсионер', 'Пенсионеры'),
-    ('МСП', 'МСП'),
+    ("все", "Все"),
+    ("школьник", "Школьники"),
+    ("пенсионер", "Пенсионеры"),
+    ("МСП", "МСП"),
 ]
 
 FORMAT_CHOICES = [
-    ('текст', 'Текст'),
-    ('видео', 'Видео'),
-    ('тест', 'Тест'),
+    ("текст", "Текст"),
+    ("видео", "Видео"),
+    ("тест", "Тест"),
 ]
 
 
 class Course(models.Model):
     title = models.CharField(max_length=200)
     description = models.TextField()
-    audience = models.CharField(max_length=50, choices=AUDIENCE_CHOICES, default='все')
-    format_type = models.CharField(max_length=50, choices=FORMAT_CHOICES, default='текст')
+    audience = models.CharField(max_length=50, choices=AUDIENCE_CHOICES, default="все")
+    format_type = models.CharField(
+        max_length=50, choices=FORMAT_CHOICES, default="текст"
+    )
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -31,7 +33,7 @@ class Course(models.Model):
 
 
 class Lesson(models.Model):
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='lessons')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="lessons")
     title = models.CharField(max_length=200)
     content = models.TextField()
     video_url = models.URLField(blank=True, null=True)  # YouTube
@@ -42,7 +44,9 @@ class Lesson(models.Model):
 
 
 class Question(models.Model):
-    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='questions')
+    lesson = models.ForeignKey(
+        Lesson, on_delete=models.CASCADE, related_name="questions"
+    )
     text = models.CharField(max_length=300)
     option_a = models.CharField(max_length=200)
     option_b = models.CharField(max_length=200)
@@ -55,7 +59,9 @@ class Question(models.Model):
 
 
 class TestResult(models.Model):
-    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE, related_name='test_results')
+    lesson = models.ForeignKey(
+        Lesson, on_delete=models.CASCADE, related_name="test_results"
+    )
     user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, blank=True)
     score = models.PositiveSmallIntegerField()
     total = models.PositiveSmallIntegerField()

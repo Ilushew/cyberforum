@@ -8,6 +8,7 @@ from langchain_community.document_loaders import (
 
 SUPPORTED_EXTENSIONS = {".txt", ".pdf", ".docx"}
 
+
 def load_documents_from_folder(folder_path: str) -> List:
     documents = []
     folder = Path(folder_path)
@@ -33,7 +34,9 @@ def load_documents_from_folder(folder_path: str) -> List:
             documents.extend(docs)
 
     if not documents:
-        print("⚠️  В папке docs не найдено ни одного поддерживаемого файла (.txt, .pdf, .docx)")
+        print(
+            "⚠️  В папке docs не найдено ни одного поддерживаемого файла (.txt, .pdf, .docx)"
+        )
     else:
         print(f"✅ Успешно загружено {len(documents)} документов.")
 

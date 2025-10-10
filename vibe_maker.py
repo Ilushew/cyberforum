@@ -59,6 +59,5 @@ def export_project_structure(root_dir, output_file="project_structure.txt"):
 
 
 if __name__ == "__main__":
-    # Если путь не передан — используем текущую директорию
     folder_path = sys.argv[1] if len(sys.argv) > 1 else "."
     export_project_structure(folder_path)
