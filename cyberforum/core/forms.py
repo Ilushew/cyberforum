@@ -7,7 +7,7 @@ from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 from django.core.mail import send_mail
 from django.conf import settings
-from .models import User, Event, News, DocumentationFile
+from .models import User, Textbook
 
 
 class UserRegistrationForm(UserCreationForm):
@@ -65,4 +65,15 @@ class UserProfileForm(forms.ModelForm):
             "first_name": forms.TextInput(attrs={"class": "form-control"}),
             "last_name": forms.TextInput(attrs={"class": "form-control"}),
             "phone": forms.TextInput(attrs={"class": "form-control"}),
+        }
+
+class TextbookForm(forms.ModelForm):
+    class Meta:
+        model = Textbook
+        fields = ['title', 'description', 'audience', 'file']
+        widgets = {
+            'title': forms.TextInput(attrs={'class': 'form-control'}),
+            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': 3}),
+            'audience': forms.Select(attrs={'class': 'form-select'}),
+            'file': forms.ClearableFileInput(attrs={'class': 'form-control'}),
         }

@@ -3,7 +3,7 @@ from . import views
 
 app_name = 'moderation'
 urlpatterns = [
-    path('', views.moderator_dashboard, name='dashboard'),
+    path('', views.dashboard, name='dashboard'),
 
     # Новости
     path('news/', views.news_moderator_list, name='news_list'),

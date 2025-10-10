@@ -1,3 +1,4 @@
+from django.contrib import admin
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.db import models
@@ -70,3 +71,42 @@ class EventReport(models.Model):
         if self.audience == 'другое':
             return self.custom_audience or 'Другое'
         return dict(REPORT_AUDIENCE_CHOICES).get(self.audience, self.audience)
+
+class TextbookAdmin(admin.ModelAdmin):
+    list_display = ['title', 'audience', 'file']
+    list_filter = ['audience']
+    search_fields = ['title']
+
+class Textbook(models.Model):
+    AUDIENCE_CHOICES = [
+        ('1-4', 'Для 1–4 классов'),
+        ('5-9', 'Для 5–9 классов'),
+        ('10-11', 'Для 10–11 классов'),
+        ('adults', 'Для взрослых'),
+    ]
+
+    title = models.CharField("Название", max_length=255)
+    description = models.TextField("Описание", blank=True)
+    audience = models.CharField("Аудитория", max_length=10, choices=AUDIENCE_CHOICES)
+    file = models.FileField("Файл (PDF/DOCX)", upload_to='textbooks/')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Учебник"
+        verbose_name_plural = "Учебники"
+        ordering = ['audience', 'title']
+
+    def __str__(self):
+        return self.title
+
+class TelegramSubscriber(models.Model):
+    telegram_id = models.BigIntegerField("ID чата в Telegram", unique=True)
+    username = models.CharField("Username", max_length=100, blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Подписчик Telegram"
+        verbose_name_plural = "Подписчики Telegram"
+
+    def __str__(self):
+        return f"@{self.username}" if self.username else f"ID {self.telegram_id}"

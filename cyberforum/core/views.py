@@ -1,16 +1,18 @@
 import json
-
+from datetime import datetime
 
 from django.db.models import Avg
 from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib import messages
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_decode
 from django.views.decorators.csrf import csrf_exempt
+
+from events.forms import EventForm, EventReportForm
 from .forms import UserRegistrationForm, UserProfileForm
 from .llm_assistant.rag import generate_answer
-from .models import Contact
+from .models import Contact, EventReport, REPORT_AUDIENCE_CHOICES, TelegramSubscriber
 from courses.models import Course
 from courses.models import TestResult
 from django.http import JsonResponse

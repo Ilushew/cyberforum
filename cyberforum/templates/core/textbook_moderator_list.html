@@ -4,14 +4,8 @@
 <h1>Модерация учебников</h1>
 <a href="{% url 'core:textbook_create' %}" class="btn btn-success mb-3">+ Добавить учебник</a>
 <div>
-  <a href="{% url 'core:moderator_dashboard' %}" class="btn btn-sm btn-outline-primary">Назад</a>
+  <a href="{% url 'moderation:dashboard' %}" class="btn btn-sm btn-outline-primary">Назад</a>
 </div>
-
-{% if messages %}
-  {% for message in messages %}
-    <div class="alert alert-{{ message.tags }}">{{ message }}</div>
-  {% endfor %}
-{% endif %}
 
 {% if textbooks %}
   <div class="table-responsive">

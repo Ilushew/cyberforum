@@ -142,5 +142,5 @@ def news_delete(request, news_id):
 
 
 @user_passes_test(is_moderator, login_url="/login/")
-def moderator_dashboard(request):
+def dashboard(request):
     return render(request, "moderation/dashboard.html")
