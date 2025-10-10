@@ -6,21 +6,39 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0009_textbook'),
+        ("core", "0009_textbook"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='TelegramSubscriber',
+            name="TelegramSubscriber",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('telegram_id', models.BigIntegerField(unique=True, verbose_name='ID чата в Telegram')),
-                ('username', models.CharField(blank=True, max_length=100, verbose_name='Username')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "telegram_id",
+                    models.BigIntegerField(
+                        unique=True, verbose_name="ID чата в Telegram"
+                    ),
+                ),
+                (
+                    "username",
+                    models.CharField(
+                        blank=True, max_length=100, verbose_name="Username"
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
             ],
             options={
-                'verbose_name': 'Подписчик Telegram',
-                'verbose_name_plural': 'Подписчики Telegram',
+                "verbose_name": "Подписчик Telegram",
+                "verbose_name_plural": "Подписчики Telegram",
             },
         ),
     ]

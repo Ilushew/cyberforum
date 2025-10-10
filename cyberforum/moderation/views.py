@@ -15,7 +15,9 @@ from news.models import News
 @user_passes_test(is_moderator, login_url="/login/")
 def documentation_moderator_list(request):
     docs = DocumentationFile.objects.all().order_by("-uploaded_at")
-    return render(request, "moderation/documentation_moderator_list.html", {"docs": docs})
+    return render(
+        request, "moderation/documentation_moderator_list.html", {"docs": docs}
+    )
 
 
 @user_passes_test(is_moderator, login_url="/login/")
@@ -44,10 +46,13 @@ def documentation_delete(request, doc_id):
         return redirect("moderation:documentation_list")
     return render(request, "moderation/documentation_confirm_delete.html", {"doc": doc})
 
+
 @user_passes_test(is_moderator, login_url="/login/")
 def event_moderator_list(request):
     events = Event.objects.all().order_by("date")
-    return render(request, "moderation/event_moderator_list.html", {"event_list": events})
+    return render(
+        request, "moderation/event_moderator_list.html", {"event_list": events}
+    )
 
 
 @user_passes_test(is_moderator, login_url="/login/")
@@ -61,7 +66,9 @@ def event_create(request):
     else:
         form = EventForm()
     return render(
-        request, "moderation/event_form.html", {"form": form, "title": "Создать событие"}
+        request,
+        "moderation/event_form.html",
+        {"form": form, "title": "Создать событие"},
     )
 
 
@@ -90,12 +97,15 @@ def event_delete(request, event_id):
         event.delete()
         messages.success(request, "Событие удалено.")
         return redirect("moderation:event_list")
-    return render(request, "moderation/event_confirm_delete.html", {"event": event})\
+    return render(request, "moderation/event_confirm_delete.html", {"event": event})
+
 
 @user_passes_test(is_moderator, login_url="/login/")
 def news_moderator_list(request):
     news_items = News.objects.all().order_by("-created_at")
-    return render(request, "moderation/news_moderator_list.html", {"news_list": news_items})
+    return render(
+        request, "moderation/news_moderator_list.html", {"news_list": news_items}
+    )
 
 
 @user_passes_test(is_moderator, login_url="/login/")
@@ -127,7 +137,9 @@ def news_edit(request, news_id):
     else:
         form = NewsForm(instance=news)
     return render(
-        request, "moderation/news_form.html", {"form": form, "title": "Редактировать новость"}
+        request,
+        "moderation/news_form.html",
+        {"form": form, "title": "Редактировать новость"},
     )
 
 

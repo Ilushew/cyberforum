@@ -33,14 +33,11 @@ class Course(models.Model):
 
 
 class Lesson(models.Model):
-    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='lessons')
+    course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name="lessons")
     title = models.CharField(max_length=200)
     content = models.TextField()
     video_file = models.FileField(
-        upload_to='lessons/videos/',
-        blank=True,
-        null=True,
-        verbose_name="Видео (MP4)"
+        upload_to="lessons/videos/", blank=True, null=True, verbose_name="Видео (MP4)"
     )
     order = models.IntegerField(default=1)
 
@@ -84,7 +81,7 @@ class CourseCompletion(models.Model):
     certificate_id = models.CharField(max_length=36, unique=True, blank=True)
 
     class Meta:
-        unique_together = ('user', 'course')
+        unique_together = ("user", "course")
         verbose_name = "Пройденный курс"
         verbose_name_plural = "Пройденные курсы"
 

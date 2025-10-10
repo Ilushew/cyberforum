@@ -14,12 +14,11 @@ class User(AbstractUser):
     is_moderator = models.BooleanField(default=False, verbose_name="Модератор")
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = [
-        "username"
-    ]
+    REQUIRED_FIELDS = ["username"]
 
     def __str__(self):
         return self.email
+
 
 AUDIENCE_CHOICES = [
     ("все", "Все"),
@@ -47,57 +46,66 @@ class Contact(models.Model):
         self.longitude = lon
         super().save(*args, **kwargs)
 
-REPORT_AUDIENCE_CHOICES = AUDIENCE_CHOICES + [('другое', 'Другое')]
+
+REPORT_AUDIENCE_CHOICES = AUDIENCE_CHOICES + [("другое", "Другое")]
+
 
 class EventReport(models.Model):
     title = models.CharField("Тема", max_length=200)
-    audience = models.CharField("Целевая аудитория", max_length=50, choices=REPORT_AUDIENCE_CHOICES)
+    audience = models.CharField(
+        "Целевая аудитория", max_length=50, choices=REPORT_AUDIENCE_CHOICES
+    )
     custom_audience = models.CharField("Своя аудитория", max_length=100, blank=True)
     listener_count = models.PositiveIntegerField("Количество слушателей")
     date = models.DateField("Дата проведения")
     comments = models.TextField("Комментарии", blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
-    moderator = models.ForeignKey('User', on_delete=models.CASCADE, verbose_name="Модератор")
+    moderator = models.ForeignKey(
+        "User", on_delete=models.CASCADE, verbose_name="Модератор"
+    )
 
     class Meta:
         verbose_name = "Отчёт о мероприятии"
         verbose_name_plural = "Отчёты о мероприятиях"
-        ordering = ['-date']
+        ordering = ["-date"]
 
     def __str__(self):
         return self.title
 
     def get_audience_display(self):
-        if self.audience == 'другое':
-            return self.custom_audience or 'Другое'
+        if self.audience == "другое":
+            return self.custom_audience or "Другое"
         return dict(REPORT_AUDIENCE_CHOICES).get(self.audience, self.audience)
 
+
 class TextbookAdmin(admin.ModelAdmin):
-    list_display = ['title', 'audience', 'file']
-    list_filter = ['audience']
-    search_fields = ['title']
+    list_display = ["title", "audience", "file"]
+    list_filter = ["audience"]
+    search_fields = ["title"]
+
 
 class Textbook(models.Model):
     AUDIENCE_CHOICES = [
-        ('1-4', 'Для 1–4 классов'),
-        ('5-9', 'Для 5–9 классов'),
-        ('10-11', 'Для 10–11 классов'),
-        ('adults', 'Для взрослых'),
+        ("1-4", "Для 1–4 классов"),
+        ("5-9", "Для 5–9 классов"),
+        ("10-11", "Для 10–11 классов"),
+        ("adults", "Для взрослых"),
     ]
 
     title = models.CharField("Название", max_length=255)
     description = models.TextField("Описание", blank=True)
     audience = models.CharField("Аудитория", max_length=10, choices=AUDIENCE_CHOICES)
-    file = models.FileField("Файл (PDF/DOCX)", upload_to='textbooks/')
+    file = models.FileField("Файл (PDF/DOCX)", upload_to="textbooks/")
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         verbose_name = "Учебник"
         verbose_name_plural = "Учебники"
-        ordering = ['audience', 'title']
+        ordering = ["audience", "title"]
 
     def __str__(self):
         return self.title
+
 
 class TelegramSubscriber(models.Model):
     telegram_id = models.BigIntegerField("ID чата в Telegram", unique=True)

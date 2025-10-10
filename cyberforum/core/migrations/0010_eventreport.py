@@ -8,27 +8,68 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0009_textbook'),
+        ("core", "0009_textbook"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='EventReport',
+            name="EventReport",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=200, verbose_name='Тема')),
-                ('custom_title', models.CharField(blank=True, max_length=200, verbose_name='Своя тема')),
-                ('audience', models.CharField(choices=[('все', 'Все'), ('школьник', 'Школьники'), ('пенсионер', 'Пенсионеры'), ('МСП', 'МСП'), ('другое', 'Другое')], max_length=50, verbose_name='Целевая аудитория')),
-                ('custom_audience', models.CharField(blank=True, max_length=100, verbose_name='Своя аудитория')),
-                ('listener_count', models.PositiveIntegerField(verbose_name='Количество слушателей')),
-                ('date', models.DateField(verbose_name='Дата проведения')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
-                ('moderator', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL, verbose_name='Модератор')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=200, verbose_name="Тема")),
+                (
+                    "custom_title",
+                    models.CharField(
+                        blank=True, max_length=200, verbose_name="Своя тема"
+                    ),
+                ),
+                (
+                    "audience",
+                    models.CharField(
+                        choices=[
+                            ("все", "Все"),
+                            ("школьник", "Школьники"),
+                            ("пенсионер", "Пенсионеры"),
+                            ("МСП", "МСП"),
+                            ("другое", "Другое"),
+                        ],
+                        max_length=50,
+                        verbose_name="Целевая аудитория",
+                    ),
+                ),
+                (
+                    "custom_audience",
+                    models.CharField(
+                        blank=True, max_length=100, verbose_name="Своя аудитория"
+                    ),
+                ),
+                (
+                    "listener_count",
+                    models.PositiveIntegerField(verbose_name="Количество слушателей"),
+                ),
+                ("date", models.DateField(verbose_name="Дата проведения")),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
+                (
+                    "moderator",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                        verbose_name="Модератор",
+                    ),
+                ),
             ],
             options={
-                'verbose_name': 'Отчёт о мероприятии',
-                'verbose_name_plural': 'Отчёты о мероприятиях',
-                'ordering': ['-date'],
+                "verbose_name": "Отчёт о мероприятии",
+                "verbose_name_plural": "Отчёты о мероприятиях",
+                "ordering": ["-date"],
             },
         ),
     ]

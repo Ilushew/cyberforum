@@ -6,9 +6,8 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0011_event_telegram_message_id'),
-        ('core', '0011_remove_eventreport_custom_title_eventreport_comments'),
+        ("core", "0011_event_telegram_message_id"),
+        ("core", "0011_remove_eventreport_custom_title_eventreport_comments"),
     ]
 
-    operations = [
-    ]
+    operations = []

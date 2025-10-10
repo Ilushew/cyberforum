@@ -5,6 +5,7 @@ from events.models import Event
 from news.models import News
 from documentation.models import DocumentationFile
 
+
 @admin.register(User)
 class CustomUserAdmin(UserAdmin):
     fieldsets = UserAdmin.fieldsets + (
@@ -22,15 +23,17 @@ class ContactAdmin(admin.ModelAdmin):
     search_fields = ["name", "address"]
     list_filter = ["audience"]
     fields = ["name", "address", "latitude", "longitude", "phone", "email", "audience"]
-    list_display = ['name', 'phone', 'email', 'audience']
-    search_fields = ['name', 'address']
-    list_filter = ['audience']
-    fields = ['name', 'address', 'latitude', 'longitude', 'phone', 'email', 'audience']
+    list_display = ["name", "phone", "email", "audience"]
+    search_fields = ["name", "address"]
+    list_filter = ["audience"]
+    fields = ["name", "address", "latitude", "longitude", "phone", "email", "audience"]
+
 
 from .models import Textbook
 
+
 @admin.register(Textbook)
 class TextbookAdmin(admin.ModelAdmin):
-    list_display = ['title', 'audience', 'file']
-    list_filter = ['audience']
-    search_fields = ['title']
+    list_display = ["title", "audience", "file"]
+    list_filter = ["audience"]
+    search_fields = ["title"]

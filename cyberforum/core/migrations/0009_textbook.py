@@ -6,24 +6,49 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0008_documentationfile'),
+        ("core", "0008_documentationfile"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Textbook',
+            name="Textbook",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(max_length=255, verbose_name='Название')),
-                ('description', models.TextField(blank=True, verbose_name='Описание')),
-                ('audience', models.CharField(choices=[('1-4', 'Для 1–4 классов'), ('5-9', 'Для 5–9 классов'), ('10-11', 'Для 10–11 классов'), ('adults', 'Для взрослых')], max_length=10, verbose_name='Аудитория')),
-                ('file', models.FileField(upload_to='textbooks/', verbose_name='Файл (PDF/DOCX)')),
-                ('created_at', models.DateTimeField(auto_now_add=True)),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("title", models.CharField(max_length=255, verbose_name="Название")),
+                ("description", models.TextField(blank=True, verbose_name="Описание")),
+                (
+                    "audience",
+                    models.CharField(
+                        choices=[
+                            ("1-4", "Для 1–4 классов"),
+                            ("5-9", "Для 5–9 классов"),
+                            ("10-11", "Для 10–11 классов"),
+                            ("adults", "Для взрослых"),
+                        ],
+                        max_length=10,
+                        verbose_name="Аудитория",
+                    ),
+                ),
+                (
+                    "file",
+                    models.FileField(
+                        upload_to="textbooks/", verbose_name="Файл (PDF/DOCX)"
+                    ),
+                ),
+                ("created_at", models.DateTimeField(auto_now_add=True)),
             ],
             options={
-                'verbose_name': 'Учебник',
-                'verbose_name_plural': 'Учебники',
-                'ordering': ['audience', 'title'],
+                "verbose_name": "Учебник",
+                "verbose_name_plural": "Учебники",
+                "ordering": ["audience", "title"],
             },
         ),
     ]

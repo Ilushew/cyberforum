@@ -6,10 +6,9 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0009_delete_documentationfile_delete_event_delete_news'),
-        ('core', '0012_merge_20251010_0222'),
-        ('core', '0012_merge_20251010_0712'),
+        ("core", "0009_delete_documentationfile_delete_event_delete_news"),
+        ("core", "0012_merge_20251010_0222"),
+        ("core", "0012_merge_20251010_0712"),
     ]
 
-    operations = [
-    ]
+    operations = []

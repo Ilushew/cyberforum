@@ -15,7 +15,7 @@ from .llm_assistant.rag import generate_answer
 from .models import Contact, EventReport, REPORT_AUDIENCE_CHOICES, TelegramSubscriber
 from courses.models import Course
 from courses.models import TestResult
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import redirect, render
 from events.models import Event
 from courses.models import CourseCompletion
@@ -71,7 +71,7 @@ def faq_view(request):
         },
         {
             "question": "Как задать свой вопрос?",
-            "answer": "Вы можете воспользоваться встроенным чат-ботом в правом нижнем углу сайта или связаться с нами через раздел «Контакты»."
+            "answer": "Вы можете воспользоваться встроенным чат-ботом в правом нижнем углу сайта или связаться с нами через раздел «Контакты».",
         },
         {
             "question": "Где проходят очные мероприятия?",
@@ -170,16 +170,22 @@ def profile_view(request):
     avg_percent = round(avg_percent, 1) if avg_percent is not None else 0
 
     # Пройденные курсы
-    completed_courses = CourseCompletion.objects.filter(user=request.user).select_related('course')
+    completed_courses = CourseCompletion.objects.filter(
+        user=request.user
+    ).select_related("course")
     completed_courses_count = completed_courses.count()
 
-    return render(request, 'core/profile.html', {
-        'form': form,
-        'total_tests': total_tests,
-        'avg_percent': avg_percent,
-        'completed_courses': completed_courses,
-        'completed_courses_count': completed_courses_count,  # ← добавлено
-    })
+    return render(
+        request,
+        "core/profile.html",
+        {
+            "form": form,
+            "total_tests": total_tests,
+            "avg_percent": avg_percent,
+            "completed_courses": completed_courses,
+            "completed_courses_count": completed_courses_count,  # ← добавлено
+        },
+    )
 
 
 def logout_view(request):
@@ -187,15 +193,17 @@ def logout_view(request):
     messages.info(request, "Вы вышли из аккаунта.")
     return redirect("core:home")
 
-from .telegram_utils import send_telegram_message
 
 from .telegram_utils import send_telegram_message
 
 from .telegram_utils import send_telegram_message
 
-@user_passes_test(is_moderator, login_url='/login/')
+from .telegram_utils import send_telegram_message
+
+
+@user_passes_test(is_moderator, login_url="/login/")
 def event_create(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = EventForm(request.POST)
         if form.is_valid():
             event = form.save()
@@ -212,23 +220,27 @@ def event_create(request):
             )
             send_telegram_message(msg)
 
-            return redirect('core:event_moderator_list')
+            return redirect("core:event_moderator_list")
     else:
         form = EventForm()
-    return render(request, 'core/event_form.html', {'form': form, 'title': 'Создать событие'})
+    return render(
+        request, "core/event_form.html", {"form": form, "title": "Создать событие"}
+    )
 
 
 from .models import Textbook
+
 
 def textbooks_view(request):
     textbooks = Textbook.objects.all()
     grouped = {}
     for code, name in Textbook.AUDIENCE_CHOICES:
         grouped[code] = textbooks.filter(audience=code)
-    return render(request, 'core/textbooks.html', {
-        'grouped_textbooks': grouped,
-        'audiences': Textbook.AUDIENCE_CHOICES
-    })
+    return render(
+        request,
+        "core/textbooks.html",
+        {"grouped_textbooks": grouped, "audiences": Textbook.AUDIENCE_CHOICES},
+    )
 
 
 from django.contrib.auth.decorators import user_passes_test
@@ -237,34 +249,42 @@ from django.contrib import messages
 from .models import Textbook
 from .forms import TextbookForm
 
+
 def is_moderator(user):
     return user.is_staff or user.is_superuser
 
-@user_passes_test(is_moderator, login_url='/login/')
-def textbook_moderator_list(request):
-    textbooks = Textbook.objects.all().order_by('-created_at')
-    return render(request, 'core/textbook_moderator_list.html', {'textbooks': textbooks})
 
-@user_passes_test(is_moderator, login_url='/login/')
+@user_passes_test(is_moderator, login_url="/login/")
+def textbook_moderator_list(request):
+    textbooks = Textbook.objects.all().order_by("-created_at")
+    return render(
+        request, "core/textbook_moderator_list.html", {"textbooks": textbooks}
+    )
+
+
+@user_passes_test(is_moderator, login_url="/login/")
 def textbook_create(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = TextbookForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request, "Учебник успешно загружен!")
-            return redirect('core:textbook_moderator_list')
+            return redirect("core:textbook_moderator_list")
     else:
         form = TextbookForm()
-    return render(request, 'core/textbook_form.html', {'form': form, 'title': 'Загрузить учебник'})
+    return render(
+        request, "core/textbook_form.html", {"form": form, "title": "Загрузить учебник"}
+    )
 
-@user_passes_test(is_moderator, login_url='/login/')
+
+@user_passes_test(is_moderator, login_url="/login/")
 def textbook_delete(request, textbook_id):
     textbook = get_object_or_404(Textbook, id=textbook_id)
-    if request.method == 'POST':
+    if request.method == "POST":
         textbook.delete()
         messages.success(request, "Учебник удалён.")
-        return redirect('core:textbook_moderator_list')
-    return render(request, 'core/textbook_confirm_delete.html', {'textbook': textbook})
+        return redirect("core:textbook_moderator_list")
+    return render(request, "core/textbook_confirm_delete.html", {"textbook": textbook})
 
 
 import json
@@ -272,45 +292,45 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.views.decorators.http import require_POST
 
+
 @csrf_exempt
 @require_POST
 def telegram_webhook(request):
     try:
         data = json.loads(request.body)
-        if 'message' in data:
-            message = data['message']
-            chat = message['chat']
-            chat_id = chat['id']
-            text = message.get('text', '')
-            username = chat.get('username', '')
+        if "message" in data:
+            message = data["message"]
+            chat = message["chat"]
+            chat_id = chat["id"]
+            text = message.get("text", "")
+            username = chat.get("username", "")
 
-            if text == '/start':
+            if text == "/start":
                 TelegramSubscriber.objects.update_or_create(
-                    telegram_id=chat_id,
-                    defaults={'username': username}
+                    telegram_id=chat_id, defaults={"username": username}
                 )
 
-        return JsonResponse({'ok': True})
+        return JsonResponse({"ok": True})
     except Exception as e:
         print(f"Ошибка webhook: {e}")
-        return JsonResponse({'error': str(e)}, status=500)
+        return JsonResponse({"error": str(e)}, status=500)
 
 
 def event_detail_view(request, event_id):
     event = get_object_or_404(Event, id=event_id)
-    return render(request, 'core/event_detail.html', {'event': event})
+    return render(request, "core/event_detail.html", {"event": event})
 
 
-@user_passes_test(is_moderator, login_url='/login/')
+@user_passes_test(is_moderator, login_url="/login/")
 def event_report_list(request):
-    reports = EventReport.objects.all().order_by('-date')
+    reports = EventReport.objects.all().order_by("-date")
 
     # Получаем параметры из GET
-    title_query = request.GET.get('title', '').strip()
-    audience = request.GET.get('audience', '')
-    moderator_id = request.GET.get('moderator', '')
-    date_from = request.GET.get('date_from', '')
-    date_to = request.GET.get('date_to', '')
+    title_query = request.GET.get("title", "").strip()
+    audience = request.GET.get("audience", "")
+    moderator_id = request.GET.get("moderator", "")
+    date_from = request.GET.get("date_from", "")
+    date_to = request.GET.get("date_to", "")
 
     # Фильтр по теме (поиск по частичному совпадению)
     if title_query:
@@ -327,43 +347,92 @@ def event_report_list(request):
     # Фильтр по дате
     if date_from:
         try:
-            date_from = datetime.strptime(date_from, '%Y-%m-%d').date()
+            date_from = datetime.strptime(date_from, "%Y-%m-%d").date()
             reports = reports.filter(date__gte=date_from)
         except ValueError:
             pass
 
     if date_to:
         try:
-            date_to = datetime.strptime(date_to, '%Y-%m-%d').date()
+            date_to = datetime.strptime(date_to, "%Y-%m-%d").date()
             reports = reports.filter(date__lte=date_to)
         except ValueError:
             pass
 
     # Получаем список модераторов для выпадающего списка
-    moderators = User.objects.filter(is_moderator=True).only('id', 'email')
+    moderators = User.objects.filter(is_moderator=True).only("id", "email")
 
     context = {
-        'reports': reports,
-        'audience_choices': REPORT_AUDIENCE_CHOICES,
-        'moderators': moderators,
-        'current_filters': {
-            'title': title_query,
-            'audience': audience,
-            'moderator': moderator_id,
-            'date_from': date_from,
-            'date_to': date_to,
-        }
+        "reports": reports,
+        "audience_choices": REPORT_AUDIENCE_CHOICES,
+        "moderators": moderators,
+        "current_filters": {
+            "title": title_query,
+            "audience": audience,
+            "moderator": moderator_id,
+            "date_from": date_from,
+            "date_to": date_to,
+        },
     }
-    return render(request, 'core/event_report_list.html', context)
+    return render(request, "core/event_report_list.html", context)
 
-@user_passes_test(is_moderator, login_url='/login/')
+
+@user_passes_test(is_moderator, login_url="/login/")
 def event_report_create(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         form = EventReportForm(request.POST)
         if form.is_valid():
             form.save(moderator=request.user)
             messages.success(request, "Отчёт успешно создан!")
-            return redirect('core:event_report_list')
+            return redirect("core:event_report_list")
     else:
         form = EventReportForm()
-    return render(request, 'core/event_report_form.html', {'form': form, 'title': 'Создать отчёт о мероприятии'})
+    return render(
+        request,
+        "core/event_report_form.html",
+        {"form": form, "title": "Создать отчёт о мероприятии"},
+    )
+
+import openpyxl
+from openpyxl.utils import get_column_letter
+from core.models import EventReport
+
+def export_reports_to_excel(request):
+    workbook = openpyxl.Workbook()
+    worksheet = workbook.active
+    worksheet.title = "Отчёты о мероприятиях"
+
+    columns = [
+        'ID',
+        'Тема',
+        'Аудитория',
+        'Дата',
+        'Количество слушателей',
+        'Комментарии',
+        'Модератор (email)',
+        'Создано',
+    ]
+    worksheet.append(columns)
+
+    reports = EventReport.objects.select_related('moderator').all().order_by('date')
+    for report in reports:
+        worksheet.append([
+            report.id,
+            report.title,
+            report.get_audience_display(),
+            report.date.strftime('%d.%m.%Y') if report.date else '',
+            report.listener_count or '',
+            report.comments or '',
+            report.moderator.email if report.moderator else '',
+            report.created_at.strftime('%d.%m.%Y %H:%M') if report.created_at else '',
+        ])
+
+    for i, column in enumerate(columns, start=1):
+        worksheet.column_dimensions[get_column_letter(i)].width = len(column) + 2
+
+    response = HttpResponse(
+        content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    )
+    response['Content-Disposition'] = 'attachment; filename="event_reports.xlsx"'
+    workbook.save(response)
+    return response
