@@ -7,15 +7,15 @@
 </div>
 <div class="row mb-5">
   <div class="col-lg-8 mb-4 mb-lg-0">
-    <div class="bg-img">
-    <img src="{% static 'image/image1.png' %}"
-         class="img-fluid rounded"
-         alt="Офис"
-         style="max-height: 600px; object-fit: cover;">
-    <div class="text-overlay">
-        <p>Здесь вы найдете полезные материалы, курсы и контакты для повышения вашей финансовой грамотности.</p>
-        <a href="{% url 'courses:list' %}" class="btn btn-primary">Начать обучение</a>
-    </div>
+    <div class="bg-img position-relative">
+      <img src="{% static 'image/image1.png' %}"
+           class="img-fluid rounded"
+           alt="Офис"
+           style="max-height: 600px; object-fit: cover;">
+      <div class="position-absolute top-50 start-50 translate-middle">
+          <p class="h3 text-white">Здесь вы найдете полезные материалы, курсы и контакты по финансовой грамотности.</p>
+          <a href="{% url 'courses:list' %}" class="btn btn-primary">Начать обучение</a>
+      </div>
   </div>
   </div>
   <div class="col-lg-4">
