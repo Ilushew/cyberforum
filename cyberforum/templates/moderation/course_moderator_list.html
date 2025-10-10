@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>Управление курсами</h2>
+<a href="{% url 'moderation:course_create' %}" class="btn btn-success mb-3">+ Добавить курс</a>
+<a href="{% url 'moderation:dashboard' %}" class="btn btn-sm btn-outline-primary">← Назад</a>
+
+<div class="table-responsive mt-3">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Название</th>
+        <th>Аудитория</th>
+        <th>Формат</th>
+        <th>Дата</th>
+        <th>Действия</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for c in courses %}
+        <tr>
+          <td>{{ c.title }}</td>
+          <td>{{ c.get_audience_display }}</td>
+          <td>{{ c.get_format_type_display }}</td>
+          <td>{{ c.created_at|date:"d.m.Y" }}</td>
+          <td>
+            <a href="{% url 'moderation:lesson_list' c.id %}" class="btn btn-sm btn-outline-info">Уроки</a>
+            <a href="{% url 'moderation:course_edit' c.id %}" class="btn btn-sm btn-outline-primary">Редактировать</a>
+            <a href="{% url 'moderation:course_delete' c.id %}" class="btn btn-sm btn-outline-danger"
+               onclick="return confirm('Удалить курс и все его уроки?')">Удалить</a>
+          </td>
+        </tr>
+      {% empty %}
+        <tr><td colspan="5" class="text-center">Курсов нет</td></tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
