@@ -6,6 +6,7 @@ from django.contrib.auth import authenticate, login, logout, get_user_model
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.auth.tokens import default_token_generator
+from django.utils.dateparse import parse_date
 from django.utils.http import urlsafe_base64_decode
 from django.views.decorators.csrf import csrf_exempt
 
@@ -108,7 +109,8 @@ def register_view(request):
             form.save()
             messages.success(
                 request,
-                "Регистрация прошла успешно! Проверьте email для подтверждения.",
+                "Регистрация прошла успешно! Проверьте вашу почту для подтверждения email.",
+                extra_tags='registration_success'
             )
             return redirect("core:login")
     else:
@@ -120,18 +122,17 @@ def login_view(request):
     if request.method == "POST":
         email = request.POST.get("email")
         password = request.POST.get("password")
+        storage = messages.get_messages(request)
+        storage.used = True
         user = authenticate(request, username=email, password=password)
         if user is not None:
             if not user.is_active:
-                messages.error(
-                    request, "Пожалуйста, подтвердите ваш email, чтобы войти."
-                )
+                messages.error(request, "Пожалуйста, подтвердите ваш email, чтобы войти.")
             else:
                 login(request, user)
-                messages.success(request, f"Добро пожаловать, {user.email}!")
                 return redirect("core:profile")
         else:
-            messages.error(request, "Неверный email или пароль.")
+            messages.error(request, "Неверный email или пароль. Возможно вы не подтвердили почту")
     return render(request, "core/login.html")
 
 
@@ -398,23 +399,45 @@ from openpyxl.utils import get_column_letter
 from core.models import EventReport
 
 def export_reports_to_excel(request):
+    reports = EventReport.objects.select_related('moderator').all()
+
+    title_query = request.GET.get('title', '').strip()
+    audience = request.GET.get('audience', '')
+    moderator_id = request.GET.get('moderator', '')
+    date_from = request.GET.get('date_from', '')
+    date_to = request.GET.get('date_to', '')
+
+    if title_query:
+        reports = reports.filter(title__icontains=title_query)
+
+    if audience:
+        reports = reports.filter(audience=audience)
+
+    if moderator_id and moderator_id.isdigit():
+        reports = reports.filter(moderator_id=int(moderator_id))
+
+    if date_from:
+        parsed_date = parse_date(date_from)
+        if parsed_date:
+            reports = reports.filter(date__gte=parsed_date)
+
+    if date_to:
+        parsed_date = parse_date(date_to)
+        if parsed_date:
+            reports = reports.filter(date__lte=parsed_date)
+
+    reports = reports.order_by('date')
+
     workbook = openpyxl.Workbook()
     worksheet = workbook.active
-    worksheet.title = "Отчёты о мероприятиях"
+    worksheet.title = "Отчёты"
 
     columns = [
-        'ID',
-        'Тема',
-        'Аудитория',
-        'Дата',
-        'Количество слушателей',
-        'Комментарии',
-        'Модератор (email)',
-        'Создано',
+        'ID', 'Тема', 'Аудитория', 'Дата', 'Слушатели',
+        'Комментарии', 'Модератор', 'Создано'
     ]
     worksheet.append(columns)
 
-    reports = EventReport.objects.select_related('moderator').all().order_by('date')
     for report in reports:
         worksheet.append([
             report.id,
@@ -427,12 +450,12 @@ def export_reports_to_excel(request):
             report.created_at.strftime('%d.%m.%Y %H:%M') if report.created_at else '',
         ])
 
-    for i, column in enumerate(columns, start=1):
-        worksheet.column_dimensions[get_column_letter(i)].width = len(column) + 2
+    for i, col in enumerate(columns, start=1):
+        worksheet.column_dimensions[get_column_letter(i)].width = len(col) + 2
 
     response = HttpResponse(
         content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     )
-    response['Content-Disposition'] = 'attachment; filename="event_reports.xlsx"'
+    response['Content-Disposition'] = 'attachment; filename="filtered_reports.xlsx"'
     workbook.save(response)
     return response

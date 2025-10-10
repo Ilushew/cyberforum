@@ -53,9 +53,20 @@
 <!-- Кнопки -->
 <div class="d-flex justify-content-between align-items-center mb-3">
   <a href="{% url 'core:event_report_create' %}" class="btn btn-success">+ Добавить отчёт</a>
-  <a href="{% url 'core:export_reports_excel' %}" class="btn btn-outline-success">
+<a id="export-link" class="btn btn-outline-success">
     📊 Экспорт в Excel
-  </a>
+</a>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const currentUrl = new URL(window.location);
+    const exportUrl = new URL("{% url 'core:export_reports_excel' %}", window.location.origin);
+    for (const [key, value] of currentUrl.searchParams) {
+        exportUrl.searchParams.append(key, value);
+    }
+    document.getElementById('export-link').href = exportUrl.toString();
+});
+</script>
   <a href="{% url 'moderation:dashboard' %}" class="btn btn-sm btn-outline-primary">← Назад в панель</a>
 </div>
 
