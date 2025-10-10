@@ -115,7 +115,7 @@ def download_certificate(request, course_id):
     # === ШРИФТ ===
     font_path = os.path.join(settings.BASE_DIR, 'static', 'fonts', 'DejaVuSans.ttf')
     try:
-        pdfmetrics.registerFont(TTFont('DejaVuSans', 'DejaVuSans.ttf'))
+        pdfmetrics.registerFont(TTFont('DejaVuSans', font_path))
         font_name = 'DejaVuSans'
     except Exception as e:
         print(f"⚠️ Шрифт не найден: {e}")
