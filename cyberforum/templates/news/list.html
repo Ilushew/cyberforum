@@ -15,7 +15,7 @@
             <small>Автор: {{ item.author.username|default:"Администрация" }} • {{ item.created_at|date:"d.m.Y" }}</small>
           </p>
           <p class="flex-grow-1">{{ item.content|truncatewords:30 }}</p>
-          <a href="{% url 'core:news_detail' item.id %}" class="btn btn-outline-primary mt-auto">Читать далее</a>
+          <a href="{% url 'news:detail' item.id %}" class="btn btn-outline-primary mt-auto">Читать далее</a>
         </div>
       </div>
     </div>
