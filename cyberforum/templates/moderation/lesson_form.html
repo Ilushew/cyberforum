@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>{{ title }} — курс «{{ course.title }}»</h2>
+<h2>{{ title }}</h2>
+<p>Курс: <strong>{{ course.title }}</strong></p>
 
-<form method="post">
+<form method="post" enctype="multipart/form-data">
   {% csrf_token %}
-  <!-- Урок -->
   <div class="mb-3">
     {{ form.title.label_tag }}
     {{ form.title }}
@@ -13,50 +13,35 @@
     {{ form.content.label_tag }}
     {{ form.content }}
   </div>
-  <div class="row">
-    <div class="col-md-6 mb-3">
-      {{ form.video_url.label_tag }}
-      {{ form.video_url }}
-    </div>
-    <div class="col-md-6 mb-3">
-      {{ form.order.label_tag }}
-      {{ form.order }}
-    </div>
+  <div class="mb-3">
+    {{ form.video_file.label_tag }}
+    {{ form.video_file }}
+    {% if form.instance.video_file %}
+      <div class="mt-2">
+        <video controls width="300" style="border-radius: 8px;">
+          <source src="{{ form.instance.video_file.url }}" type="video/mp4">
+          Ваш браузер не поддерживает видео.
+        </video>
+      </div>
+    {% endif %}
   </div>
-
-  <hr>
-  <h4>Вопросы для теста</h4>
-  {{ formset.management_form }}
-  {% for q_form in formset %}
-    <div class="card mb-3">
-      <div class="card-header">
-        Вопрос {{ forloop.counter }}
-        {% if q_form.instance.pk %}
-          <button type="button" class="btn btn-sm btn-danger float-end" onclick="this.closest('.card').remove()">Удалить</button>
-        {% endif %}
+  <div class="mb-3">
+    {{ form.order.label_tag }}
+    {{ form.order }}
+  </div>
+    <div class="mb-3">
+    {{ form.video.label_tag }}
+    {{ form.video }}
+    {% if form.instance.video %}
+      <div class="mt-2">
+        <img src="{{ form.instance.video.url }}" alt="Текущее Видео" style="max-height: 200px;">
       </div>
-      <div class="card-body">
-        {{ q_form.id }}
-        <div class="mb-2">{{ q_form.text.label_tag }} {{ q_form.text }}</div>
-        <div class="row">
-          <div class="col-md-6 mb-2">{{ q_form.option_a.label_tag }} {{ q_form.option_a }}</div>
-          <div class="col-md-6 mb-2">{{ q_form.option_b.label_tag }} {{ q_form.option_b }}</div>
-          <div class="col-md-6 mb-2">{{ q_form.option_c.label_tag }} {{ q_form.option_c }}</div>
-          <div class="col-md-6 mb-2">{{ q_form.option_d.label_tag }} {{ q_form.option_d }}</div>
-        </div>
-        <div class="mb-2">{{ q_form.correct_answer.label_tag }} {{ q_form.correct_answer }}</div>
-        {% if q_form.DELETE %}
-          <div class="form-check">
-            {{ q_form.DELETE }} <label class="form-check-label">Удалить этот вопрос</label>
-          </div>
-        {% endif %}
-      </div>
-    </div>
-  {% endfor %}
-
+    {% endif %}
+  </div>
   <button type="submit" class="btn btn-primary">Сохранить урок</button>
   <a href="{% url 'moderation:lesson_list' course.id %}" class="btn btn-secondary">Отмена</a>
 </form>
+
 
 <script>
 // Динамическое удаление карточки (для новых вопросов)

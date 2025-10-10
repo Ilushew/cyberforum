@@ -15,7 +15,6 @@
           <th>Название</th>
           <th>Аудитория</th>
           <th>Файл</th>
-          <th>Дата</th>
           <th>Действия</th>
         </tr>
       </thead>
@@ -25,7 +24,6 @@
             <td>{{ tb.title }}</td>
             <td>{{ tb.get_audience_display }}</td>
             <td><a href="{{ tb.file.url }}" target="_blank">Скачать</a></td>
-            <td>{{ tb.uploaded_at|date:"d.m.Y H:i" }}</td>
             <td>
               <form method="post" action="{% url 'core:textbook_delete' tb.id %}" style="display:inline;">
                 {% csrf_token %}
