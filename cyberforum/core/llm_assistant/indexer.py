@@ -35,8 +35,8 @@ def create_or_load_vectorstore():
             raise RuntimeError("Нет документов для индексации!")
 
         splitter = RecursiveCharacterTextSplitter(
-            chunk_size=500,
-            chunk_overlap=100,
+            chunk_size=45,
+            chunk_overlap=35,
             length_function=count_tokens,
             separators=["\n\n", "\n", ". ", "! ", "? ", " ", ""],
         )
