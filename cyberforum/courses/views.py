@@ -1,6 +1,6 @@
 import os
 
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.shortcuts import render, get_object_or_404, redirect
 import io
 from django.http import HttpResponse
@@ -12,9 +12,12 @@ from reportlab.pdfbase.ttfonts import TTFont
 from reportlab.lib.utils import simpleSplit
 from reportlab.lib.colors import Color
 from django.contrib import messages
+
 from .models import Course, Lesson, Question, TestResult, CourseCompletion
 from .utils import mark_course_as_completed
 from cyberforum import settings
+from django.contrib.auth.decorators import user_passes_test
+
 
 
 def course_list_view(request):
@@ -39,7 +42,6 @@ def course_detail_view(request, course_id):
 def lesson_view(request, lesson_id):
     lesson = get_object_or_404(Lesson, id=lesson_id)
     questions = lesson.questions.all()
-
 
     if request.user.is_authenticated and not questions.exists():
         mark_course_as_completed(request.user, lesson.course)
@@ -83,8 +85,6 @@ def submit_test_view(request, lesson_id):
     return redirect('courses:lesson', lesson_id=lesson_id)
 
 
-
-
 @login_required
 def download_certificate(request, course_id):
     completion = get_object_or_404(
@@ -105,10 +105,10 @@ def download_certificate(request, course_id):
     width, height = A4
 
     # === ЦВЕТА ===
-    primary_color = Color(106/255, 125/255, 93/255)      # #6a7d5d
-    bg_color = Color(248/255, 246/255, 240/255)          # #f8f6f0
-    text_color = Color(0.2, 0.2, 0.2)                    # тёмно-серый
-    light_border = Color(106/255, 125/255, 93/255, alpha=0.1)
+    primary_color = Color(106 / 255, 125 / 255, 93 / 255)  # #6a7d5d
+    bg_color = Color(248 / 255, 246 / 255, 240 / 255)  # #f8f6f0
+    text_color = Color(0.2, 0.2, 0.2)  # тёмно-серый
+    light_border = Color(106 / 255, 125 / 255, 93 / 255, alpha=0.1)
 
     # === ШРИФТ ===
     font_path = os.path.join(settings.BASE_DIR, 'static', 'fonts', 'DejaVuSans.ttf')
@@ -201,3 +201,5 @@ def download_certificate(request, course_id):
     response = HttpResponse(buffer, content_type='application/pdf')
     response['Content-Disposition'] = f'attachment; filename="certificate_{course_id}.pdf"'
     return response
+
+
