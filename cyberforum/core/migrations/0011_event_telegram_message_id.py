@@ -6,13 +6,18 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('core', '0010_telegramsubscriber'),
+        ("core", "0010_telegramsubscriber"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='event',
-            name='telegram_message_id',
-            field=models.BigIntegerField(blank=True, help_text='Автоматически заполняется при отправке уведомления', null=True, verbose_name='ID сообщения в Telegram'),
+            model_name="event",
+            name="telegram_message_id",
+            field=models.BigIntegerField(
+                blank=True,
+                help_text="Автоматически заполняется при отправке уведомления",
+                null=True,
+                verbose_name="ID сообщения в Telegram",
+            ),
         ),
     ]

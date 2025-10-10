@@ -61,15 +61,15 @@ ROOT_URLCONF = "cyberforum.urls"
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': ['templates'],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-                'core.context_processors.faq_context'
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
+        "DIRS": ["templates"],
+        "APP_DIRS": True,
+        "OPTIONS": {
+            "context_processors": [
+                "django.template.context_processors.request",
+                "django.contrib.auth.context_processors.auth",
+                "django.contrib.messages.context_processors.messages",
+                "core.context_processors.faq_context",
             ],
         },
     },
@@ -121,8 +121,8 @@ STATIC_URL = "/static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 CRISPY_TEMPLATE_PACK = "bootstrap4"
 
@@ -134,10 +134,10 @@ EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
 EMAIL_HOST = "smtp.yandex.ru"
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
-EMAIL_HOST_USER = 'ilya.grishk@yandex.ru'
-EMAIL_HOST_PASSWORD = 'rfyolaerqnjbzhbt'   # Пароль приложения
-DEFAULT_FROM_EMAIL = 'ilya.grishk@yandex.ru'
-YANDEX_GEOCODER_API_KEY = '315adbb6-0466-4fd1-9580-bef99d765a5c'
+EMAIL_HOST_USER = "ilya.grishk@yandex.ru"
+EMAIL_HOST_PASSWORD = "rfyolaerqnjbzhbt"  # Пароль приложения
+DEFAULT_FROM_EMAIL = "ilya.grishk@yandex.ru"
+YANDEX_GEOCODER_API_KEY = "315adbb6-0466-4fd1-9580-bef99d765a5c"
 
-TELEGRAM_BOT_TOKEN = '8309970719:AAHmlYimP8xwiV7Yrv-sgGECeGlG9inYJJQ'
-TELEGRAM_CHANNEL_ID = '-1003157421034'
+TELEGRAM_BOT_TOKEN = "8309970719:AAHmlYimP8xwiV7Yrv-sgGECeGlG9inYJJQ"
+TELEGRAM_CHANNEL_ID = "-1003157421034"

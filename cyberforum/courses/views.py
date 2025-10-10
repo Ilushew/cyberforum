@@ -40,14 +40,17 @@ def lesson_view(request, lesson_id):
     lesson = get_object_or_404(Lesson, id=lesson_id)
     questions = lesson.questions.all()
 
-
     if request.user.is_authenticated and not questions.exists():
         mark_course_as_completed(request.user, lesson.course)
 
-    return render(request, 'courses/lesson.html', {
-        'lesson': lesson,
-        'questions': questions,
-    })
+    return render(
+        request,
+        "courses/lesson.html",
+        {
+            "lesson": lesson,
+            "questions": questions,
+        },
+    )
 
 
 def submit_test_view(request, lesson_id):
@@ -74,50 +77,50 @@ def submit_test_view(request, lesson_id):
         if request.user.is_authenticated:
             mark_course_as_completed(request.user, course)
 
-        return render(request, 'courses/result.html', {
-            'score': correct,
-            'total': total,
-            'percent': score_percent,
-            'lesson': lesson,
-        })
-    return redirect('courses:lesson', lesson_id=lesson_id)
-
-
+        return render(
+            request,
+            "courses/result.html",
+            {
+                "score": correct,
+                "total": total,
+                "percent": score_percent,
+                "lesson": lesson,
+            },
+        )
+    return redirect("courses:lesson", lesson_id=lesson_id)
 
 
 @login_required
 def download_certificate(request, course_id):
     completion = get_object_or_404(
-        CourseCompletion,
-        user=request.user,
-        course_id=course_id
+        CourseCompletion, user=request.user, course_id=course_id
     )
 
     if not (request.user.first_name and request.user.last_name):
         messages.error(
             request,
-            "Для получения сертификата необходимо указать имя и фамилию в личном кабинете."
+            "Для получения сертификата необходимо указать имя и фамилию в личном кабинете.",
         )
-        return redirect('core:profile')
+        return redirect("core:profile")
 
     buffer = io.BytesIO()
     p = canvas.Canvas(buffer, pagesize=A4)
     width, height = A4
 
     # === ЦВЕТА ===
-    primary_color = Color(106/255, 125/255, 93/255)      # #6a7d5d
-    bg_color = Color(248/255, 246/255, 240/255)          # #f8f6f0
-    text_color = Color(0.2, 0.2, 0.2)                    # тёмно-серый
-    light_border = Color(106/255, 125/255, 93/255, alpha=0.1)
+    primary_color = Color(106 / 255, 125 / 255, 93 / 255)  # #6a7d5d
+    bg_color = Color(248 / 255, 246 / 255, 240 / 255)  # #f8f6f0
+    text_color = Color(0.2, 0.2, 0.2)  # тёмно-серый
+    light_border = Color(106 / 255, 125 / 255, 93 / 255, alpha=0.1)
 
     # === ШРИФТ ===
-    font_path = os.path.join(settings.BASE_DIR, 'static', 'fonts', 'DejaVuSans.ttf')
+    font_path = os.path.join(settings.BASE_DIR, "static", "fonts", "DejaVuSans.ttf")
     try:
-        pdfmetrics.registerFont(TTFont('DejaVuSans', font_path))
-        font_name = 'DejaVuSans'
+        pdfmetrics.registerFont(TTFont("DejaVuSans", font_path))
+        font_name = "DejaVuSans"
     except Exception as e:
         print(f"⚠️ Шрифт не найден: {e}")
-        font_name = 'Helvetica'
+        font_name = "Helvetica"
 
     # === ФОН ===
     p.setFillColor(bg_color)
@@ -144,7 +147,15 @@ def download_certificate(request, course_id):
 
     # Белая карточка
     p.setFillColor(Color(1, 1, 1))
-    p.roundRect(60, content_bottom, width - 120, content_top - content_bottom, 10, stroke=0, fill=1)
+    p.roundRect(
+        60,
+        content_bottom,
+        width - 120,
+        content_top - content_bottom,
+        10,
+        stroke=0,
+        fill=1,
+    )
 
     # Текст внутри карточки
     p.setFillColor(text_color)
@@ -176,7 +187,9 @@ def download_certificate(request, course_id):
     y -= 40
     p.setFont(font_name, 12)
     p.setFillColor(Color(0.4, 0.4, 0.4))
-    p.drawCentredString(width / 2, y, f"Дата выдачи: {completion.completed_at.strftime('%d.%m.%Y')}")
+    p.drawCentredString(
+        width / 2, y, f"Дата выдачи: {completion.completed_at.strftime('%d.%m.%Y')}"
+    )
     y -= 20
     p.drawCentredString(width / 2, y, f"ID сертификата: {completion.certificate_id}")
 
@@ -198,6 +211,8 @@ def download_certificate(request, course_id):
     p.save()
 
     buffer.seek(0)
-    response = HttpResponse(buffer, content_type='application/pdf')
-    response['Content-Disposition'] = f'attachment; filename="certificate_{course_id}.pdf"'
+    response = HttpResponse(buffer, content_type="application/pdf")
+    response["Content-Disposition"] = (
+        f'attachment; filename="certificate_{course_id}.pdf"'
+    )
     return response
