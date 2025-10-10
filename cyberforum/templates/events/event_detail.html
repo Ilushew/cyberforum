@@ -1,7 +1,7 @@
-<!-- templates/core/event_detail.html -->
 {% extends 'base.html' %}
 {% block content %}
 <h1>{{ event.title }}</h1>
+
 <div class="card mt-4">
     <div class="card-body">
         <p><strong>Дата:</strong> {{ event.date|date:"d.m.Y" }}</p>
@@ -12,5 +12,42 @@
         <p>{{ event.description|linebreaks }}</p>
     </div>
 </div>
-<a href="{% url 'core:events' %}" class="btn btn-secondary mt-3">← Назад к списку событий</a>
+
+<!-- Карта с меткой события -->
+{% if event.latitude and event.longitude %}
+<div class="mt-5">
+    <h4>Где проходит мероприятие</h4>
+    <div id="map-event" style="width: 100%; height: 300px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);"></div>
+</div>
+
+<script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
+<script type="text/javascript">
+ymaps.ready(initEventMap);
+
+function initEventMap() {
+    const map = new ymaps.Map("map-event", {
+        center: [{{ event.latitude }}, {{ event.longitude }}],
+        zoom: 14,
+        controls: ['zoomControl', 'fullscreenControl']
+    });
+
+    const placemark = new ymaps.Placemark(
+        [{{ event.latitude }}, {{ event.longitude }}],
+        {
+            balloonContentHeader: "{{ event.title|escapejs }}",
+            balloonContentBody: "{{ event.location|escapejs }}",
+            hintContent: "{{ event.title|escapejs }}"
+        },
+        {
+            preset: 'islands#icon',
+            iconColor: '#6a7d5d'
+        }
+    );
+
+    map.geoObjects.add(placemark);
+}
+</script>
+{% endif %}
+
+<a href="{% url 'events:list' %}" class="btn btn-secondary mt-3">← Назад к списку событий</a>
 {% endblock %}

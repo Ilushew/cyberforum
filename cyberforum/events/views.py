@@ -66,8 +66,9 @@ def events_api_view(request):
 
 def event_detail_view(request, event_id):
     event = get_object_or_404(Event, id=event_id)
-    return render(request, "events/event_detail.html", {"event": event})
+    return render(request, 'events/event_detail.html', {'event': event})
 
 
 def calendar_view(request):
     return render(request, "events/calendar.html")
+
