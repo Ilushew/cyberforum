@@ -1,4 +1,9 @@
 {% extends 'base.html' %}
+
+{% block head %}
+  <link href="{% static 'css/core.css' %}" rel="stylesheet">
+{% endblock %}
+
 {% block content %}
 
 <h1>Часто задаваемые вопросы (FAQ)</h1>
@@ -30,17 +35,7 @@
 </div>
 
 <style>
-  .accordion-button {
-    font-weight: 600;
-    color: #333;
-  }
-  .accordion-body {
-    padding: 1rem 1.25rem;
-  }
-  .answer-text {
-    line-height: 1.7;
-    color: #555;
-  }
+  
 </style>
 
 {% endblock %}

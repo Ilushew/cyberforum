@@ -1,236 +1,229 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ru">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Финансовая грамотность Удмуртии</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="{% static 'css/style.css' %}" rel="stylesheet">
-    <style>
-        /* Обязательно: min-height: 100vh для body */
-        body {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-            font-size: 1rem;
-            line-height: 1.6;
-        }
-        .content-wrapper {
-            flex: 1 0 auto;
-        }
-        footer {
-            flex-shrink: 0;
-            font-size: 0.9rem;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Финансовая грамотность Удмуртии</title>
+  <link href="{% static 'css/bootstrap-custom.css' %}" rel="stylesheet">
+  <link href="{% static 'css/style.css' %}" rel="stylesheet">
+  {% block head %}{% endblock %}
+
 </head>
+
 <body>
-     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-      <div class="container">
-        <a class="navbar-brand" href="{% url 'core:home' %}">РЦФГ Удмуртии</a>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container">
+      <a class="navbar-brand" href="{% url 'core:home' %}">РЦФГ Удмуртии</a>
 
-        <!-- Бургер-меню для мобильных -->
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
-                aria-controls="mainNavbar" aria-expanded="false" aria-label="Переключить навигацию">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+      <!-- Бургер-меню для мобильных -->
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+        aria-controls="mainNavbar" aria-expanded="false" aria-label="Переключить навигацию">
+        <span class="navbar-toggler-icon"></span>
+      </button>
 
-        <div class="collapse navbar-collapse" id="mainNavbar">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-              <li class="nav-item"><a class="nav-link" href="{% url 'courses:list' %}">Курсы</a></li>
-              <li class="nav-item"><a class="nav-link" href="{% url 'core:textbooks' %}">Учебники</a></li>
-              <li class="nav-item"><a class="nav-link" href="{% url 'core:contacts' %}">Контакты</a></li>
-              <li class="nav-item"><a class="nav-link" href="{% url 'events:calendar' %}">Календарь</a></li>
-              <li class="nav-item"><a class="nav-link" href="{% url 'news:list' %}">Новости</a></li>
-              {% if user.is_moderator %}
-                <li class="nav-item"><a class="nav-link" href="{% url 'moderation:dashboard' %}">Модератор</a></li>
-              {% endif %}
-              {% if user.is_authenticated %}
-                <li class="nav-item"><a class="nav-link" href="{% url 'core:profile' %}">Кабинет</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'core:logout' %}">Выйти</a></li>
-              {% else %}
-                <li class="nav-item"><a class="nav-link" href="{% url 'core:login' %}">Войти</a></li>
-                <li class="nav-item"><a class="nav-link" href="{% url 'core:register' %}">Регистрация</a></li>
-              {% endif %}
-              <li class="nav-item"><a class="nav-link" href="{% url 'documentation:list' %}">Документация</a></li>
-            </ul>
+      <div class="collapse navbar-collapse" id="mainNavbar">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item"><a class="nav-link" href="{% url 'courses:list' %}">Курсы</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'core:textbooks' %}">Учебники</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'core:contacts' %}">Контакты</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'events:calendar' %}">Календарь</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'news:list' %}">Новости</a></li>
+          {% if user.is_moderator %}
+          <li class="nav-item"><a class="nav-link" href="{% url 'moderation:dashboard' %}">Модератор</a></li>
+          {% endif %}
+          {% if user.is_authenticated %}
+          <li class="nav-item"><a class="nav-link" href="{% url 'core:profile' %}">Кабинет</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'core:logout' %}">Выйти</a></li>
+          {% else %}
+          <li class="nav-item"><a class="nav-link" href="{% url 'core:login' %}">Войти</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'core:register' %}">Регистрация</a></li>
+          {% endif %}
+          <li class="nav-item"><a class="nav-link" href="{% url 'documentation:list' %}">Документация</a></li>
+        </ul>
 
-          <!-- Форма поиска — только на средних и больших экранах в навбаре -->
-          <form class="d-none d-lg-flex" action="{% url 'search:results' %}" method="get">
-            <input class="form-control me-2" type="search" name="q" placeholder="Поиск..." aria-label="Поиск">
-            <button class="btn btn-outline-light" type="submit">Найти</button>
-          </form>
-        </div>
+        <!-- Форма поиска — только на средних и больших экранах в навбаре -->
+        <form class="d-none d-lg-flex" action="{% url 'search:results' %}" method="get">
+          <input class="form-control me-2" type="search" name="q" placeholder="Поиск..." aria-label="Поиск">
+          <button class="btn btn-outline-light" type="submit">Найти</button>
+        </form>
       </div>
-    </nav>
-
-<!-- На мобильных — отдельная строка с поиском под навбаром -->
-    <div class="container d-lg-none mt-2 mb-3">
-  <form action="{% url 'search:results' %}" method="get">
-    <div class="input-group">
-      <input type="search" name="q" class="form-control" placeholder="Поиск по сайту..." aria-label="Поиск">
-      <button class="btn btn-outline-primary" type="submit">Найти</button>
     </div>
-  </form>
-</div>
+  </nav>
+
+  <!-- На мобильных — отдельная строка с поиском под навбаром -->
+  <div class="container d-lg-none mt-2 mb-3">
+    <form action="{% url 'search:results' %}" method="get">
+      <div class="input-group">
+        <input type="search" name="q" class="form-control" placeholder="Поиск по сайту..." aria-label="Поиск">
+        <button class="btn btn-outline-primary" type="submit">Найти</button>
+      </div>
+    </form>
+  </div>
 
 
-    <div class="container mt-4" style="min-height: 80vh">
-        {% block content %}{% endblock %}
+  <div class="container mt-4" style="min-height: 80vh">
+    {% block content %}{% endblock %}
+  </div>
+
+  <div id="chatbot-widget"
+    style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; width: 320px; height: 450px; display: flex; flex-direction: column; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 16px; background-color: white; overflow: hidden;">
+
+    <div
+      style="background-color: #0d6efd; color: white; padding: 12px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
+      💰💼 Гений финансов
+      <button onclick="toggleChat()"
+        style="background: none; border: none; color: #333; cursor: pointer; font-size: 16px;">×</button>
     </div>
 
-    <div id="chatbot-widget" style="position: fixed; bottom: 20px; right: 20px; z-index: 9999; width: 320px; height: 450px; display: flex; flex-direction: column; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; box-shadow: 0 4px 15px rgba(0,0,0,0.1); border-radius: 16px; background-color: white; overflow: hidden;">
-
-    <div style="background-color: #0d6efd; color: white; padding: 12px; font-weight: bold; display: flex; align-items: center; justify-content: space-between;">
-        💰💼 Гений финансов
-        <button onclick="toggleChat()" style="background: none; border: none; color: #333; cursor: pointer; font-size: 16px;">×</button>
-    </div>
-
-    <div id="chat-messages" style="flex-grow: 1; padding: 12px; overflow-y: auto; background-color: #f8f6f0; max-height: 320px;"></div>
+    <div id="chat-messages"
+      style="flex-grow: 1; padding: 12px; overflow-y: auto; background-color: #f8f6f0; max-height: 320px;"></div>
 
     <div style="display: flex; padding: 10px; border-top: 1px solid #e0e0e0;">
-        <input type="text" id="chat-input" placeholder="Ваш вопрос"
-               style="flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 20px; outline: none;"
-               onkeydown="if(event.key==='Enter') sendQuestion()">
-        <button onclick="sendQuestion()"
-                style="margin-left: 8px; padding: 8px 16px; background-color: #0d6efd; color: white; border: none; border-radius: 20px; cursor: pointer; font-size: 14px;">
-            Отправить
-        </button>
+      <input type="text" id="chat-input" placeholder="Ваш вопрос"
+        style="flex-grow: 1; padding: 8px; border: 1px solid #ccc; border-radius: 20px; outline: none;"
+        onkeydown="if(event.key==='Enter') sendQuestion()">
+      <button onclick="sendQuestion()"
+        style="margin-left: 8px; padding: 8px 16px; background-color: #0d6efd; color: white; border: none; border-radius: 20px; cursor: pointer; font-size: 14px;">
+        Отправить
+      </button>
     </div>
-</div>
+  </div>
 
-<div id="chat-open-btn" style="position: fixed; bottom: 20px; right: 20px; z-index: 9998; width: 50px; height: 50px; border-radius: 50%; background-color: #198754; color: white; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer; display: none;">💬</div>
+  <div id="chat-open-btn"
+    style="position: fixed; bottom: 20px; right: 20px; z-index: 9998; width: 50px; height: 50px; border-radius: 50%; background-color: #198754; color: white; display: flex; align-items: center; justify-content: center; font-size: 24px; box-shadow: 0 4px 10px rgba(0,0,0,0.1); cursor: pointer; display: none;">
+    💬</div>
 
-<script>
+  <script>
     function toggleChat() {
-    const widget = document.getElementById('chatbot-widget');
-    const openBtn = document.getElementById('chat-open-btn');
+      const widget = document.getElementById('chatbot-widget');
+      const openBtn = document.getElementById('chat-open-btn');
 
-    if (widget.style.display === 'none' || !widget.style.display) {
+      if (widget.style.display === 'none' || !widget.style.display) {
         widget.style.display = 'flex';
         openBtn.style.display = 'none';
         // ✅ Отправляем приветствие при открытии чата
         sendGreeting();
-    } else {
+      } else {
         widget.style.display = 'none';
         openBtn.style.display = 'flex';
+      }
     }
-}
 
     // ✅ Флаг для проверки, было ли приветствие отправлено
     let greetingSent = false;
 
-// ✅ Функция отправки приветствия при открытии чата
+    // ✅ Функция отправки приветствия при открытии чата
     function sendGreeting() {
-        if (greetingSent) return; // Уже отправлено — не повторяем
+      if (greetingSent) return; // Уже отправлено — не повторяем
 
-        const messageArea = document.getElementById('chat-messages');
+      const messageArea = document.getElementById('chat-messages');
 
-        const greeting = "Здравствуйте! Я — Финансовый Помощник. Задайте вопрос — помогу!";
+      const greeting = "Здравствуйте! Я — Финансовый Помощник. Задайте вопрос — помогу!";
 
-        appendMessage(greeting, 'bot');
+      appendMessage(greeting, 'bot');
 
-        greetingSent = true; // Помечаем, что приветствие отправлено
-}
+      greetingSent = true; // Помечаем, что приветствие отправлено
+    }
 
-    window.onload = function() {
-        // При загрузке — чат открыт по умолчанию? Нет — скрываем его
-        document.getElementById('chatbot-widget').style.display = 'none';
-        document.getElementById('chat-open-btn').style.display = 'flex';
+    window.onload = function () {
+      // При загрузке — чат открыт по умолчанию? Нет — скрываем его
+      document.getElementById('chatbot-widget').style.display = 'none';
+      document.getElementById('chat-open-btn').style.display = 'flex';
     };
 
     async function sendQuestion() {
-        const input = document.getElementById('chat-input');
-        const messageArea = document.getElementById('chat-messages');
-        const question = input.value.trim();
+      const input = document.getElementById('chat-input');
+      const messageArea = document.getElementById('chat-messages');
+      const question = input.value.trim();
 
-        if (!question) return;
+      if (!question) return;
 
-        appendMessage(question, 'user');
-        input.value = '';
+      appendMessage(question, 'user');
+      input.value = '';
 
-        appendMessage("🔍 Ищу информацию...", 'bot');
+      appendMessage("🔍 Ищу информацию...", 'bot');
 
-        try {
-            const response = await fetch('/chat-ask/', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': getCookie('csrftoken')
-                },
-                body: JSON.stringify({ question: question })
-            });
+      try {
+        const response = await fetch('/chat-ask/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+          },
+          body: JSON.stringify({ question: question })
+        });
 
-            const data = await response.json();
+        const data = await response.json();
 
-            const lastMsg = messageArea.lastElementChild;
-            if (lastMsg && lastMsg.classList.contains('bot')) {
-                messageArea.removeChild(lastMsg);
-            }
-
-            if (data.error) {
-                appendMessage(`❌ ${data.error}`, 'bot');
-            } else {
-                appendMessage(data.answer, 'bot');
-            }
-
-        } catch (error) {
-            const lastMsg = messageArea.lastElementChild;
-            if (lastMsg && lastMsg.classList.contains('bot')) {
-                messageArea.removeChild(lastMsg);
-            }
-            appendMessage("❌ Ошибка соединения с сервером.", 'bot');
+        const lastMsg = messageArea.lastElementChild;
+        if (lastMsg && lastMsg.classList.contains('bot')) {
+          messageArea.removeChild(lastMsg);
         }
+
+        if (data.error) {
+          appendMessage(`❌ ${data.error}`, 'bot');
+        } else {
+          appendMessage(data.answer, 'bot');
+        }
+
+      } catch (error) {
+        const lastMsg = messageArea.lastElementChild;
+        if (lastMsg && lastMsg.classList.contains('bot')) {
+          messageArea.removeChild(lastMsg);
+        }
+        appendMessage("❌ Ошибка соединения с сервером.", 'bot');
+      }
     }
 
     function appendMessage(text, sender) {
-        const messageArea = document.getElementById('chat-messages');
-        const msgDiv = document.createElement('div');
-        msgDiv.style.marginBottom = '12px';
-        msgDiv.style.maxWidth = '80%';
-        msgDiv.style.padding = '10px 14px';
-        msgDiv.style.borderRadius = sender === 'user' ? '18px 18px 0 18px' : '18px 18px 18px 0';
-        msgDiv.style.backgroundColor = sender === 'user' ? '#6a7d5d' : '#f0f0f0';
-        msgDiv.style.color = sender === 'user' ? 'white' : '#333';
-        msgDiv.style.wordWrap = 'break-word';
-        msgDiv.style.fontSize = '14px';
-        msgDiv.style.alignSelf = sender === 'user' ? 'flex-end' : 'flex-start';
-        msgDiv.textContent = text;
-        msgDiv.className = sender;
-        messageArea.appendChild(msgDiv);
-        messageArea.scrollTop = messageArea.scrollHeight;
+      const messageArea = document.getElementById('chat-messages');
+      const msgDiv = document.createElement('div');
+      msgDiv.style.marginBottom = '12px';
+      msgDiv.style.maxWidth = '80%';
+      msgDiv.style.padding = '10px 14px';
+      msgDiv.style.borderRadius = sender === 'user' ? '18px 18px 0 18px' : '18px 18px 18px 0';
+      msgDiv.style.backgroundColor = sender === 'user' ? '#6a7d5d' : '#f0f0f0';
+      msgDiv.style.color = sender === 'user' ? 'white' : '#333';
+      msgDiv.style.wordWrap = 'break-word';
+      msgDiv.style.fontSize = '14px';
+      msgDiv.style.alignSelf = sender === 'user' ? 'flex-end' : 'flex-start';
+      msgDiv.textContent = text;
+      msgDiv.className = sender;
+      messageArea.appendChild(msgDiv);
+      messageArea.scrollTop = messageArea.scrollHeight;
     }
 
     function getCookie(name) {
-        let cookieValue = null;
-        if (document.cookie && document.cookie !== '') {
-            const cookies = document.cookie.split(';');
-            for (let i = 0; i < cookies.length; i++) {
-                const cookie = cookies[i].trim();
-                if (cookie.substring(0, name.length + 1) === (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
         }
-        return cookieValue;
+      }
+      return cookieValue;
     }
 
-    document.getElementById('chat-input').addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') sendQuestion();
+    document.getElementById('chat-input').addEventListener('keydown', function (e) {
+      if (e.key === 'Enter') sendQuestion();
     });
 
     // Фикс: Показывать кнопку только если чат закрыт
     function updateChatButtonVisibility() {
-        const widget = document.getElementById('chatbot-widget');
-        const openBtn = document.getElementById('chat-open-btn');
+      const widget = document.getElementById('chatbot-widget');
+      const openBtn = document.getElementById('chat-open-btn');
 
-        if (widget.style.display === 'none' || !widget.style.display) {
-            openBtn.style.display = 'flex';
-        } else {
-            openBtn.style.display = 'none';
-        }
+      if (widget.style.display === 'none' || !widget.style.display) {
+        openBtn.style.display = 'flex';
+      } else {
+        openBtn.style.display = 'none';
+      }
     }
 
     // Обновляем состояние кнопки при каждом скролле и при открытии/закрытии
@@ -238,81 +231,97 @@
     window.addEventListener('load', updateChatButtonVisibility);
 
     // Добавляем обработчик на кнопку открытия
-    document.getElementById('chat-open-btn').addEventListener('click', function() {
-        toggleChat();
-        // После открытия — скрываем кнопку
-        updateChatButtonVisibility();
+    document.getElementById('chat-open-btn').addEventListener('click', function () {
+      toggleChat();
+      // После открытия — скрываем кнопку
+      updateChatButtonVisibility();
     });
 
     // Также обновляем при изменении размера окна (для мобильных)
     window.addEventListener('resize', updateChatButtonVisibility);
 
-</script>
-<style>
+  </script>
+  <style>
     #chatbot-widget {
-        animation: slideIn 0.3s ease-out;
+      animation: slideIn 0.3s ease-out;
     }
+
     @media (max-width: 576px) {
-    #chatbot-widget {
-      width: calc(100vw - 40px);
-      max-width: 320px;
-      right: 20px;
-      bottom: 20px;
-    }
-    #chat-open-btn {
-      width: 44px;
-      height: 44px;
-      font-size: 20px;
-    }
-  }
+      #chatbot-widget {
+        width: calc(100vw - 40px);
+        max-width: 320px;
+        right: 20px;
+        bottom: 20px;
+      }
 
-  /* Гарантируем, что контент не уезжает под фиксированный чат */
-  body {
-    padding-bottom: 70px; /* компенсация под фиксированный чат на мобилках */
-  }
-  @media (min-width: 577px) {
+      #chat-open-btn {
+        width: 44px;
+        height: 44px;
+        font-size: 20px;
+      }
+    }
+
+    /* Гарантируем, что контент не уезжает под фиксированный чат */
     body {
-      padding-bottom: 0;
+      padding-bottom: 70px;
+      /* компенсация под фиксированный чат на мобилках */
     }
-  }
+
+    @media (min-width: 577px) {
+      body {
+        padding-bottom: 0;
+      }
+    }
+
     @keyframes slideIn {
-        from { transform: translateX(300px); opacity: 0; }
-        to { transform: translateX(0); opacity: 1; }
+      from {
+        transform: translateX(300px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
     }
-</style>
+  </style>
 
 
-    <footer class="bg-light text-dark py-4 mt-auto">
-        <p class="mb-0 text-center text-muted">
-          © 2025 Портал финансовой грамотности Удмуртии
-        </p>
-      <div class="container">
-        <!-- FAQ в подвале -->
-        <div class="mb-4">
-          <h5 class="mb-3">Часто задаваемые вопросы</h5>
-          <div class="accordion" id="footerFaqAccordion">
-            {% for item in faq_items_footer %}
-              <div class="accordion-item mb-1">
-                <h6 class="accordion-header" id="faqHeading{{ forloop.counter }}">
-                  <button class="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse" data-bs-target="#faqCollapse{{ forloop.counter }}" aria-expanded="false" aria-controls="faqCollapse{{ forloop.counter }}" style="font-size: 0.95rem;">
-                    {{ item.question }}
-                  </button>
-                </h6>
-                <div id="faqCollapse{{ forloop.counter }}" class="accordion-collapse collapse" aria-labelledby="faqHeading{{ forloop.counter }}" data-bs-parent="#footerFaqAccordion">
-                  <div class="accordion-body p-2" style="font-size: 0.9rem; color: #555;">
-                    {{ item.answer|linebreaks }}
-                  </div>
-                </div>
+  <footer class="bg-light text-dark py-4 mt-auto">
+    <p class="mb-0 text-center text-muted">
+      © 2025 Портал финансовой грамотности Удмуртии
+    </p>
+    <div class="container">
+      <!-- FAQ в подвале -->
+      <div class="mb-4">
+        <h5 class="mb-3">Часто задаваемые вопросы</h5>
+        <div class="accordion" id="footerFaqAccordion">
+          {% for item in faq_items_footer %}
+          <div class="accordion-item mb-1">
+            <h6 class="accordion-header" id="faqHeading{{ forloop.counter }}">
+              <button class="accordion-button collapsed p-2" type="button" data-bs-toggle="collapse"
+                data-bs-target="#faqCollapse{{ forloop.counter }}" aria-expanded="false"
+                aria-controls="faqCollapse{{ forloop.counter }}" style="font-size: 0.95rem;">
+                {{ item.question }}
+              </button>
+            </h6>
+            <div id="faqCollapse{{ forloop.counter }}" class="accordion-collapse collapse"
+              aria-labelledby="faqHeading{{ forloop.counter }}" data-bs-parent="#footerFaqAccordion">
+              <div class="accordion-body p-2" style="font-size: 0.9rem; color: #555;">
+                {{ item.answer|linebreaks }}
               </div>
-            {% endfor %}
+            </div>
           </div>
+          {% endfor %}
         </div>
-
-        <!-- Копирайт -->
-        <hr class="my-3">
       </div>
-    </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+      <!-- Копирайт -->
+      <hr class="my-3">
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

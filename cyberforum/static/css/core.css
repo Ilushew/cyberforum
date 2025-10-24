@@ -1,0 +1,11 @@
+.accordion-button {
+    font-weight: 600;
+    color: #333;
+  }
+  .accordion-body {
+    padding: 1rem 1.25rem;
+  }
+  .answer-text {
+    line-height: 1.7;
+    color: #555;
+  }
