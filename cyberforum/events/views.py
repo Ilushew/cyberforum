@@ -45,6 +45,16 @@ def events_view(request):
     )
 
 
+def get_audience_color(audience):
+    colors = {
+        "школьник": "#4285f4",   # Синий
+        "пенсионер": "#34a853",  # Зелёный
+        "МСП": "#fbbc04",        # Жёлтый
+        "все": "#ea4335",        # Красный
+    }
+    return colors.get(audience, "#6a7d5d")
+
+
 def events_api_view(request):
     events = Event.objects.all()
     event_list = []
@@ -53,12 +63,14 @@ def events_api_view(request):
             {
                 "title": event.title,
                 "start": event.date.isoformat(),
+                "audience": event.audience,
+                "backgroundColor": get_audience_color(event.audience),
+                "borderColor": get_audience_color(event.audience),             
                 "extendedProps": {
                     "description": event.description,
                     "location": event.location,
                     "audience": event.audience,
                 },
-                "eventClassNames": [f"audience-{event.audience}"],
             }
         )
     return JsonResponse(event_list, safe=False)

@@ -1,0 +1,47 @@
+@font-face {
+    font-family: 'DejaVu Sans';
+    src: url('file:///C:/Users/ilagr/PycharmProjects/hackaton/venv/Lib/site-packages/xhtml2pdf/fonts/DejaVuSans.ttf');
+}
+
+body {
+    font-family: 'DejaVu Sans', sans-serif;
+    text-align: center;
+    margin: 50px;
+    color: #333;
+}
+
+/* остальной CSS без изменений */
+.certificate {
+    border: 2px solid #6a7d5d;
+    padding: 40px;
+    width: 100%;
+}
+
+h1 {
+    font-size: 28px;
+    color: #6a7d5d;
+    margin: 20px 0;
+}
+
+.recipient {
+    font-size: 20px;
+    margin: 30px 0;
+}
+
+.course {
+    font-size: 18px;
+    margin: 20px 0;
+    font-style: italic;
+}
+
+.date,
+.id {
+    font-size: 14px;
+    margin: 15px 0;
+    color: #555;
+}
+
+.signature {
+    margin-top: 60px;
+    font-style: italic;
+}
