@@ -20,7 +20,6 @@ class UserRegistrationForm(UserCreationForm):
         user.is_active = False
 
         if not user.username:
-
             user.username = str(uuid.uuid4())
 
         if commit:

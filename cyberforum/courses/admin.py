@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Course, Lesson, Question, TestResult
+from courses.models import Course, Lesson, Question
 
 
 class LessonInline(admin.TabularInline):

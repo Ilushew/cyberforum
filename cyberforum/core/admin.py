@@ -1,9 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import Contact, User
-from events.models import Event
-from news.models import News
-from documentation.models import DocumentationFile
+from core.models import Contact, User
+from core.models import Textbook
 
 
 @admin.register(User)
@@ -23,13 +21,6 @@ class ContactAdmin(admin.ModelAdmin):
     search_fields = ["name", "address"]
     list_filter = ["audience"]
     fields = ["name", "address", "latitude", "longitude", "phone", "email", "audience"]
-    list_display = ["name", "phone", "email", "audience"]
-    search_fields = ["name", "address"]
-    list_filter = ["audience"]
-    fields = ["name", "address", "latitude", "longitude", "phone", "email", "audience"]
-
-
-from .models import Textbook
 
 
 @admin.register(Textbook)

@@ -1,13 +1,8 @@
-# core/utils.py
 import requests
 from django.conf import settings
 
 
 def geocode_address(address: str):
-    """
-    Получает координаты по адресу через Яндекс.Геокодер.
-    Возвращает (lat, lon) или (None, None) при ошибке.
-    """
     api_key = getattr(settings, "YANDEX_GEOCODER_API_KEY", None)
     if not api_key:
         url = "https://geocode-maps.yandex.ru/1.x/"
