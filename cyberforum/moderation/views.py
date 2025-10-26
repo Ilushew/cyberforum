@@ -59,10 +59,7 @@ def event_moderator_list(request):
         request, "moderation/event_moderator_list.html", {"event_list": events}
     )
 
-
 from core.telegram_utils import send_telegram_message
-
-
 @user_passes_test(is_moderator, login_url="/login/")
 def event_create(request):
     if request.method == "POST":
@@ -71,13 +68,12 @@ def event_create(request):
             event = form.save()
             messages.success(request, "Событие успешно создано!")
 
-            # === Отправка уведомления в Telegram ===
             msg = (
-                f"📢 <b>Новое событие!</b>\n\n"
-                f"<b>{event.title}</b>\n\n"
-                f"📅 Дата: {event.date.strftime('%d.%m.%Y')}\n\n"
+                "📢 <b>Новое событие!</b>\n"
+                f"<b>{event.title}</b>\n"
+                f"📅 Дата: {event.date.strftime('%d.%m.%Y')}\n"
                 f"📍 Место: {event.location}\n"
-                f"👥 Аудитория: {event.get_audience_display()}\n\n"
+                f"👥 Аудитория: {event.get_audience_display()}\n"
                 f"{event.description[:200]}{'...' if len(event.description) > 200 else ''}"
             )
             send_telegram_message(msg)
@@ -136,6 +132,15 @@ def news_create(request):
             news.author = request.user
             news.save()
             messages.success(request, "Новость успешно создана!")
+
+            if news.is_published:
+                msg = (
+                    "📰 <b>Новая новость!</b>\n"
+                    f"<b>{news.title}</b>\n"
+                    f"{news.content[:200]}{'...' if len(news.content) > 200 else ''}"
+                )
+                send_telegram_message(msg)
+
             return redirect("moderation:news_list")
     else:
         form = NewsForm()

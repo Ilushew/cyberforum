@@ -251,35 +251,6 @@ def textbook_delete(request, textbook_id):
     return render(request, "core/textbook_confirm_delete.html", {"textbook": textbook})
 
 
-import json
-from django.http import JsonResponse
-from django.views.decorators.csrf import csrf_exempt
-from django.views.decorators.http import require_POST
-
-
-@csrf_exempt
-@require_POST
-def telegram_webhook(request):
-    try:
-        data = json.loads(request.body)
-        if "message" in data:
-            message = data["message"]
-            chat = message["chat"]
-            chat_id = chat["id"]
-            text = message.get("text", "")
-            username = chat.get("username", "")
-
-            if text == "/start":
-                TelegramSubscriber.objects.update_or_create(
-                    telegram_id=chat_id, defaults={"username": username}
-                )
-
-        return JsonResponse({"ok": True})
-    except Exception as e:
-        print(f"Ошибка webhook: {e}")
-        return JsonResponse({"error": str(e)}, status=500)
-
-
 def event_detail_view(request, event_id):
     event = get_object_or_404(Event, id=event_id)
     return render(request, "core/event_detail.html", {"event": event})

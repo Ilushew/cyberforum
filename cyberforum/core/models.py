@@ -105,3 +105,15 @@ class Textbook(models.Model):
     def __str__(self):
         return self.title
 
+
+class TelegramSubscriber(models.Model):
+    telegram_id = models.BigIntegerField(unique=True, verbose_name="ID чата в Telegram")
+    username = models.CharField(max_length=100, blank=True, verbose_name="Username")
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Подписчик Telegram"
+        verbose_name_plural = "Подписчики Telegram"
+
+    def __str__(self):
+        return f"{self.telegram_id} (@{self.username})"

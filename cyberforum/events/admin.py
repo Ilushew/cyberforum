@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from core.telegram_utils import send_telegram_message
 from events.models import Event
+from core.telegram_utils import send_telegram_message
 
 
 @admin.register(Event)
@@ -13,13 +13,13 @@ class EventAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         super().save_model(request, obj, form, change)
 
-        if not change:
+        if not change:  # только при создании
             msg = (
-                f"📢 <b>Новое событие!</b>\n\n"
+                "📢 <b>Новое событие!</b>\n"
                 f"<b>{obj.title}</b>\n"
                 f"📅 Дата: {obj.date.strftime('%d.%m.%Y')}\n"
                 f"📍 Место: {obj.location}\n"
-                f"👥 Аудитория: {obj.get_audience_display()}\n\n"
+                f"👥 Аудитория: {obj.get_audience_display()}\n"
                 f"{obj.description[:200]}{'...' if len(obj.description) > 200 else ''}"
             )
             send_telegram_message(msg)
