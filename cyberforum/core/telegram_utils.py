@@ -1,7 +1,9 @@
 import requests
 
 from django.conf import settings
+
 from .models import TelegramSubscriber
+
 
 def send_telegram_message(text: str):
     token = getattr(settings, "TELEGRAM_BOT_TOKEN", None)

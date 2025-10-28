@@ -1,22 +1,27 @@
-from datetime import datetime
+import openpyxl
 
-from django.db.models import Avg
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout, get_user_model
-from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test, login_required
 from django.contrib.auth.tokens import default_token_generator
+from django.db.models import Avg
+from django.http import HttpResponse
 from django.utils.dateparse import parse_date
 from django.utils.http import urlsafe_base64_decode
 from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render, redirect, get_object_or_404
 
-from events.forms import EventReportForm
+from .models import Textbook
+from .forms import TextbookForm
 from core.forms import UserRegistrationForm, UserProfileForm
 from core.llm_assistant.rag import generate_answer
-from core.models import Contact, REPORT_AUDIENCE_CHOICES
-from courses.models import Course
-from courses.models import TestResult
-from django.http import HttpResponse
+from core.models import Contact, REPORT_AUDIENCE_CHOICES, EventReport
+from courses.models import CourseCompletion, Course, TestResult
+from datetime import datetime
+from events.forms import EventReportForm
 from events.models import Event
-from courses.models import CourseCompletion
+from openpyxl.utils import get_column_letter
+
 
 User = get_user_model()
 
@@ -192,9 +197,6 @@ def logout_view(request):
     return redirect("core:home")
 
 
-from .models import Textbook
-
-
 def textbooks_view(request):
     textbooks = Textbook.objects.all()
     grouped = {}
@@ -205,13 +207,6 @@ def textbooks_view(request):
         "core/textbooks.html",
         {"grouped_textbooks": grouped, "audiences": Textbook.AUDIENCE_CHOICES},
     )
-
-
-from django.contrib.auth.decorators import user_passes_test
-from django.shortcuts import render, redirect, get_object_or_404
-from django.contrib import messages
-from .models import Textbook
-from .forms import TextbookForm
 
 
 def is_moderator(user):
@@ -328,9 +323,6 @@ def event_report_create(request):
         {"form": form, "title": "Создать отчёт о мероприятии"},
     )
 
-import openpyxl
-from openpyxl.utils import get_column_letter
-from core.models import EventReport
 
 def export_reports_to_excel(request):
     reports = EventReport.objects.select_related('moderator').all()

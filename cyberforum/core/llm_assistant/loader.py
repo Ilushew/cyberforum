@@ -1,10 +1,11 @@
-from pathlib import Path
-from typing import List
 from langchain_community.document_loaders import (
     TextLoader,
     PyMuPDFLoader,
     Docx2txtLoader,
 )
+from pathlib import Path
+from typing import List
+
 
 SUPPORTED_EXTENSIONS = {".txt", ".pdf", ".docx"}
 

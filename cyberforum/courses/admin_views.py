@@ -1,6 +1,7 @@
 from django.contrib.admin.views.decorators import staff_member_required
-from django.shortcuts import render
 from django.db.models import Avg, Count
+from django.shortcuts import render
+
 from courses.models import TestResult
 
 

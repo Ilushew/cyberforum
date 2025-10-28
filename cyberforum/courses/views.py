@@ -1,23 +1,20 @@
 import os
-
-from django.contrib.auth.decorators import login_required, user_passes_test
-from django.shortcuts import render, get_object_or_404, redirect
 import io
-from django.http import HttpResponse
-from django.shortcuts import get_object_or_404
-from reportlab.pdfgen import canvas
-from reportlab.lib.pagesizes import A4
-from reportlab.pdfbase import pdfmetrics
-from reportlab.pdfbase.ttfonts import TTFont
-from reportlab.lib.utils import simpleSplit
-from reportlab.lib.colors import Color
+
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required, user_passes_test
+from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404, redirect
 
 from .models import Course, Lesson, Question, TestResult, CourseCompletion
 from .utils import mark_course_as_completed
 from cyberforum import settings
-from django.contrib.auth.decorators import user_passes_test
-
+from reportlab.lib.colors import Color
+from reportlab.lib.pagesizes import A4
+from reportlab.lib.utils import simpleSplit
+from reportlab.pdfgen import canvas
+from reportlab.pdfbase import pdfmetrics
+from reportlab.pdfbase.ttfonts import TTFont
 
 
 def course_list_view(request):
@@ -91,7 +88,6 @@ def submit_test_view(request, lesson_id):
             },
         )
     return redirect("courses:lesson", lesson_id=lesson_id)
-
 
 
 @login_required
@@ -219,5 +215,3 @@ def download_certificate(request, course_id):
     response = HttpResponse(buffer, content_type='application/pdf')
     response['Content-Disposition'] = f'attachment; filename="certificate_{course_id}.pdf"'
     return response
-
-

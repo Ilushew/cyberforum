@@ -1,11 +1,12 @@
 import os
-from pathlib import Path
 
-from langchain_community.vectorstores import FAISS
-from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_text_splitters import RecursiveCharacterTextSplitter
 from .loader import load_documents_from_folder
 from .utils import clean_text, count_tokens
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_community.vectorstores import FAISS
+from langchain_text_splitters import RecursiveCharacterTextSplitter
+from pathlib import Path
+
 
 INDEX_DIR = "faiss_index"
 

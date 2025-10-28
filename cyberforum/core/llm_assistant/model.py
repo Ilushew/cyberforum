@@ -1,4 +1,5 @@
 import os
+
 from langchain_gigachat.chat_models import GigaChat
 
 # Установите ключ в .env или здесь (лучше через .env)

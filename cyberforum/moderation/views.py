@@ -1,20 +1,18 @@
+from django.contrib import messages
 from django.contrib.auth.decorators import user_passes_test
 from django.shortcuts import render, get_object_or_404, redirect
 
+from .forms import LessonForm, QuestionFormSet
+from core.telegram_utils import send_telegram_message
 from core.views import is_moderator
+from courses.models import Course, Lesson, Question
 from documentation.forms import DocumentationFileForm
 from documentation.models import DocumentationFile
-from django.contrib import messages
-
 from events.forms import EventForm
 from events.models import Event
+from moderation.forms import CourseForm
 from news.forms import NewsForm
 from news.models import News
-
-from courses.models import Course
-from moderation.forms import CourseForm
-from courses.models import Lesson, Question
-from .forms import LessonForm, QuestionFormSet
 
 
 @user_passes_test(is_moderator, login_url="/login/")
@@ -59,7 +57,7 @@ def event_moderator_list(request):
         request, "moderation/event_moderator_list.html", {"event_list": events}
     )
 
-from core.telegram_utils import send_telegram_message
+
 @user_passes_test(is_moderator, login_url="/login/")
 def event_create(request):
     if request.method == "POST":
@@ -234,6 +232,7 @@ def lesson_list(request, course_id):
         'lessons': lessons
     })
 
+
 @user_passes_test(lambda u: u.is_authenticated and u.is_moderator, login_url='/login/')
 def lesson_create(request, course_id):
     course = get_object_or_404(Course, id=course_id)
@@ -258,6 +257,7 @@ def lesson_create(request, course_id):
         'title': 'Создать урок'
     })
 
+
 @user_passes_test(lambda u: u.is_authenticated and u.is_moderator, login_url='/login/')
 def lesson_edit(request, lesson_id):
     lesson = get_object_or_404(Lesson, id=lesson_id)
@@ -278,6 +278,7 @@ def lesson_edit(request, lesson_id):
         'course': lesson.course,
         'title': 'Редактировать урок'
     })
+
 
 @user_passes_test(lambda u: u.is_authenticated and u.is_moderator, login_url='/login/')
 def lesson_delete(request, lesson_id):

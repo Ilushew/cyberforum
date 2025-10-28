@@ -1,7 +1,7 @@
 from django.contrib import admin
 
-from events.models import Event
 from core.telegram_utils import send_telegram_message
+from events.models import Event
 
 
 @admin.register(Event)

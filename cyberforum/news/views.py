@@ -1,6 +1,6 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+
 from news.models import News
-from django.shortcuts import get_object_or_404
 
 
 def news_list_view(request):

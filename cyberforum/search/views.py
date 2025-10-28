@@ -1,6 +1,7 @@
 from django.shortcuts import render
-from courses.models import Course
+
 from core.models import Contact
+from courses.models import Course
 from events.models import Event
 
 

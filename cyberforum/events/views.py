@@ -1,7 +1,8 @@
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
-from events.models import Event, AUDIENCE_CHOICES
+
 from datetime import datetime
+from events.models import Event, AUDIENCE_CHOICES
 
 
 def events_view(request):
@@ -83,4 +84,3 @@ def event_detail_view(request, event_id):
 
 def calendar_view(request):
     return render(request, "events/calendar.html")
-

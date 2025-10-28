@@ -1,19 +1,18 @@
-# telegram_bot/bot.py
-import os
-import sys
-import django
-from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup, ReplyKeyboardMarkup, KeyboardButton
-from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
-from asgiref.sync import sync_to_async  # ← импортируем
+import os, sys, django
 
-# Добавляем корень проекта в sys.path (если нужно)
+from django.conf import settings
+
+from asgiref.sync import sync_to_async
+from telegram import Update, ReplyKeyboardMarkup, KeyboardButton
+from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
+
+
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'cyberforum.settings')
 django.setup()
 
 from core.models import TelegramSubscriber
-from django.conf import settings
 
 TELEGRAM_BOT_TOKEN = settings.TELEGRAM_BOT_TOKEN
 
@@ -21,7 +20,6 @@ if not TELEGRAM_BOT_TOKEN:
     raise ValueError("❌ TELEGRAM_BOT_TOKEN не задан в settings.py")
 
 
-# Обёртки для синхронных ORM-операций
 @sync_to_async
 def subscribe_user(chat_id: int, username: str):
     TelegramSubscriber.objects.get_or_create(

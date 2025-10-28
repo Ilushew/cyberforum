@@ -2,6 +2,7 @@ from django.db import models
 
 from core.utils import geocode_address
 
+
 AUDIENCE_CHOICES = [
     ("все", "Все"),
     ("школьник", "Школьники"),

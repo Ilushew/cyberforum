@@ -1,4 +1,5 @@
 from django.core.management.base import BaseCommand
+
 from core.models import Contact, Event
 from courses.models import Course, Lesson, Question
 

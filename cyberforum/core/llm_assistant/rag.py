@@ -1,7 +1,7 @@
-from .model import llm
 from .indexer import create_or_load_vectorstore
-from langchain_core.prompts import ChatPromptTemplate
+from .model import llm
 from langchain_core.output_parsers import StrOutputParser
+from langchain_core.prompts import ChatPromptTemplate
 
 # Промпт — лучше вынести сюда, чтобы легко менять
 PROMPT_TEMPLATE = """

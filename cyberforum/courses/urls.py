@@ -1,5 +1,7 @@
 from django.urls import path
+
 from . import views, admin_views
+
 
 app_name = "courses"
 
