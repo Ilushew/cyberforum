@@ -1,5 +1,5 @@
-import courses.views
 import courses.admin_views
+import courses.views
 
 from django.urls import path
 

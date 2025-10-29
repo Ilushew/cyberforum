@@ -1,8 +1,8 @@
-import os
-import io
+import cyberforum.settings
 import courses.models
 import courses.utils
-import cyberforum.settings
+import io
+import os
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test

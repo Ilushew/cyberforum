@@ -1,9 +1,9 @@
+import asgiref.sync
+import django
 import os
 import sys
-import asgiref.sync
 import telegram
 import telegram.ext
-import django
 
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))

@@ -1,5 +1,5 @@
-import uuid
 import core.models
+import uuid
 
 from django import forms
 from django.conf import settings

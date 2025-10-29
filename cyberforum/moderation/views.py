@@ -1,4 +1,3 @@
-import moderation.forms
 import core.telegram_utils
 import core.views
 import courses.models
@@ -6,6 +5,7 @@ import documentation.forms
 import documentation.models
 import events.forms
 import events.models
+import moderation.forms
 import news.forms
 import news.models
 
