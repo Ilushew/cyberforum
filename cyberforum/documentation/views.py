@@ -1,8 +1,8 @@
-from django.shortcuts import render
+import documentation.models
 
-from documentation.models import DocumentationFile
+from django.shortcuts import render
 
 
 def documentation_view(request):
-    docs = DocumentationFile.objects.all()
+    docs = documentation.models.DocumentationFile.objects.all()
     return render(request, "documentations/documentation.html", {"docs": docs})

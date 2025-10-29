@@ -1,11 +1,11 @@
-from django import forms
+import courses.models
 
-from courses.models import Course, Lesson, Question
+from django import forms
 
 
 class CourseForm(forms.ModelForm):
     class Meta:
-        model = Course
+        model = courses.models.Course
         fields = ['title', 'description', 'audience', 'format_type']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
@@ -17,7 +17,7 @@ class CourseForm(forms.ModelForm):
 
 class LessonForm(forms.ModelForm):
     class Meta:
-        model = Lesson
+        model = courses.models.Lesson
         fields = ['title', 'content', 'video_file', 'order']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),
@@ -29,7 +29,7 @@ class LessonForm(forms.ModelForm):
 
 class QuestionForm(forms.ModelForm):
     class Meta:
-        model = Question
+        model = courses.models.Question
         fields = ['text', 'option_a', 'option_b', 'option_c', 'option_d', 'correct_answer']
         widgets = {
             'text': forms.TextInput(attrs={'class': 'form-control'}),
@@ -45,7 +45,7 @@ class QuestionForm(forms.ModelForm):
 
 
 QuestionFormSet = forms.inlineformset_factory(
-    Lesson, Question, form=QuestionForm,
+    courses.models.Lesson, courses.models.Question, form=QuestionForm,
     extra=1, can_delete=True,
     fields=('text', 'option_a', 'option_b', 'option_c', 'option_d', 'correct_answer')
 )

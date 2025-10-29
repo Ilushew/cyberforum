@@ -1,6 +1,6 @@
-from django.db import models
+import core.utils
 
-from core.utils import geocode_address
+from django.db import models
 
 
 AUDIENCE_CHOICES = [
@@ -22,7 +22,7 @@ class Event(models.Model):
 
     def save(self, *args, **kwargs):
         if self.location and (not self.latitude or not self.longitude):
-            lat, lon = geocode_address(self.location)
+            lat, lon = core.utils.geocode_address(self.location)
             self.latitude = lat
             self.longitude = lon
         super().save(*args, **kwargs)

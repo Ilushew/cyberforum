@@ -1,11 +1,11 @@
-from django import forms
+import news.models
 
-from news.models import News
+from django import forms
 
 
 class NewsForm(forms.ModelForm):
     class Meta:
-        model = News
+        model = news.models.News
         fields = ["title", "content", "image", "is_published"]
         widgets = {
             "title": forms.TextInput(attrs={"class": "form-control"}),

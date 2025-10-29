@@ -1,14 +1,14 @@
 import os
 import io
+import courses.models
+import courses.utils
+import cyberforum.settings
 
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, user_passes_test
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404, redirect
 
-from .models import Course, Lesson, Question, TestResult, CourseCompletion
-from .utils import mark_course_as_completed
-from cyberforum import settings
 from reportlab.lib.colors import Color
 from reportlab.lib.pagesizes import A4
 from reportlab.lib.utils import simpleSplit
@@ -18,30 +18,30 @@ from reportlab.pdfbase.ttfonts import TTFont
 
 
 def course_list_view(request):
-    courses = Course.objects.all()
+    Courses = courses.models.Course.objects.all()
 
     audience = request.GET.get("audience")
     format_type = request.GET.get("format")
 
     if audience:
-        courses = courses.filter(audience=audience)
+        Courses = courses.filter(audience=audience)
     if format_type:
-        courses = courses.filter(format_type=format_type)
+        Courses = courses.filter(format_type=format_type)
 
-    return render(request, "courses/list.html", {"courses": courses})
+    return render(request, "courses/list.html", {"courses": Courses})
 
 
 def course_detail_view(request, course_id):
-    course = get_object_or_404(Course, id=course_id)
+    course = get_object_or_404(courses.models.Course, id=course_id)
     return render(request, "courses/detail.html", {"course": course})
 
 
 def lesson_view(request, lesson_id):
-    lesson = get_object_or_404(Lesson, id=lesson_id)
+    lesson = get_object_or_404(courses.models.Lesson, id=lesson_id)
     questions = lesson.questions.all()
 
     if request.user.is_authenticated and not questions.exists():
-        mark_course_as_completed(request.user, lesson.course)
+        courses.utils.mark_course_as_completed(request.user, lesson.course)
 
     return render(
         request,
@@ -54,7 +54,7 @@ def lesson_view(request, lesson_id):
 
 
 def submit_test_view(request, lesson_id):
-    lesson = get_object_or_404(Lesson, id=lesson_id)
+    lesson = get_object_or_404(courses.models.Lesson, id=lesson_id)
     course = lesson.course
     questions = lesson.questions.all()
     total = questions.count()
@@ -66,7 +66,7 @@ def submit_test_view(request, lesson_id):
                 correct += 1
         score_percent = int((correct / total) * 100) if total > 0 else 0
 
-        TestResult.objects.create(
+        courses.models.TestResult.objects.create(
             lesson=lesson,
             user=request.user if request.user.is_authenticated else None,
             score=correct,
@@ -75,7 +75,7 @@ def submit_test_view(request, lesson_id):
         )
 
         if request.user.is_authenticated:
-            mark_course_as_completed(request.user, course)
+            courses.utils.mark_course_as_completed(request.user, course)
 
         return render(
             request,
@@ -93,7 +93,7 @@ def submit_test_view(request, lesson_id):
 @login_required
 def download_certificate(request, course_id):
     completion = get_object_or_404(
-        CourseCompletion, user=request.user, course_id=course_id
+        courses.models.CourseCompletion, user=request.user, course_id=course_id
     )
 
     if not (request.user.first_name and request.user.last_name):
@@ -114,7 +114,7 @@ def download_certificate(request, course_id):
     light_border = Color(106 / 255, 125 / 255, 93 / 255, alpha=0.1)
 
     # === ШРИФТ ===
-    font_path = os.path.join(settings.BASE_DIR, "static", "fonts", "DejaVuSans.ttf")
+    font_path = os.path.join(cyberforum.settings.BASE_DIR, "static", "fonts", "DejaVuSans.ttf")
     try:
         pdfmetrics.registerFont(TTFont("DejaVuSans", font_path))
         font_name = "DejaVuSans"

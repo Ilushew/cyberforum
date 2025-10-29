@@ -1,10 +1,10 @@
+import core.telegram_utils
+import events.models
+
 from django.contrib import admin
 
-from core.telegram_utils import send_telegram_message
-from events.models import Event
 
-
-@admin.register(Event)
+@admin.register(events.models.Event)
 class EventAdmin(admin.ModelAdmin):
     list_display = ['title', 'date', 'location', 'audience']
     list_filter = ['audience', 'date']
@@ -22,4 +22,4 @@ class EventAdmin(admin.ModelAdmin):
                 f"👥 Аудитория: {obj.get_audience_display()}\n"
                 f"{obj.description[:200]}{'...' if len(obj.description) > 200 else ''}"
             )
-            send_telegram_message(msg)
+            core.telegram_utils.send_telegram_message(msg)

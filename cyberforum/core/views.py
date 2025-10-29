@@ -1,3 +1,10 @@
+import core.forms
+import core.llm_assistant
+import core.models
+import courses.models
+import datetime
+import events.forms
+import events.models
 import openpyxl
 
 from django.contrib import messages
@@ -11,17 +18,6 @@ from django.utils.http import urlsafe_base64_decode
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .models import Textbook
-from .forms import TextbookForm
-from core.forms import UserRegistrationForm, UserProfileForm
-from core.llm_assistant.rag import generate_answer
-from core.models import Contact, REPORT_AUDIENCE_CHOICES, EventReport
-from courses.models import CourseCompletion, Course, TestResult
-from datetime import datetime
-from events.forms import EventReportForm
-from events.models import Event
-from openpyxl.utils import get_column_letter
-
 
 User = get_user_model()
 
@@ -31,16 +27,16 @@ def is_moderator(user):
 
 
 def home_view(request):
-    courses = Course.objects.all()[:6]
-    upcoming_events = Event.objects.order_by("date")[:3]
-    contacts = Contact.objects.exclude(latitude__isnull=True).exclude(
+    Courses = courses.models.Course.objects.all()[:6]
+    upcoming_events = events.models.Event.objects.order_by("date")[:3]
+    contacts = core.models.Contact.objects.exclude(latitude__isnull=True).exclude(
         longitude__isnull=True
     )
     return render(
         request,
         "core/home.html",
         {
-            "courses": courses,
+            "courses": Courses,
             "events": upcoming_events,
             "contacts": contacts,
         },
@@ -48,7 +44,7 @@ def home_view(request):
 
 
 def contacts_view(request):
-    contacts = Contact.objects.exclude(latitude__isnull=True).exclude(
+    contacts = core.models.Contact.objects.exclude(latitude__isnull=True).exclude(
         longitude__isnull=True
     )
     return render(request, "core/contacts.html", {"contacts": contacts})
@@ -87,26 +83,26 @@ def faq_view(request):
 @csrf_exempt
 def chat_ask(request):
     if request.method != "POST":
-        return JsonResponse({"error": "Метод не поддерживается"}, status=405)
+        return HttpResponse({"error": "Метод не поддерживается"}, status=405)
 
     try:
         data = json.loads(request.body)
         question = data.get("question", "").strip()
 
         if not question:
-            return JsonResponse({"error": "Вопрос не может быть пустым"}, status=400)
+            return HttpResponse({"error": "Вопрос не может быть пустым"}, status=400)
 
-        answer = generate_answer(question)
+        answer = core.llm_assistant.rag.generate_answer(question)
 
-        return JsonResponse({"answer": answer})
+        return HttpResponse({"answer": answer})
 
     except Exception as e:
-        return JsonResponse({"error": f"Ошибка сервера: {str(e)}"}, status=500)
+        return HttpResponse({"error": f"Ошибка сервера: {str(e)}"}, status=500)
 
 
 def register_view(request):
     if request.method == "POST":
-        form = UserRegistrationForm(request.POST)
+        form = core.forms.UserRegistrationForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(
@@ -116,7 +112,7 @@ def register_view(request):
             )
             return redirect("core:login")
     else:
-        form = UserRegistrationForm()
+        form = core.forms.UserRegistrationForm()
     return render(request, "core/register.html", {"form": form})
 
 
@@ -158,22 +154,22 @@ def confirm_email_view(request, uidb64, token):
 @login_required
 def profile_view(request):
     if request.method == "POST":
-        form = UserProfileForm(request.POST, instance=request.user)
+        form = core.forms.UserProfileForm(request.POST, instance=request.user)
         if form.is_valid():
             form.save()
             messages.success(request, "Данные обновлены!")
             return redirect("core:profile")
     else:
-        form = UserProfileForm(instance=request.user)
+        form = core.forms.UserProfileForm(instance=request.user)
 
     # Статистика
-    test_results = TestResult.objects.filter(user=request.user)
+    test_results = courses.models.TestResult.objects.filter(user=request.user)
     total_tests = test_results.count()
     avg_percent = test_results.aggregate(Avg("percent"))["percent__avg"]
     avg_percent = round(avg_percent, 1) if avg_percent is not None else 0
 
     # Пройденные курсы
-    completed_courses = CourseCompletion.objects.filter(
+    completed_courses = courses.models.CourseCompletion.objects.filter(
         user=request.user
     ).select_related("course")
     completed_courses_count = completed_courses.count()
@@ -198,14 +194,14 @@ def logout_view(request):
 
 
 def textbooks_view(request):
-    textbooks = Textbook.objects.all()
+    textbooks = core.models.Textbook.objects.all()
     grouped = {}
-    for code, name in Textbook.AUDIENCE_CHOICES:
+    for code, name in core.models.Textbook.AUDIENCE_CHOICES:
         grouped[code] = textbooks.filter(audience=code)
     return render(
         request,
         "core/textbooks.html",
-        {"grouped_textbooks": grouped, "audiences": Textbook.AUDIENCE_CHOICES},
+        {"grouped_textbooks": grouped, "audiences": core.models.Textbook.AUDIENCE_CHOICES},
     )
 
 
@@ -215,7 +211,7 @@ def is_moderator(user):
 
 @user_passes_test(is_moderator, login_url="/login/")
 def textbook_moderator_list(request):
-    textbooks = Textbook.objects.all().order_by("-created_at")
+    textbooks = core.models.Textbook.objects.all().order_by("-created_at")
     return render(
         request, "core/textbook_moderator_list.html", {"textbooks": textbooks}
     )
@@ -224,13 +220,13 @@ def textbook_moderator_list(request):
 @user_passes_test(is_moderator, login_url="/login/")
 def textbook_create(request):
     if request.method == "POST":
-        form = TextbookForm(request.POST, request.FILES)
+        form = core.forms.TextbookForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             messages.success(request, "Учебник успешно загружен!")
             return redirect("core:textbook_moderator_list")
     else:
-        form = TextbookForm()
+        form = core.forms.TextbookForm()
     return render(
         request, "core/textbook_form.html", {"form": form, "title": "Загрузить учебник"}
     )
@@ -238,7 +234,7 @@ def textbook_create(request):
 
 @user_passes_test(is_moderator, login_url="/login/")
 def textbook_delete(request, textbook_id):
-    textbook = get_object_or_404(Textbook, id=textbook_id)
+    textbook = get_object_or_404(core.models.Textbook, id=textbook_id)
     if request.method == "POST":
         textbook.delete()
         messages.success(request, "Учебник удалён.")
@@ -247,13 +243,13 @@ def textbook_delete(request, textbook_id):
 
 
 def event_detail_view(request, event_id):
-    event = get_object_or_404(Event, id=event_id)
+    event = get_object_or_404(events.models.Event, id=event_id)
     return render(request, "core/event_detail.html", {"event": event})
 
 
 @user_passes_test(is_moderator, login_url="/login/")
 def event_report_list(request):
-    reports = EventReport.objects.all().order_by("-date")
+    reports = core.models.EventReport.objects.all().order_by("-date")
 
     # Получаем параметры из GET
     title_query = request.GET.get("title", "").strip()
@@ -277,14 +273,14 @@ def event_report_list(request):
     # Фильтр по дате
     if date_from:
         try:
-            date_from = datetime.strptime(date_from, "%Y-%m-%d").date()
+            date_from = datetime.datetime.strptime(date_from, "%Y-%m-%d").date()
             reports = reports.filter(date__gte=date_from)
         except ValueError:
             pass
 
     if date_to:
         try:
-            date_to = datetime.strptime(date_to, "%Y-%m-%d").date()
+            date_to = datetime.datetime.strptime(date_to, "%Y-%m-%d").date()
             reports = reports.filter(date__lte=date_to)
         except ValueError:
             pass
@@ -294,7 +290,7 @@ def event_report_list(request):
 
     context = {
         "reports": reports,
-        "audience_choices": REPORT_AUDIENCE_CHOICES,
+        "audience_choices": core.models.REPORT_AUDIENCE_CHOICES,
         "moderators": moderators,
         "current_filters": {
             "title": title_query,
@@ -310,13 +306,13 @@ def event_report_list(request):
 @user_passes_test(is_moderator, login_url="/login/")
 def event_report_create(request):
     if request.method == "POST":
-        form = EventReportForm(request.POST)
+        form = events.forms.EventReportForm(request.POST)
         if form.is_valid():
             form.save(moderator=request.user)
             messages.success(request, "Отчёт успешно создан!")
             return redirect("core:event_report_list")
     else:
-        form = EventReportForm()
+        form = events.forms.EventReportForm()
     return render(
         request,
         "core/event_report_form.html",
@@ -325,7 +321,7 @@ def event_report_create(request):
 
 
 def export_reports_to_excel(request):
-    reports = EventReport.objects.select_related('moderator').all()
+    reports = core.models.EventReport.objects.select_related('moderator').all()
 
     title_query = request.GET.get('title', '').strip()
     audience = request.GET.get('audience', '')
@@ -377,7 +373,7 @@ def export_reports_to_excel(request):
         ])
 
     for i, col in enumerate(columns, start=1):
-        worksheet.column_dimensions[get_column_letter(i)].width = len(col) + 2
+        worksheet.column_dimensions[openpyxl.utils.get_column_letter(i)].width = len(col) + 2
 
     response = HttpResponse(
         content_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'

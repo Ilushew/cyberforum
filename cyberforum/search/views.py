@@ -1,8 +1,8 @@
-from django.shortcuts import render
+import core.models
+import courses.models
+import events.models
 
-from core.models import Contact
-from courses.models import Course
-from events.models import Event
+from django.shortcuts import render
 
 
 def search_view(request):
@@ -10,34 +10,34 @@ def search_view(request):
     audience = request.GET.get("audience", "")
     format_type = request.GET.get("format", "")
 
-    courses = Course.objects.all()
-    contacts = Contact.objects.all()
-    events = Event.objects.all()
+    Courses = courses.models.Course.objects.all()
+    contacts = core.models.Contact.objects.all()
+    Events = events.models.Event.objects.all()
 
     if query:
-        courses = courses.filter(title__icontains=query) | courses.filter(
+        Courses = Courses.filter(title__icontains=query) | Courses.filter(
             description__icontains=query
         )
         contacts = contacts.filter(name__icontains=query) | contacts.filter(
             address__icontains=query
         )
-        events = events.filter(title__icontains=query) | events.filter(
+        Events = Events.filter(title__icontains=query) | Events.filter(
             description__icontains=query
         )
 
     if audience:
-        courses = courses.filter(audience=audience)
+        Courses = Courses.filter(audience=audience)
         contacts = contacts.filter(audience=audience)
-        events = events.filter(audience=audience)
+        Events = Events.filter(audience=audience)
 
     if format_type:
-        courses = courses.filter(format_type=format_type)
+        Courses = Courses.filter(format_type=format_type)
 
     context = {
         "query": query,
-        "courses": courses,
+        "courses": Courses,
         "contacts": contacts,
-        "events": events,
+        "events": Events,
         "audience_filter": audience,
         "format_filter": format_type,
     }

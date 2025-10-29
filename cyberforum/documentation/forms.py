@@ -1,11 +1,11 @@
-from django import forms
+import documentation.models
 
-from documentation.models import DocumentationFile
+from django import forms
 
 
 class DocumentationFileForm(forms.ModelForm):
     class Meta:
-        model = DocumentationFile
+        model = documentation.models.DocumentationFile
         fields = ["title", "file"]
         widgets = {
             "title": forms.TextInput(attrs={"class": "form-control"}),

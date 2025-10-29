@@ -1,42 +1,42 @@
+import datetime
+import events.models
+
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404
 
-from datetime import datetime
-from events.models import Event, AUDIENCE_CHOICES
-
 
 def events_view(request):
-    events = Event.objects.all()
+    Events = events.models.Event.objects.all()
 
     audience = request.GET.get("audience")
     date_from = request.GET.get("date_from")
     date_to = request.GET.get("date_to")
 
     if audience and audience != "":
-        events = events.filter(audience=audience)
+        Events = Events.filter(audience=audience)
 
     if date_from:
         try:
-            date_from = datetime.strptime(date_from, "%Y-%m-%d").date()
-            events = events.filter(date__gte=date_from)
+            date_from = datetime.datetime.strptime(date_from, "%Y-%m-%d").date()
+            Events = Events.filter(date__gte=date_from)
         except ValueError:
             pass
 
     if date_to:
         try:
-            date_to = datetime.strptime(date_to, "%Y-%m-%d").date()
-            events = events.filter(date__lte=date_to)
+            date_to = datetime.datetime.strptime(date_to, "%Y-%m-%d").date()
+            Events = Events.filter(date__lte=date_to)
         except ValueError:
             pass
 
-    events = events.order_by("date")
+    Events = Events.order_by("date")
 
     return render(
         request,
         "events/list.html",
         {
-            "events": events,
-            "audience_choices": AUDIENCE_CHOICES,
+            "events": Events,
+            "audience_choices": events.models.AUDIENCE_CHOICES,
             "current_filters": {
                 "audience": audience or "",
                 "date_from": date_from or "",
@@ -57,9 +57,9 @@ def get_audience_color(audience):
 
 
 def events_api_view(request):
-    events = Event.objects.all()
+    Events = events.models.Event.objects.all()
     event_list = []
-    for event in events:
+    for event in Events:
         event_list.append(
             {
                 "title": event.title,
@@ -78,7 +78,7 @@ def events_api_view(request):
 
 
 def event_detail_view(request, event_id):
-    event = get_object_or_404(Event, id=event_id)
+    event = get_object_or_404(events.models.Event, id=event_id)
     return render(request, 'events/event_detail.html', {'event': event})
 
 

@@ -1,9 +1,9 @@
-from django.urls import path
+import documentation.views
 
-from . import views
+from django.urls import path
 
 
 app_name = "documentation"
 urlpatterns = [
-    path("", views.documentation_view, name="list"),
+    path("", documentation.views.documentation_view, name="list"),
 ]

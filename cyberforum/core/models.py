@@ -1,8 +1,8 @@
+import core.utils
+
 from django.contrib import admin
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-
-from core.utils import geocode_address
 
 
 class User(AbstractUser):
@@ -41,7 +41,7 @@ class Contact(models.Model):
         return self.name
 
     def save(self, *args, **kwargs):
-        lat, lon = geocode_address(self.address)
+        lat, lon = core.utils.geocode_address(self.address)
         self.latitude = lat
         self.longitude = lon
         super().save(*args, **kwargs)

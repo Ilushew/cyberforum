@@ -1,10 +1,9 @@
-import os, sys, django
-
-from django.conf import settings
-
-from asgiref.sync import sync_to_async
-from telegram import Update, ReplyKeyboardMarkup, KeyboardButton
-from telegram.ext import Application, CommandHandler, ContextTypes, MessageHandler, filters
+import os
+import sys
+import asgiref.sync
+import telegram
+import telegram.ext
+import django
 
 
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -14,30 +13,30 @@ django.setup()
 
 from core.models import TelegramSubscriber
 
-TELEGRAM_BOT_TOKEN = settings.TELEGRAM_BOT_TOKEN
+TELEGRAM_BOT_TOKEN = django.conf.settings.TELEGRAM_BOT_TOKEN
 
 if not TELEGRAM_BOT_TOKEN:
     raise ValueError("❌ TELEGRAM_BOT_TOKEN не задан в settings.py")
 
 
-@sync_to_async
+@asgiref.sync.sync_to_async
 def subscribe_user(chat_id: int, username: str):
     TelegramSubscriber.objects.get_or_create(
         telegram_id=chat_id,
         defaults={"username": username}
     )
 
-@sync_to_async
+@asgiref.sync.sync_to_async
 def unsubscribe_user(chat_id: int):
     TelegramSubscriber.objects.filter(telegram_id=chat_id).delete()
 
 
-async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def start(update: telegram.Update, context: telegram.ext.ContextTypes.DEFAULT_TYPE):
     keyboard = [
-        [KeyboardButton("🔔 Подписаться на рассылку"), KeyboardButton("🔕 Отписаться от рассылки")],
-        [KeyboardButton("ℹ️ Информация о боте"), KeyboardButton("🌐 Перейти на сайт")],
+        [telegram.KeyboardButton("🔔 Подписаться на рассылку"), telegram.KeyboardButton("🔕 Отписаться от рассылки")],
+        [telegram.KeyboardButton("ℹ️ Информация о боте"), telegram.KeyboardButton("🌐 Перейти на сайт")],
     ]
-    reply_markup = ReplyKeyboardMarkup(
+    reply_markup = telegram.ReplyKeyboardMarkup(
         keyboard,
         resize_keyboard=True,
         one_time_keyboard=False,
@@ -51,7 +50,7 @@ async def start(update: Update, context: ContextTypes.DEFAULT_TYPE):
     )
 
 
-async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
+async def handle_message(update: telegram.Update, context: telegram.ext.ContextTypes.DEFAULT_TYPE):
     text = update.message.text
     chat_id = update.message.chat_id
     username = update.message.chat.username or ""
@@ -75,10 +74,10 @@ async def handle_message(update: Update, context: ContextTypes.DEFAULT_TYPE):
 
 
 def main():
-    application = Application.builder().token(TELEGRAM_BOT_TOKEN).build()
+    application = telegram.ext.Application.builder().token(TELEGRAM_BOT_TOKEN).build()
 
-    application.add_handler(CommandHandler("start", start))
-    application.add_handler(MessageHandler(filters.TEXT & ~filters.COMMAND, handle_message))
+    application.add_handler(telegram.ext.CommandHandler("start", start))
+    application.add_handler(telegram.ext.MessageHandler(telegram.ext.filters.TEXT & ~telegram.ext.filters.COMMAND, handle_message))
 
     print("Telegram-бот запущен")
     application.run_polling()

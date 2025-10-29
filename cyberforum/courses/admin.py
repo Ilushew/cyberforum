@@ -1,19 +1,19 @@
-from django.contrib import admin
+import courses.models
 
-from courses.models import Course, Lesson, Question
+from django.contrib import admin
 
 
 class LessonInline(admin.TabularInline):
-    model = Lesson
+    model = courses.models.Lesson
     extra = 1
 
 
 class QuestionInline(admin.TabularInline):
-    model = Question
+    model = courses.models.Question
     extra = 1
 
 
-@admin.register(Course)
+@admin.register(courses.models.Course)
 class CourseAdmin(admin.ModelAdmin):
     list_display = ["title", "audience", "format_type", "created_at"]
     list_filter = ["audience", "format_type"]
@@ -21,7 +21,7 @@ class CourseAdmin(admin.ModelAdmin):
     inlines = [LessonInline]
 
 
-@admin.register(Lesson)
+@admin.register(courses.models.Lesson)
 class LessonAdmin(admin.ModelAdmin):
     list_display = ["title", "course", "order"]
     list_filter = ["course"]
@@ -29,7 +29,7 @@ class LessonAdmin(admin.ModelAdmin):
     inlines = [QuestionInline]
 
 
-@admin.register(Question)
+@admin.register(courses.models.Question)
 class QuestionAdmin(admin.ModelAdmin):
     list_display = ["text", "lesson", "correct_answer"]
     list_filter = ["lesson__course"]

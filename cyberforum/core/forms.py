@@ -1,4 +1,5 @@
 import uuid
+import core.models
 
 from django import forms
 from django.conf import settings
@@ -8,12 +9,10 @@ from django.contrib.auth.tokens import default_token_generator
 from django.utils.http import urlsafe_base64_encode
 from django.utils.encoding import force_bytes
 
-from .models import User, Textbook
-
 
 class UserRegistrationForm(UserCreationForm):
     class Meta:
-        model = User
+        model = core.models.User
         fields = ("email", "password1", "password2")
 
     def save(self, commit=True):
@@ -49,7 +48,7 @@ class UserUpdateForm(UserChangeForm):
     password = None
 
     class Meta:
-        model = User
+        model = core.models.User
         fields = ("username", "first_name", "last_name", "email", "phone")
         widgets = {
             "username": forms.TextInput(attrs={"readonly": "readonly"}),
@@ -58,7 +57,7 @@ class UserUpdateForm(UserChangeForm):
 
 class UserProfileForm(forms.ModelForm):
     class Meta:
-        model = User
+        model = core.models.User
         fields = ("first_name", "last_name", "phone")
         widgets = {
             "first_name": forms.TextInput(attrs={"class": "form-control"}),
@@ -69,7 +68,7 @@ class UserProfileForm(forms.ModelForm):
 
 class TextbookForm(forms.ModelForm):
     class Meta:
-        model = Textbook
+        model = core.models.Textbook
         fields = ["title", "description", "audience", "file"]
         widgets = {
             "title": forms.TextInput(attrs={"class": "form-control"}),

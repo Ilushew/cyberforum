@@ -1,12 +1,12 @@
-from django import forms
+import core.models
+import events.models
 
-from core.models import EventReport
-from events.models import Event
+from django import forms
 
 
 class EventForm(forms.ModelForm):
     class Meta:
-        model = Event
+        model = events.models.Event
         fields = ["title", "description", "date", "location", "audience"]
         widgets = {
             "title": forms.TextInput(attrs={"class": "form-control"}),
@@ -19,7 +19,7 @@ class EventForm(forms.ModelForm):
 
 class EventReportForm(forms.ModelForm):
     existing_event = forms.ModelChoiceField(
-        queryset=Event.objects.all(),
+        queryset=events.models.Event.objects.all(),
         label="Выбрать тему из существующих мероприятий",
         required=False,
         empty_label="— Не выбрано —",
@@ -35,7 +35,7 @@ class EventReportForm(forms.ModelForm):
     )
 
     class Meta:
-        model = EventReport
+        model = core.models.EventReport
         fields = ["audience", "custom_audience", "listener_count", "date", "comments"]
         widgets = {
             "audience": forms.Select(

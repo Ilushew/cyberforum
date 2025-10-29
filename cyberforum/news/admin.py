@@ -1,10 +1,10 @@
+import core.models
+import news.models
+
 from django.contrib import admin
 
-from core.models import User
-from news.models import News
 
-
-@admin.register(News)
+@admin.register(news.models.News)
 class NewsAdmin(admin.ModelAdmin):
     list_display = ["title", "author", "created_at", "is_published"]
     list_filter = ["is_published", "created_at", "author"]
@@ -14,7 +14,7 @@ class NewsAdmin(admin.ModelAdmin):
 
     def get_form(self, request, obj=None, **kwargs):
         form = super().get_form(request, obj, **kwargs)
-        form.base_fields["author"].queryset = User.objects.filter(is_moderator=True)
+        form.base_fields["author"].queryset = core.models.User.objects.filter(is_moderator=True)
         return form
 
     def save_model(self, request, obj, form, change):

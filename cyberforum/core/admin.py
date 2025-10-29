@@ -1,10 +1,10 @@
+import core.models
+
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 
-from core.models import Contact, User, Textbook
 
-
-@admin.register(User)
+@admin.register(core.models.User)
 class CustomUserAdmin(UserAdmin):
     fieldsets = UserAdmin.fieldsets + (
         ("Дополнительно", {"fields": ("phone", "is_moderator")}),
@@ -15,7 +15,7 @@ class CustomUserAdmin(UserAdmin):
     list_display = UserAdmin.list_display + ("phone", "is_moderator")
 
 
-@admin.register(Contact)
+@admin.register(core.models.Contact)
 class ContactAdmin(admin.ModelAdmin):
     list_display = ["name", "phone", "email", "audience"]
     search_fields = ["name", "address"]
@@ -23,7 +23,7 @@ class ContactAdmin(admin.ModelAdmin):
     fields = ["name", "address", "latitude", "longitude", "phone", "email", "audience"]
 
 
-@admin.register(Textbook)
+@admin.register(core.models.Textbook)
 class TextbookAdmin(admin.ModelAdmin):
     list_display = ["title", "audience", "file"]
     list_filter = ["audience"]

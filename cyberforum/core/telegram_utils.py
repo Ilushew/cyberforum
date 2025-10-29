@@ -1,8 +1,7 @@
 import requests
+import core.models
 
 from django.conf import settings
-
-from .models import TelegramSubscriber
 
 
 def send_telegram_message(text: str):
@@ -17,7 +16,7 @@ def send_telegram_message(text: str):
         "text": text
     }
 
-    for subscriber in TelegramSubscriber.objects.all():
+    for subscriber in core.models.TelegramSubscriber.objects.all():
         payload["chat_id"] = subscriber.telegram_id
         try:
             requests.post(url, data=payload, timeout=5)

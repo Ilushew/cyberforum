@@ -1,11 +1,11 @@
-from django import forms
+import core.models
 
-from .models import Lesson
+from django import forms
 
 
 class LessonForm(forms.ModelForm):
     class Meta:
-        model = Lesson
+        model = core.models.Lesson
         fields = ['title', 'content', 'video_file', 'order']
         widgets = {
             'title': forms.TextInput(attrs={'class': 'form-control'}),

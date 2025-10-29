@@ -1,21 +1,21 @@
+import courses.models
+
 from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Avg, Count
 from django.shortcuts import render
-
-from courses.models import TestResult
 
 
 @staff_member_required
 def test_analytics_view(request):
     course_stats = (
-        TestResult.objects.select_related("lesson__course")
+        courses.models.TestResult.objects.select_related("lesson__course")
         .values("lesson__course__title")
         .annotate(avg_percent=Avg("percent"))
         .order_by("-avg_percent")
     )
 
     daily_stats = (
-        TestResult.objects.extra(select={"date": "date(completed_at)"})
+        courses.models.TestResult.objects.extra(select={"date": "date(completed_at)"})
         .values("date")
         .annotate(count=Count("id"))
         .order_by("date")
